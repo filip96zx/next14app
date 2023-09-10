@@ -1,4 +1,4 @@
-import { type TProduct } from "@/app/ui/types";
+import { type TProduct } from "@/app/types";
 import { parseMoney } from "@/app/utils/parseMoney";
 
 type TProps = {

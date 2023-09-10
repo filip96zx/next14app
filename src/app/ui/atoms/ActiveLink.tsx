@@ -8,8 +8,8 @@ import { usePathname } from "next/navigation";
 
 type TProps<T extends string> = {
 	href: Route<T>;
-	exact?: boolean;
 	children: React.ReactNode;
+	exact?: boolean;
 	className?: string;
 	activeClassName?: string;
 };

@@ -1,4 +1,4 @@
-import { type TImage } from "@/app/ui/types";
+import { type TImage } from "@/app/types";
 
 export const ProductListItemImageCover = ({ alt, src }: TImage) => {
 	return (
