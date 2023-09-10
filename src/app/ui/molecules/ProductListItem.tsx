@@ -2,11 +2,11 @@ import { ProductListItemDescription } from "@/app/ui/atoms/ProductListItemDescri
 import { ProductListItemImageCover } from "@/app/ui/atoms/ProductListItemImageCover";
 import { type TProduct } from "@/app/ui/types";
 
-interface IProps {
+type TProps = {
 	product: TProduct;
-}
+};
 
-export const ProductListItem = ({ product }: IProps) => {
+export const ProductListItem = ({ product }: TProps) => {
 	return (
 		<li>
 			<article>

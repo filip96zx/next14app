@@ -5,12 +5,12 @@ import clsx from "clsx";
 import Link, { type LinkProps } from "next/link";
 import { usePathname } from "next/navigation";
 
-interface IProps<T> {
+type TProps<T> = {
 	href: LinkProps<T>["href"];
 	children: React.ReactNode;
-}
+};
 
-export function ActiveLink<T>({ children, href }: IProps<T>) {
+export function ActiveLink<T>({ children, href }: TProps<T>) {
 	const currentPath = usePathname();
 	const isActive = currentPath === href;
 	return (

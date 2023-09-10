@@ -1,11 +1,11 @@
 import { type TProduct } from "@/app/ui/types";
 import { parseMoney } from "@/app/utils/parseMoney";
 
-interface IProps {
+type TProps = {
 	product: TProduct;
-}
+};
 
-export const ProductListItemDescription = ({ product: { category, name, price } }: IProps) => {
+export const ProductListItemDescription = ({ product: { category, name, price } }: TProps) => {
 	return (
 		<div className="mt-2 flex justify-between">
 			<div>
