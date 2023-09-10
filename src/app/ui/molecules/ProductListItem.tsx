@@ -1,6 +1,5 @@
-import { ProductListItemDescription } from "@/app/ui/atoms/ProductListItemDescription";
-import { ProductListItemImageCover } from "@/app/ui/atoms/ProductListItemImageCover";
-import { type TProduct } from "@/app/ui/types";
+import { ProductCard } from "@/app/ui/molecules/ProductCard";
+import { type TProduct } from "@/app/types";
 
 type TProps = {
 	product: TProduct;
@@ -9,10 +8,7 @@ type TProps = {
 export const ProductListItem = ({ product }: TProps) => {
 	return (
 		<li>
-			<article>
-				<ProductListItemImageCover {...product.image} />
-				<ProductListItemDescription product={product} />
-			</article>
+			<ProductCard product={product} />
 		</li>
 	);
 };
