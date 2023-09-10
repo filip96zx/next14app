@@ -1,5 +1,5 @@
 import { ProductListItem } from "@/app/ui/molecules/ProductListItem";
-import { type TProduct } from "@/app/ui/types";
+import { type TProduct } from "@/app/types";
 
 type TProps = {
 	products: TProduct[];
