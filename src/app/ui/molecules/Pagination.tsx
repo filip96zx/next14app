@@ -39,7 +39,7 @@ type TProps = { page: number; totalPages: number; route: Route };
 export const Pagination = ({ page, totalPages, route }: TProps) => {
 	const getButtonNumbers = getPageNumbers({ page, totalPages, sideButtonsCount: 2 });
 	return (
-		<div className="flex gap-4">
+		<nav className="flex gap-4">
 			<PaginationElement
 				route={route}
 				page={Math.max(page - bigStep, 1)}
@@ -73,6 +73,6 @@ export const Pagination = ({ page, totalPages, route }: TProps) => {
 				label=">>"
 				activeDisabled
 			/>
-		</div>
+		</nav>
 	);
 };
