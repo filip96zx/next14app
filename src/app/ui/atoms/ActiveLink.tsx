@@ -4,7 +4,7 @@ import clsx from "clsx";
 import { type Route } from "next";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 
 type TProps<T extends string> = {
 	href: Route<T>;
@@ -22,7 +22,10 @@ export function ActiveLink<T extends string>({
 	activeClassName = "underline",
 }: TProps<T>) {
 	const currentPath = usePathname();
-	const isActive = exact ? currentPath === href : currentPath.startsWith(href);
+	const searchParams = useSearchParams().toString();
+	const urlSearchParams = searchParams ? `?${searchParams}` : "";
+	const isActive = exact ? currentPath + urlSearchParams === href : currentPath.startsWith(href);
+
 	return (
 		<Link href={href} className={clsx(className, isActive && activeClassName)}>
 			{children}
