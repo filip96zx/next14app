@@ -21,9 +21,11 @@ export default async function ProductsPage({
 	searchParams: { page = "1", totalPages = 10 },
 }: TProps) {
 	const pageNumberParsed = parseInt(page);
+
 	if ((page && isNaN(pageNumberParsed)) || pageNumberParsed < 1) {
 		redirect("/products?page=1");
 	}
+
 	if (pageNumberParsed > totalPages) {
 		redirect("/products?page=" + totalPages);
 	}
