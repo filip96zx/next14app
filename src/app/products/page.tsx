@@ -1,3 +1,4 @@
+import { redirect } from "next/navigation";
 import { getProducts } from "@/app/api/products";
 import { Pagination } from "@/app/ui/molecules/Pagination";
 import { ProductList } from "@/app/ui/organisms/ProductList";
@@ -6,30 +7,35 @@ type TProps = {
 	searchParams: { page: string; totalPages: number };
 };
 
-const getPageIndex = ({ pageNumber, totalPages }: { pageNumber: string; totalPages: number }) => {
-	const pageNumberParsed = parseInt(pageNumber);
-	if (isNaN(pageNumberParsed)) {
-		return 0;
-	}
-	if (pageNumberParsed > totalPages) {
+const getPageIndex = ({ pageNumber, totalPages }: { pageNumber: number; totalPages: number }) => {
+	if (pageNumber > totalPages) {
 		return totalPages - 1;
 	}
-	if (pageNumberParsed < 1) {
+	if (pageNumber < 1) {
 		return 0;
 	}
-	return pageNumberParsed - 1;
+	return pageNumber - 1;
 };
 
-export default async function ProductsPage({ searchParams: { page, totalPages = 10 } }: TProps) {
+export default async function ProductsPage({
+	searchParams: { page = "1", totalPages = 10 },
+}: TProps) {
+	const pageNumberParsed = parseInt(page);
+	if (page && isNaN(pageNumberParsed)) {
+		redirect("/products?page=1");
+	}
+	if (pageNumberParsed > totalPages) {
+		redirect("/products?page=" + totalPages);
+	}
+
 	const pageIndex = getPageIndex({
-		pageNumber: page,
+		pageNumber: pageNumberParsed,
 		totalPages: totalPages,
 	});
 	const products = await getProducts({
 		pageSize: 20,
 		page: pageIndex,
 	});
-
 	return (
 		<div>
 			<div className="my-4  flex justify-center">
