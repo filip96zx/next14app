@@ -2,19 +2,10 @@ import { redirect } from "next/navigation";
 import { getProducts } from "@/app/api/products";
 import { Pagination } from "@/app/ui/molecules/Pagination";
 import { ProductList } from "@/app/ui/organisms/ProductList";
+import { getPageIndex } from "@/app/utils";
 
 type TProps = {
 	searchParams: { page: string; totalPages: number };
-};
-
-const getPageIndex = ({ pageNumber, totalPages }: { pageNumber: number; totalPages: number }) => {
-	if (pageNumber > totalPages) {
-		return totalPages - 1;
-	}
-	if (pageNumber < 1) {
-		return 0;
-	}
-	return pageNumber - 1;
 };
 
 export default async function ProductsPage({
