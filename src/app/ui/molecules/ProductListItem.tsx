@@ -11,7 +11,7 @@ export const ProductListItem = ({ product }: TProps) => {
 	return (
 		<li>
 			<article>
-				<Link href={`/product/${product.id}`} prefetch>
+				<Link href={`/product/${product.id}`} >
 					<ProductListItemImageCover {...product.image} />
 					<ProductListItemDescription product={product} />
 				</Link>
