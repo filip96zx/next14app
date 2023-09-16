@@ -8,7 +8,7 @@ type TProps = { product: TProduct };
 export function ProductCard({ product }: TProps) {
 	return (
 		<article>
-			<Link href={`/products/${product.id}`} prefetch>
+			<Link href={`/product/${product.id}`} prefetch>
 				<ProductListItemImageCover {...product.image} />
 				<ProductListItemDescription product={product} />
 			</Link>

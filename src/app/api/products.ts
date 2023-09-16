@@ -38,9 +38,16 @@ export const getProductById = async (id: string): Promise<TProduct> => {
 	return parseProductDTOToTProduct(product);
 };
 
-export const getProducts = async (): Promise<TProduct[]> => {
-  const response = await fetch(`${apiURL}/products`);
-  const products = (await response.json()) as ProductDTO[];
-  return products.map(parseProductDTOToTProduct);
+type GetProductsSearchParams = {
+	pageSize: number;
+	page: number;
 };
 
+export const getProducts = async ({
+	pageSize,
+	page,
+}: GetProductsSearchParams): Promise<TProduct[]> => {
+	const response = await fetch(`${apiURL}/products?take=${pageSize}&offset=${pageSize * page}`);
+	const products = (await response.json()) as ProductDTO[];
+	return products.map(parseProductDTOToTProduct);
+};

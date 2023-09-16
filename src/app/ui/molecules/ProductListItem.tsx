@@ -1,5 +1,7 @@
-import { ProductCard } from "@/app/ui/molecules/ProductCard";
+import Link from "next/link";
 import { type TProduct } from "@/app/types";
+import { ProductListItemImageCover } from "@/app/ui/atoms/ProductListItemImageCover";
+import { ProductListItemDescription } from "@/app/ui/atoms/ProductListItemDescription";
 
 type TProps = {
 	product: TProduct;
@@ -8,7 +10,12 @@ type TProps = {
 export const ProductListItem = ({ product }: TProps) => {
 	return (
 		<li>
-			<ProductCard product={product} />
+			<article>
+				<Link href={`/product/${product.id}`} prefetch>
+					<ProductListItemImageCover {...product.image} />
+					<ProductListItemDescription product={product} />
+				</Link>
+			</article>
 		</li>
 	);
 };
