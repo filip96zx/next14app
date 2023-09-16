@@ -5,13 +5,15 @@ import { ProductListItemDescription } from "@/app/ui/atoms/ProductListItemDescri
 
 type TProps = {
 	product: TProduct;
+	goBackParams?: string;
 };
 
-export const ProductListItem = ({ product }: TProps) => {
+export const ProductListItem = ({ product, goBackParams }: TProps) => {
+	const goBackParamsString = goBackParams ? `?from=${goBackParams}` : "";
 	return (
 		<li>
 			<article>
-				<Link href={`/product/${product.id}`} >
+				<Link href={`/product/${product.id}${goBackParamsString}`}>
 					<ProductListItemImageCover {...product.image} />
 					<ProductListItemDescription product={product} />
 				</Link>
