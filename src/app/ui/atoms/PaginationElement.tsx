@@ -1,21 +1,32 @@
 import { type Route } from "next";
+import Link from "next/link";
+import clsx from "clsx";
 import { ActiveLink } from "@/app/ui/atoms/ActiveLink";
 
 type TProps = {
 	label: React.ReactNode;
 	route: Route;
-	activeClassName?: string;
 	className?: string;
 	page: number;
+	activeDisabled?: boolean;
+	forceActive?: boolean;
 };
 
-export const PaginationElement = ({ label, route, activeClassName, className, page }: TProps) => {
-	return (
+const className = "text-2xl text-blue-500";
+const activeClassName = "underline";
+export const PaginationElement = ({ label, route, page, activeDisabled, forceActive }: TProps) => {
+	const href = `${route}?page=${page}` as Route;
+
+	return activeDisabled ? (
+		<Link className={className} href={href}>
+			{label}
+		</Link>
+	) : (
 		<ActiveLink
+			href={href}
 			activeClassName={activeClassName}
-			className={className}
+			className={clsx(className, forceActive && activeClassName)}
 			exact
-			href={`${route}?page=${page}` as Route}
 		>
 			{label}
 		</ActiveLink>
