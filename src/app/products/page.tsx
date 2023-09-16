@@ -38,7 +38,7 @@ export default async function ProductsPage({
 	});
 	return (
 		<div>
-			<div className="my-4  flex justify-center">
+			<div className="my-4 flex justify-center">
 				<Pagination page={pageIndex + 1} totalPages={totalPages} route="/products" />
 			</div>
 			<ProductList products={products} />
