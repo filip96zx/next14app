@@ -18,7 +18,7 @@ const getAllProducts = async () => {
 		const offset = page * pageSize;
 		return data.slice(offset, offset + 20);
 	};
-	return { data, totalPages,  getProductsPage };
+	return { data, totalPages, getProductsPage };
 };
 
 const getProductsHandler = async (
