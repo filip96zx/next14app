@@ -38,20 +38,27 @@ type TProps = { page: number; totalPages: number; route: Route };
 
 export const Pagination = ({ page, totalPages, route }: TProps) => {
 	const getButtonNumbers = getPageNumbers({ page, totalPages, sideButtonsCount: 2 });
+	const getPreviousPage = (step: number) => Math.max(page - step, 1);
+	const getNextPage = (step: number) => Math.min(page + step, totalPages);
+
 	return (
 		<nav className="flex gap-4">
-			<PaginationElement
-				route={route}
-				page={Math.max(page - bigStep, 1)}
-				label="<<"
-				activeDisabled
-			/>
-			<PaginationElement
-				route={route}
-				page={Math.max(page - smallStep, 1)}
-				label="<"
-				activeDisabled
-			/>
+			{page > 1 && (
+				<>
+					<PaginationElement
+						route={route}
+						page={getPreviousPage(bigStep)}
+						label="<<"
+						activeDisabled
+					/>
+					<PaginationElement
+						route={route}
+						page={getPreviousPage(smallStep)}
+						label="<"
+						activeDisabled
+					/>
+				</>
+			)}
 			{getButtonNumbers.map((pageNumber) => (
 				<PaginationElement
 					key={pageNumber}
@@ -61,18 +68,13 @@ export const Pagination = ({ page, totalPages, route }: TProps) => {
 					forceActive={[pageNumber, page].every((x) => x === defaultPageNumber)}
 				/>
 			))}
-			<PaginationElement
-				route={route}
-				page={Math.min(page + smallStep, totalPages)}
-				label=">"
-				activeDisabled
-			/>
-			<PaginationElement
-				route={route}
-				page={Math.min(page + bigStep, totalPages)}
-				label=">>"
-				activeDisabled
-			/>
+			{page < totalPages && (
+				<>
+					<PaginationElement route={route} page={getNextPage(smallStep)} label=">" activeDisabled />
+					<PaginationElement route={route} page={getNextPage(bigStep)} label=">>" activeDisabled />
+				</>
+			)}
+			<span>total: {totalPages}</span>
 		</nav>
 	);
 };
