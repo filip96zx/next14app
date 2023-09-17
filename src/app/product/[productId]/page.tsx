@@ -12,7 +12,7 @@ export default async function ProductPage({ params, searchParams: { from } }: IP
 	return (
 		<div className="flex flex-col  items-center justify-center gap-5">
 			<div>
-				<Link className="text-blue-500" href={from ? `/products?${from}` : "/products"}>
+				<Link className="text-blue-500" href={from ? `/products/${from}` : "/products"}>
 					{from ? "Back" : "All products"}
 				</Link>
 			</div>
