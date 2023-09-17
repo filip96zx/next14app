@@ -44,7 +44,7 @@ export const Pagination = ({ page, totalPages, route }: TProps) => {
 	const getNextPage = (step: number) => Math.min(page + step, totalPages);
 
 	return (
-		<nav className="flex gap-4">
+		<nav className="flex gap-4" aria-label="Pagination">
 			<Suspense>
 				{page > 1 && (
 					<>

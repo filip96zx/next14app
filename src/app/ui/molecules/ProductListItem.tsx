@@ -12,12 +12,12 @@ export const ProductListItem = ({ product, goBackParams }: TProps) => {
 	const goBackParamsString = goBackParams ? `?from=${goBackParams}` : "";
 	return (
 		<li>
-			<article>
-				<Link href={`/product/${product.id}${goBackParamsString}`}>
+			<Link href={`/product/${product.id}${goBackParamsString}`}>
+				<article>
 					<ProductListItemImageCover {...product.image} />
 					<ProductListItemDescription product={product} />
-				</Link>
-			</article>
+				</article>
+			</Link>
 		</li>
 	);
 };

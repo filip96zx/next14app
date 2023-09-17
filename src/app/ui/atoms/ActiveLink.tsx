@@ -19,7 +19,7 @@ export function ActiveLink<T extends string>({
 	href,
 	exact,
 	className = "mt-2 text-blue-500 hover:text-blue-700",
-	activeClassName = "underline",
+	activeClassName = "border-b border-blue-500",
 }: TProps<T>) {
 	const currentPath = usePathname();
 	const searchParams = useSearchParams().toString();
@@ -27,7 +27,7 @@ export function ActiveLink<T extends string>({
 	const isActive = exact ? currentPath + urlSearchParams === href : currentPath.startsWith(href);
 
 	return (
-		<Link href={href} className={clsx(className, isActive && activeClassName)}>
+		<Link href={href} className={clsx(className, isActive && activeClassName)} role="link">
 			{children}
 		</Link>
 	);

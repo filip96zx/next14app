@@ -18,7 +18,7 @@ export const PaginationElement = ({ label, route, page, activeDisabled, forceAct
 	const href = `${route}/${page}` as Route;
 
 	return activeDisabled ? (
-		<Link className={className} href={href}>
+		<Link className={className} href={href} role='link'>
 			{label}
 		</Link>
 	) : (
