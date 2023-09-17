@@ -38,7 +38,7 @@ export const getProductById = async (id: string): Promise<TProduct> => {
 	return parseProductDTOToTProduct(product);
 };
 
-type GetProductsSearchParams = {
+export type GetProductsSearchParams = {
 	pageSize: number;
 	page: number;
 };
