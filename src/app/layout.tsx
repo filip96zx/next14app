@@ -1,6 +1,7 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { Suspense } from "react";
 import { ActiveLink } from "@/app/ui/atoms/ActiveLink";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -15,16 +16,18 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 		<html lang="pl">
 			<body className={inter.className}>
 				<nav>
-					<ul className="mt-2 flex justify-center space-x-4">
-						<li>
-							<ActiveLink href="/" exact>
-								Home
-							</ActiveLink>
-						</li>
-						<li>
-							<ActiveLink href="/products">All</ActiveLink>
-						</li>
-					</ul>
+					<Suspense>
+						<ul className="mt-2 flex justify-center space-x-4">
+							<li>
+								<ActiveLink href="/" exact>
+									Home
+								</ActiveLink>
+							</li>
+							<li>
+								<ActiveLink href="/products">All</ActiveLink>
+							</li>
+						</ul>
+					</Suspense>
 				</nav>
 				<section className="mx-auto max-w-md p-12 sm:max-w-2xl sm:py-16 md:max-w-4xl lg:max-w-7xl">
 					{children}
