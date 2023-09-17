@@ -35,9 +35,11 @@ export default async function ProductPage({ params, searchParams: { from } }: IP
 					{from ? "Back" : "All products"}
 				</Link>
 			</div>
+			<h1 className="text-center text-2xl font-bold text-gray-800">{product.name}</h1>
 			<div className="max-w-md">
 				<ProductCard product={product} />
 			</div>
+			<p className="text-center text-gray-500">{product.description}</p>
 		</div>
 	);
 }
