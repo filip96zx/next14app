@@ -1,6 +1,7 @@
 import { type Route } from "next";
 import { Suspense } from "react";
 import { PaginationElement } from "@/app/ui/atoms/PaginationElement";
+import { PaginationInput } from "@/app/ui/molecules/PaginationInput";
 
 const generateRange = (first: number, last: number) => {
 	const numbers: Array<number> = [];
@@ -86,7 +87,7 @@ export const Pagination = ({ page, totalPages, route }: TProps) => {
 						/>
 					</>
 				)}
-				<span>total: {totalPages}</span>
+				<PaginationInput route={route} totalPages={totalPages} currentPage={page} />
 			</Suspense>
 		</nav>
 	);

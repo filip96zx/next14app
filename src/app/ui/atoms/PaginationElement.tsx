@@ -26,7 +26,6 @@ export const PaginationElement = ({ label, route, page, activeDisabled, forceAct
 			href={href}
 			activeClassName={activeClassName}
 			className={clsx(className, forceActive && activeClassName)}
-			exact
 		>
 			{label}
 		</ActiveLink>
