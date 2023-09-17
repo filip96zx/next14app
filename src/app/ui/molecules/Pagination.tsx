@@ -1,4 +1,5 @@
 import { type Route } from "next";
+import { Suspense } from "react";
 import { PaginationElement } from "@/app/ui/atoms/PaginationElement";
 
 const generateRange = (first: number, last: number) => {
@@ -43,38 +44,50 @@ export const Pagination = ({ page, totalPages, route }: TProps) => {
 
 	return (
 		<nav className="flex gap-4">
-			{page > 1 && (
-				<>
+			<Suspense>
+				{page > 1 && (
+					<>
+						<PaginationElement
+							route={route}
+							page={getPreviousPage(bigStep)}
+							label="<<"
+							activeDisabled
+						/>
+						<PaginationElement
+							route={route}
+							page={getPreviousPage(smallStep)}
+							label="<"
+							activeDisabled
+						/>
+					</>
+				)}
+				{getButtonNumbers.map((pageNumber) => (
 					<PaginationElement
+						key={pageNumber}
 						route={route}
-						page={getPreviousPage(bigStep)}
-						label="<<"
-						activeDisabled
+						page={pageNumber}
+						label={pageNumber}
+						forceActive={[pageNumber, page].every((x) => x === defaultPageNumber)}
 					/>
-					<PaginationElement
-						route={route}
-						page={getPreviousPage(smallStep)}
-						label="<"
-						activeDisabled
-					/>
-				</>
-			)}
-			{getButtonNumbers.map((pageNumber) => (
-				<PaginationElement
-					key={pageNumber}
-					route={route}
-					page={pageNumber}
-					label={pageNumber}
-					forceActive={[pageNumber, page].every((x) => x === defaultPageNumber)}
-				/>
-			))}
-			{page < totalPages && (
-				<>
-					<PaginationElement route={route} page={getNextPage(smallStep)} label=">" activeDisabled />
-					<PaginationElement route={route} page={getNextPage(bigStep)} label=">>" activeDisabled />
-				</>
-			)}
-			<span>total: {totalPages}</span>
+				))}
+				{page < totalPages && (
+					<>
+						<PaginationElement
+							route={route}
+							page={getNextPage(smallStep)}
+							label=">"
+							activeDisabled
+						/>
+						<PaginationElement
+							route={route}
+							page={getNextPage(bigStep)}
+							label=">>"
+							activeDisabled
+						/>
+					</>
+				)}
+				<span>total: {totalPages}</span>
+			</Suspense>
 		</nav>
 	);
 };
