@@ -1,1 +1,1 @@
-export const DEFAULT_DEBOUNCE_DELAY = 300;
+export const DEFAULT_DEBOUNCE_DELAY = 350;
