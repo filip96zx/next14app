@@ -6,28 +6,30 @@ import { type TProduct } from "@/app/types";
 
 const mockedPagesInDevMode = 1000;
 
+let ALL_PRODUCTS: Array<TProduct> | null = null;
 const getAllProducts = async () => {
-	const data = await getProducts({ pageSize: 7000, page: 0 });
+	const data = ALL_PRODUCTS || (await getProducts({ pageSize: 7000, page: 0 }));
+	if (!ALL_PRODUCTS) {
+		ALL_PRODUCTS = data;
+	}
 	const totalPages = Math.ceil(data.length / 20);
 
 	const getProductsPage = ({ pageSize, page }: GetProductsSearchParams) => {
 		const offset = page * pageSize;
 		return data.slice(offset, offset + 20);
 	};
-	return { data, totalPages, getProducts: getProductsPage };
+	return { data, totalPages,  getProductsPage };
 };
-const getProductsHandler = async (pageParams: GetProductsSearchParams) => {
-	let products: Array<TProduct> = [];
-	let totalPages = mockedPagesInDevMode;
 
+const getProductsHandler = async (
+	pageParams: GetProductsSearchParams,
+): Promise<{ products: Array<TProduct>; totalPages: number }> => {
 	if (process.env.NODE_ENV === "development") {
-		products = await getProducts(pageParams);
-	} else if (process.env.NODE_ENV === "production") {
-		const allProducts = await getAllProducts();
-		totalPages = allProducts.totalPages;
-		products = allProducts.getProducts(pageParams);
+		return { products: await getProducts(pageParams), totalPages: mockedPagesInDevMode };
+	} else {
+		const { getProductsPage, totalPages } = await getAllProducts();
+		return { products: getProductsPage(pageParams), totalPages };
 	}
-	return { products, totalPages };
 };
 
 export async function generateStaticParams() {
