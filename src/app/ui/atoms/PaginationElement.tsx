@@ -15,7 +15,7 @@ type TProps = {
 const className = "text-2xl text-blue-500";
 const activeClassName = "underline";
 export const PaginationElement = ({ label, route, page, activeDisabled, forceActive }: TProps) => {
-	const href = `${route}?page=${page}` as Route;
+	const href = `${route}/${page}` as Route;
 
 	return activeDisabled ? (
 		<Link className={className} href={href}>
