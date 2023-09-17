@@ -1,18 +1,23 @@
-import { ProductListItemDescription } from "@/app/ui/atoms/ProductListItemDescription";
+import Link from "next/link";
+import { type TProduct } from "@/app/types";
 import { ProductListItemImageCover } from "@/app/ui/atoms/ProductListItemImageCover";
-import { type TProduct } from "@/app/ui/types";
+import { ProductListItemDescription } from "@/app/ui/atoms/ProductListItemDescription";
 
-interface IProps {
+type TProps = {
 	product: TProduct;
-}
+	goBackParams?: string;
+};
 
-export const ProductListItem = ({ product }: IProps) => {
+export const ProductListItem = ({ product, goBackParams }: TProps) => {
+	const goBackParamsString = goBackParams ? `?from=${goBackParams}` : "";
 	return (
 		<li>
-			<article>
-				<ProductListItemImageCover {...product.image} />
-				<ProductListItemDescription product={product} />
-			</article>
+			<Link href={`/product/${product.id}${goBackParamsString}`}>
+				<article>
+					<ProductListItemImageCover {...product.image} />
+					<ProductListItemDescription product={product} />
+				</article>
+			</Link>
 		</li>
 	);
 };

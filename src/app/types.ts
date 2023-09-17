@@ -4,6 +4,7 @@ export type TProduct = {
 	category: string;
 	price: number;
 	image: TImage;
+	description: string;
 };
 
 export type TImage = {
