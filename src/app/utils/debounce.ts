@@ -4,14 +4,14 @@
 import { DEFAULT_DEBOUNCE_DELAY } from "@/app/constants";
 
 type TDebounceCallback = (...args: Array<any>) => void;
-const debouncedFunctions = new WeakMap<TDebounceCallback, NodeJS.Timeout>();
+const activeTimeouts = new Map<TDebounceCallback, NodeJS.Timeout>();
 
 export const debounce = <T extends TDebounceCallback>(
 	fn: T,
 	delay: number = DEFAULT_DEBOUNCE_DELAY,
 ): T => {
 	const debouncedFn = (...args: Array<any>) => {
-		const prevTimeout = debouncedFunctions.get(fn);
+		const prevTimeout = activeTimeouts.get(fn);
 
 		if (prevTimeout) {
 			clearTimeout(prevTimeout);
@@ -19,9 +19,9 @@ export const debounce = <T extends TDebounceCallback>(
 
 		const timeout = setTimeout(() => {
 			fn(...args);
-			debouncedFunctions.delete(fn);
+			activeTimeouts.delete(fn);
 		}, delay);
-		debouncedFunctions.set(fn, timeout);
+		activeTimeouts.set(fn, timeout);
 	};
 
 	return debouncedFn as T;
