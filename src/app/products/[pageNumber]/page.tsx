@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
-import { type GetProductsSearchParams, getProducts } from "@/app/api/products";
+import { type GetProductsSearchParams, getProductsList } from "@/app/api/products";
 import { Pagination } from "@/app/ui/molecules/Pagination";
 import { ProductList } from "@/app/ui/organisms/ProductList";
 import { type TProduct } from "@/app/types";
@@ -8,7 +8,7 @@ const mockedPagesInDevMode = 1000;
 
 let ALL_PRODUCTS: Array<TProduct> | null = null;
 const getAllProducts = async () => {
-	const data = ALL_PRODUCTS || (await getProducts({ pageSize: 7000, page: 0 }));
+	const data = ALL_PRODUCTS || (await getProductsList({ pageSize: 7000, page: 0 }));
 	if (!ALL_PRODUCTS) {
 		ALL_PRODUCTS = data;
 	}
@@ -25,7 +25,7 @@ const getProductsHandler = async (
 	pageParams: GetProductsSearchParams,
 ): Promise<{ products: Array<TProduct>; totalPages: number }> => {
 	if (process.env.NODE_ENV === "development") {
-		return { products: await getProducts(pageParams), totalPages: mockedPagesInDevMode };
+		return { products: await getProductsList(pageParams), totalPages: mockedPagesInDevMode };
 	} else {
 		const { getProductsPage, totalPages } = await getAllProducts();
 		return { products: getProductsPage(pageParams), totalPages };
