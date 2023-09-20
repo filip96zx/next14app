@@ -10754,11 +10754,13 @@ export type ProductListItemFragment = { id: string, name: string, price: number,
 export type ProductDetailsFragment = { id: string, name: string, price: number, description: string, images: Array<{ url: string }>, categories: Array<{ name: string }> };
 
 export type ProductsGetByCategorySlugQueryVariables = Exact<{
+  first: Scalars['Int']['input'];
+  skip: Scalars['Int']['input'];
   slug: Scalars['String']['input'];
 }>;
 
 
-export type ProductsGetByCategorySlugQuery = { products: Array<{ name: string }> };
+export type ProductsGetByCategorySlugQuery = { products: Array<{ id: string, name: string, price: number, description: string, images: Array<{ url: string }>, categories: Array<{ name: string }> }>, productsConnection: { aggregate: { count: number } } };
 
 export type ProductGetByIdQueryVariables = Exact<{
   id: Scalars['ID']['input'];
@@ -10773,7 +10775,7 @@ export type ProductsGetListQueryVariables = Exact<{
 }>;
 
 
-export type ProductsGetListQuery = { products: Array<{ id: string, name: string, price: number, description: string, images: Array<{ url: string }>, categories: Array<{ name: string }> }> };
+export type ProductsGetListQuery = { products: Array<{ id: string, name: string, price: number, description: string, images: Array<{ url: string }>, categories: Array<{ name: string }> }>, productsConnection: { aggregate: { count: number } } };
 
 export class TypedDocumentString<TResult, TVariables>
   extends String
@@ -10833,12 +10835,31 @@ export const ProductDetailsFragmentDoc = new TypedDocumentString(`
   }
 }`, {"fragmentName":"ProductDetails"}) as unknown as TypedDocumentString<ProductDetailsFragment, unknown>;
 export const ProductsGetByCategorySlugDocument = new TypedDocumentString(`
-    query ProductsGetByCategorySlug($slug: String!) {
-  products(first: 10, where: {categories_some: {slug: $slug}}) {
+    query ProductsGetByCategorySlug($first: Int!, $skip: Int!, $slug: String!) {
+  products(first: $first, skip: $skip, where: {categories_some: {slug: $slug}}) {
+    ...ProductListItem
+  }
+  productsConnection {
+    aggregate {
+      count
+    }
+  }
+}
+    fragment ProductBase on Product {
+  id
+  name
+  price
+  description
+  categories(first: 1) {
     name
   }
 }
-    `) as unknown as TypedDocumentString<ProductsGetByCategorySlugQuery, ProductsGetByCategorySlugQueryVariables>;
+fragment ProductListItem on Product {
+  ...ProductBase
+  images(first: 1) {
+    url
+  }
+}`) as unknown as TypedDocumentString<ProductsGetByCategorySlugQuery, ProductsGetByCategorySlugQueryVariables>;
 export const ProductGetByIdDocument = new TypedDocumentString(`
     query ProductGetById($id: ID!) {
   product(where: {id: $id}) {
@@ -10864,6 +10885,11 @@ export const ProductsGetListDocument = new TypedDocumentString(`
     query ProductsGetList($first: Int!, $skip: Int!) {
   products(first: $first, skip: $skip) {
     ...ProductListItem
+  }
+  productsConnection {
+    aggregate {
+      count
+    }
   }
 }
     fragment ProductBase on Product {

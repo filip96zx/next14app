@@ -2,4 +2,9 @@ query ProductsGetList($first: Int!, $skip: Int!) {
 	products(first: $first, skip: $skip) {
 		...ProductListItem
 	}
+	productsConnection {
+		aggregate {
+			count
+		}
+	}
 }
