@@ -1,8 +1,8 @@
 import { ProductListItem } from "@/app/ui/molecules/ProductListItem";
-import { type TProduct } from "@/app/types";
+import { type ProductListItemFragment } from "@/gql/graphql";
 
 type TProps = {
-	products: TProduct[];
+	products: Array<ProductListItemFragment>;
 	goBackParams: string;
 };
 

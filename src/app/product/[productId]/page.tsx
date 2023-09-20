@@ -1,10 +1,12 @@
 import Link from "next/link";
+import { notFound } from "next/navigation";
 import { getProductById } from "@/app/api/products";
 import { ProductCard } from "@/app/ui/molecules/ProductCard";
 import { getMetadataTitle } from "@/app/utils";
 
 export const generateMetadata = async ({ params }: { params: { productId: string } }) => {
 	const product = await getProductById(params.productId);
+	if (!product) return null;
 	return {
 		title: getMetadataTitle(product.name),
 		description: product.description,
@@ -13,7 +15,7 @@ export const generateMetadata = async ({ params }: { params: { productId: string
 			description: product.description,
 			images: [
 				{
-					url: product.image.src,
+					url: product.images[0]?.url,
 					alt: product.name,
 				},
 			],
@@ -28,6 +30,11 @@ interface IProps {
 
 export default async function ProductPage({ params, searchParams: { from } }: IProps) {
 	const product = await getProductById(params.productId);
+
+	if (!product) {
+		return notFound();
+	}
+
 	return (
 		<div className="flex flex-col  items-center justify-center gap-5">
 			<div>

@@ -3,6 +3,9 @@ fragment ProductBase on Product {
 	name
 	price
 	description
+	categories(first: 1) {
+		name
+	}
 }
 
 fragment ProductListItem on Product {
@@ -14,10 +17,6 @@ fragment ProductListItem on Product {
 
 fragment ProductDetails on Product {
 	...ProductBase
-	categories(first: 1) {
-		id
-		name
-	}
 	images(first: 3) {
 		url
 	}
