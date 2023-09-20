@@ -10839,7 +10839,7 @@ export const ProductsGetByCategorySlugDocument = new TypedDocumentString(`
   products(first: $first, skip: $skip, where: {categories_some: {slug: $slug}}) {
     ...ProductListItem
   }
-  productsConnection {
+  productsConnection(where: {categories_some: {slug: $slug}}) {
     aggregate {
       count
     }

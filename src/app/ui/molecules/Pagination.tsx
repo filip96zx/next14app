@@ -19,13 +19,14 @@ const getPageNumbers = ({
 	totalPages: number;
 	sideButtonsCount: number;
 }) => {
-	const startFromFirst = page - 2 < 1;
-	const willExceedTotal = page + 2 > totalPages;
+	const startFromFirstPage = page - sideButtonsCount < 1;
+	const willExceedTotal = page + sideButtonsCount > totalPages;
 	const totalButtonsCount = sideButtonsCount * 2 + 1;
 
-	if (startFromFirst) {
-		return generateRange(1, totalButtonsCount);
+	if (startFromFirstPage) {
+		return generateRange(1, Math.min(totalPages, totalButtonsCount));
 	}
+
 	if (willExceedTotal) {
 		return generateRange(totalPages - totalButtonsCount + 1, totalPages);
 	}
@@ -42,7 +43,6 @@ export const Pagination = ({ page, totalPages, route }: TProps) => {
 	const getButtonNumbers = getPageNumbers({ page, totalPages, sideButtonsCount: 2 });
 	const getPreviousPage = (step: number) => Math.max(page - step, 1);
 	const getNextPage = (step: number) => Math.min(page + step, totalPages);
-
 	return (
 		<nav className="flex gap-4" aria-label="Pagination">
 			<Suspense>
