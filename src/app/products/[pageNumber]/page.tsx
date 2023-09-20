@@ -3,8 +3,10 @@ import { type GetProductsSearchParams, getProductsList } from "@/app/api/product
 import { Pagination } from "@/app/ui/molecules/Pagination";
 import { ProductList } from "@/app/ui/organisms/ProductList";
 import { type ProductListItemFragment } from "@/gql/graphql";
+import { LIST_PAGE_SIZE } from "@/app/constants";
 
 const mockedPagesInDevMode = 1000;
+const productsPageSize = LIST_PAGE_SIZE;
 
 let ALL_PRODUCTS: Array<ProductListItemFragment> | null = null;
 const getAllProducts = async () => {
@@ -12,11 +14,11 @@ const getAllProducts = async () => {
 	if (!ALL_PRODUCTS) {
 		ALL_PRODUCTS = data;
 	}
-	const totalPages = Math.ceil(data.length / 20);
+	const totalPages = Math.ceil(data.length / productsPageSize);
 
 	const getProductsPage = ({ pageSize, page }: GetProductsSearchParams) => {
 		const offset = page * pageSize;
-		return data.slice(offset, offset + 20);
+		return data.slice(offset, offset + productsPageSize);
 	};
 	return { data, totalPages, getProductsPage };
 };
@@ -53,7 +55,7 @@ export default async function ProductsPage({ params: { pageNumber } }: TProps) {
 	}
 
 	const { products, totalPages } = await getProductsHandler({
-		pageSize: 20,
+		pageSize: productsPageSize,
 		page: pageIndex,
 	});
 
