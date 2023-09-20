@@ -17,6 +17,9 @@ const config: CodegenConfig = {
 				skipTypename: true,
 				documentMode: "string",
 			},
+			presetConfig: {
+				fragmentMasking: false,
+			},
 			plugins: [],
 		},
 	},

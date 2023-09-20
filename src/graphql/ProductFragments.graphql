@@ -1,0 +1,24 @@
+fragment ProductBase on Product {
+	id
+	name
+	price
+	description
+}
+
+fragment ProductListItem on Product {
+	...ProductBase
+	images(first: 1) {
+		url
+	}
+}
+
+fragment ProductDetails on Product {
+	...ProductBase
+	categories(first: 1) {
+		id
+		name
+	}
+	images(first: 3) {
+		url
+	}
+}
