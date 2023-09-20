@@ -24,6 +24,7 @@ export default async function ProductsPage({ params: { pageNumber, categoryName 
 			getListQuery={getProductsGetByCategorySlug}
 			params={{ pageNumber, slug: categoryName }}
 			route={`${"/categories"}/${categoryName}` as Route}
+			goBackParams={`/categories/${categoryName}/${pageNumber}`}
 		/>
 	);
 }

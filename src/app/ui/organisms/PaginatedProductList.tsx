@@ -18,12 +18,14 @@ type TProps<TQuery extends TQueryType> = {
 		pageSize?: number;
 	};
 	route: Route;
+	goBackParams: string;
 };
 
 export default async function PaginatedProductList<TQuery extends TQueryType>({
 	params: { pageNumber, ...params },
 	route,
 	getListQuery,
+	goBackParams,
 }: TProps<TQuery>) {
 	const pageToNumber = parseInt(pageNumber);
 	const pageIndex = pageToNumber - 1;
@@ -52,7 +54,7 @@ export default async function PaginatedProductList<TQuery extends TQueryType>({
 			<div className="my-4 flex justify-center">
 				<Pagination page={pageIndex + 1} totalPages={totalPages} route={route} />
 			</div>
-			<ProductList products={products} goBackParams={pageNumber} />
+			<ProductList products={products} goBackParams={goBackParams || pageNumber} />
 		</div>
 	);
 }

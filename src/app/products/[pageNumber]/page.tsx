@@ -11,6 +11,7 @@ export default async function ProductsPage({ params: { pageNumber } }: TProps) {
 			getListQuery={getProductsList}
 			params={{ pageNumber }}
 			route="/products"
+			goBackParams={`/products/${pageNumber}`}
 		/>
 	);
 }
