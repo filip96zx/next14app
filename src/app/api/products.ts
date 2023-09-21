@@ -1,41 +1,14 @@
-import { type TProduct } from "@/app/types";
+import { executeGraphql } from "@/app/api/executeGraphql";
+import {
+	ProductGetByIdDocument,
+	ProductsGetByCategorySlugDocument,
+	ProductsGetListDocument,
+} from "@/gql/graphql";
 
-const apiURL = "https://naszsklep-api.vercel.app/api";
+export const getProductById = async (id: string) => {
+	const { product } = await executeGraphql(ProductGetByIdDocument, { id });
 
-export interface ProductDTO {
-	id: string;
-	title: string;
-	price: number;
-	description: string;
-	category: string;
-	rating: Rating;
-	image: string;
-	longDescription: string;
-}
-
-export interface Rating {
-	rate: number;
-	count: number;
-}
-
-const parseProductDTOToTProduct = (product: ProductDTO): TProduct => {
-	return {
-		id: product.id,
-		name: product.title,
-		category: product.category,
-		price: product.price,
-		image: {
-			src: product.image,
-			alt: product.title,
-		},
-		description: product.description,
-	};
-};
-
-export const getProductById = async (id: string): Promise<TProduct> => {
-	const response = await fetch(`${apiURL}/products/${id}`);
-	const product = (await response.json()) as ProductDTO;
-	return parseProductDTOToTProduct(product);
+	return product;
 };
 
 export type GetProductsSearchParams = {
@@ -43,11 +16,37 @@ export type GetProductsSearchParams = {
 	page: number;
 };
 
-export const getProducts = async ({
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type ListResponse<T = any> = {
+	content: Array<T>;
+	totalElements: number;
+};
+
+export const getProductsList = async ({ pageSize, page }: GetProductsSearchParams) => {
+	const { products, productsConnection } = await executeGraphql(ProductsGetListDocument, {
+		first: pageSize,
+		skip: pageSize * page,
+	});
+	return {
+		content: products,
+		totalElements: productsConnection.aggregate.count,
+	} satisfies ListResponse;
+};
+
+export type GetProductsByCategorySlugSearchParams = GetProductsSearchParams & { slug: string };
+
+export const getProductsGetByCategorySlug = async ({
 	pageSize,
 	page,
-}: GetProductsSearchParams): Promise<TProduct[]> => {
-	const response = await fetch(`${apiURL}/products?take=${pageSize}&offset=${pageSize * page}`);
-	const products = (await response.json()) as ProductDTO[];
-	return products.map(parseProductDTOToTProduct);
+	slug,
+}: GetProductsByCategorySlugSearchParams) => {
+	const { products, productsConnection } = await executeGraphql(ProductsGetByCategorySlugDocument, {
+		first: pageSize,
+		slug: slug,
+		skip: pageSize * page,
+	});
+	return {
+		content: products,
+		totalElements: productsConnection.aggregate.count,
+	} satisfies ListResponse;
 };

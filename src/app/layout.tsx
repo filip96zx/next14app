@@ -24,7 +24,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 								</ActiveLink>
 							</li>
 							<li>
-								<ActiveLink href="/products">All</ActiveLink>
+								<ActiveLink href="/products/1">All</ActiveLink>
+							</li>
+							<li>
+								<ActiveLink href="/categories/t-shirts/1">T-shirts</ActiveLink>
 							</li>
 						</ul>
 					</Suspense>
@@ -32,7 +35,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 				<section className="mx-auto max-w-md p-12 sm:max-w-2xl sm:py-16 md:max-w-4xl lg:max-w-7xl">
 					{children}
 				</section>
-				<footer className="text-center text-sm text-gray-500">© 2023</footer>
+				<footer className="text-center text-sm text-gray-500">© 2023 Filip Cudny</footer>
 			</body>
 		</html>
 	);

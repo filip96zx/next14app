@@ -1,14 +1,15 @@
-import { ProductListItemDescription } from "@/app/ui/atoms/ProductListItemDescription";
+import { ProductDetailsDescription } from "@/app/ui/atoms/ProductDetailsDescription";
 import { ProductListItemImageCover } from "@/app/ui/atoms/ProductListItemImageCover";
-import { type TProduct } from "@/app/types";
+import { type ProductDetailsFragment } from "@/gql/graphql";
 
-type TProps = { product: TProduct };
+type TProps = { product: ProductDetailsFragment };
 
 export function ProductCard({ product }: TProps) {
+	const image = product.images[0]?.url;
 	return (
 		<article>
-			<ProductListItemImageCover {...product.image} />
-			<ProductListItemDescription product={product} />
+			{image && <ProductListItemImageCover src={image} alt={product.name} />}
+			<ProductDetailsDescription product={product} />
 		</article>
 	);
 }

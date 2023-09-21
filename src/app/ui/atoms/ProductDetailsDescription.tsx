@@ -5,7 +5,7 @@ type TProps = {
 	product: ProductListItemFragment;
 };
 
-export const ProductListItemDescription = ({ product: { categories, name, price } }: TProps) => {
+export const ProductDetailsDescription = ({ product: { categories, name, price } }: TProps) => {
 	const categoryName = categories?.[0]?.name;
 	return (
 		<div className="mt-2 flex justify-between">
