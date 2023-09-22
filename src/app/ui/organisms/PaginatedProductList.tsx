@@ -6,11 +6,10 @@ import { type ProductListItemFragment } from "@/gql/graphql";
 import { LIST_PAGE_SIZE } from "@/app/constants";
 import { type ListResponse } from "@/app/models";
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-type NewQuery<TParams> = (params: TParams) => Promise<ListResponse<ProductListItemFragment>>;
+type TQuery<TParams> = (params: TParams) => Promise<ListResponse<ProductListItemFragment>>;
 
-type TProps<TParams extends { skip: number; first: number }> = {
-	getListQuery: NewQuery<TParams>;
+type TProps<TParams> = {
+	getListQuery: TQuery<TParams>;
 	params: TParams;
 	route: Route;
 	goBackParams: string;
@@ -30,7 +29,6 @@ export async function PaginatedProductList<TParams extends { skip: number; first
 	getListQuery,
 	goBackParams,
 }: TProps<TParams>) {
-	console.log({ params });
 	const pageIndex = params.skip / params.first;
 	const isPageNumberValid = !isNaN(params.first) && pageIndex >= 0;
 	if (!isPageNumberValid) {
