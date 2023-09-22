@@ -10747,12 +10747,6 @@ export enum _SystemDateTimeFieldVariation {
   Localization = 'localization'
 }
 
-export type ProductBaseFragment = { id: string, name: string, price: number, description: string, categories: Array<{ name: string }> };
-
-export type ProductListItemFragment = { id: string, name: string, price: number, description: string, images: Array<{ url: string }>, categories: Array<{ name: string }> };
-
-export type ProductDetailsFragment = { id: string, name: string, price: number, description: string, images: Array<{ url: string }>, categories: Array<{ name: string }> };
-
 export type ProductsGetByCategorySlugQueryVariables = Exact<{
   first: Scalars['Int']['input'];
   skip: Scalars['Int']['input'];
@@ -10785,6 +10779,12 @@ export type ProductsGetListQueryVariables = Exact<{
 
 
 export type ProductsGetListQuery = { products: Array<{ id: string, name: string, price: number, description: string, images: Array<{ url: string }>, categories: Array<{ name: string }> }>, productsConnection: { aggregate: { count: number } } };
+
+export type ProductBaseFragment = { id: string, name: string, price: number, description: string, categories: Array<{ name: string }> };
+
+export type ProductListItemFragment = { id: string, name: string, price: number, description: string, images: Array<{ url: string }>, categories: Array<{ name: string }> };
+
+export type ProductDetailsFragment = { id: string, name: string, price: number, description: string, images: Array<{ url: string }>, categories: Array<{ name: string }> };
 
 export class TypedDocumentString<TResult, TVariables>
   extends String
