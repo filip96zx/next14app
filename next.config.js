@@ -12,9 +12,15 @@ const nextConfig = {
       },
       {
         source: '/categories',
-        destination: '/products/1',
+        destination: '/categories/1',
         permanent: false,
       },
+      {
+        source: '/search',
+        destination: '/search/1',
+        permanent: false,
+      },
+
     ];
   }
 
