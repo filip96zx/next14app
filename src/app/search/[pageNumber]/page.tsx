@@ -15,7 +15,7 @@ export default async function ProductsPage({
 			getListQuery={getProductsByQuery}
 			params={{ pageNumber, query: query || "" }}
 			route="/search"
-			goBackParams={`/search/${pageNumber}`}
+			goBackParams={`/search/${pageNumber}${query ? `?query=${query}` : ""}`}
 		/>
 	);
 }

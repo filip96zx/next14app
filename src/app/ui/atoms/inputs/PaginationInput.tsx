@@ -1,9 +1,10 @@
 "use client";
+
 import { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { type Route } from "next";
 import { Input } from "./shared/Input";
-import { debounce } from "@/app/utils";
+import { createQueryParams, debounce } from "@/app/utils";
 
 type TProps = { route: Route; totalPages: number; currentPage: number };
 
@@ -18,7 +19,8 @@ export const PaginationInput = ({ route, totalPages, currentPage }: TProps) => {
 		let active = true;
 		debounce(() => {
 			if (active && value && value !== currentPage) {
-				router.push(`${route}/${value}?${focusInputParam}=true` as Route, {});
+				const queryParams = createQueryParams({ [focusInputParam]: true });
+				router.push(`${route}/${value}${queryParams}` as Route);
 			}
 		})();
 		return () => {

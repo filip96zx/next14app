@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { Suspense } from "react";
 import { ActiveLink } from "@/app/ui/atoms/ActiveLink";
-import { SearchInput } from "@/app/ui/molecules/SearchInput";
+import { SearchInput } from "@/app/ui/atoms/inputs";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -12,28 +12,32 @@ export const metadata: Metadata = {
 	description: "Next 13 shop",
 };
 
+const navLinks = [
+	{ href: "/", label: "Home", exact: true },
+	{ href: "/products/1", label: "All" },
+	{ href: "/categories/t-shirts/1", label: "T-shirts" },
+] as const;
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
 	return (
 		<html lang="pl">
 			<body className={inter.className}>
-				<nav>
-					<Suspense>
-						<ul className="mt-2 flex justify-center space-x-4">
-							<li>
-								<ActiveLink href="/" exact>
-									Home
-								</ActiveLink>
-							</li>
-							<li>
-								<ActiveLink href="/products/1">All</ActiveLink>
-							</li>
-							<li>
-								<ActiveLink href="/categories/t-shirts/1">T-shirts</ActiveLink>
-							</li>
-						</ul>
-						<SearchInput />
-					</Suspense>
-				</nav>
+				<div className="mx-auto mt-2 flex max-w-screen-xl justify-between">
+					<nav>
+						<Suspense>
+							<ul className="flex justify-center space-x-4">
+								{navLinks.map((nl) => {
+									return (
+										<li key={nl.label}>
+											<ActiveLink {...nl}>{nl.label}</ActiveLink>
+										</li>
+									);
+								})}
+							</ul>
+						</Suspense>
+					</nav>
+					<SearchInput />
+				</div>
 				<section className="mx-auto max-w-md p-12 sm:max-w-2xl sm:py-16 md:max-w-4xl lg:max-w-7xl">
 					{children}
 				</section>
