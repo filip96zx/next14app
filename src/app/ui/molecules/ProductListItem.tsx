@@ -5,7 +5,7 @@ import { type ProductListItemFragment } from "@/gql/graphql";
 
 type TProps = {
 	product: ProductListItemFragment;
-	goBackParams?: string;
+	goBackParams?: string | number;
 };
 
 export const ProductListItem = ({ product, goBackParams }: TProps) => {

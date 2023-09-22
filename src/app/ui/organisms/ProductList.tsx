@@ -3,7 +3,7 @@ import { type ProductListItemFragment } from "@/gql/graphql";
 
 type TProps = {
 	products: Array<ProductListItemFragment>;
-	goBackParams: string;
+	goBackParams: string | number;
 };
 
 export const ProductList = ({ products, goBackParams }: TProps) => {

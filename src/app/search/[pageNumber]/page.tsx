@@ -1,5 +1,5 @@
-import { getProductsByQuery } from "@/app/api/products";
-import PaginatedProductList from "@/app/ui/organisms/PaginatedProductList";
+import { getProductsByQuery } from "@/app/api";
+import { PaginatedProductList, getPaginationParams } from "@/app/ui/organisms/PaginatedProductList";
 
 type TProps = {
 	params: { pageNumber: string };
@@ -13,7 +13,7 @@ export default async function ProductsPage({
 	return (
 		<PaginatedProductList
 			getListQuery={getProductsByQuery}
-			params={{ pageNumber, query: query || "" }}
+			params={{ ...getPaginationParams({ pageNumber }), query: query || "" }}
 			route="/search"
 			goBackParams={`/search/${pageNumber}${query ? `?query=${query}` : ""}`}
 		/>

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { type Route } from "next";
-import { getProductById } from "@/app/api/products";
+import { getProductById } from "@/app/api";
 import { ProductCard } from "@/app/ui/molecules/ProductCard";
 import { getMetadataTitle } from "@/app/utils";
 
