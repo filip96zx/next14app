@@ -6,7 +6,9 @@ import { Input } from "@/app/ui/atoms/Input";
 import { debounce } from "@/app/utils";
 
 type TProps = { route: Route; totalPages: number; currentPage: number };
+
 const focusInputParam = "focus-search";
+
 export const PaginationInput = ({ route, totalPages, currentPage }: TProps) => {
 	const [value, setValue] = useState(currentPage);
 	const router = useRouter();
@@ -29,10 +31,11 @@ export const PaginationInput = ({ route, totalPages, currentPage }: TProps) => {
 	return (
 		<div className="flex items-center gap-2">
 			<Input
+				key={"input"}
 				value={value}
 				max={totalPages}
 				type="number"
-				className="arrow-hide w-16"
+				className="w-16 arrow-hide"
 				autoFocus={keepFocus}
 				onChange={(e) => {
 					const valueToNumber = parseInt(e.target.value);

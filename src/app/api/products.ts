@@ -1,6 +1,7 @@
 import { executeGraphql } from "@/app/api/executeGraphql";
 import {
 	ProductGetByIdDocument,
+	ProductGetByQueryDocument,
 	ProductsGetByCategorySlugDocument,
 	ProductsGetListDocument,
 } from "@/gql/graphql";
@@ -45,6 +46,21 @@ export const getProductsGetByCategorySlug = async ({
 		slug: slug,
 		skip: pageSize * page,
 	});
+	return {
+		content: products,
+		totalElements: productsConnection.aggregate.count,
+	} satisfies ListResponse;
+};
+
+export type GetProductsByQuery = GetProductsSearchParams & { query: string };
+
+export const getProductsByQuery = async ({ page, pageSize, query }: GetProductsByQuery) => {
+	const { products, productsConnection } = await executeGraphql(ProductGetByQueryDocument, {
+		first: pageSize,
+		query,
+		skip: pageSize * page,
+	});
+
 	return {
 		content: products,
 		totalElements: productsConnection.aggregate.count,

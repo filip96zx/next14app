@@ -10769,6 +10769,15 @@ export type ProductGetByIdQueryVariables = Exact<{
 
 export type ProductGetByIdQuery = { product?: { id: string, name: string, price: number, description: string, images: Array<{ url: string }>, categories: Array<{ name: string }> } | null };
 
+export type ProductGetByQueryQueryVariables = Exact<{
+  query: Scalars['String']['input'];
+  skip: Scalars['Int']['input'];
+  first: Scalars['Int']['input'];
+}>;
+
+
+export type ProductGetByQueryQuery = { products: Array<{ id: string, name: string, price: number, description: string, images: Array<{ url: string }>, categories: Array<{ name: string }> }>, productsConnection: { aggregate: { count: number } } };
+
 export type ProductsGetListQueryVariables = Exact<{
   first: Scalars['Int']['input'];
   skip: Scalars['Int']['input'];
@@ -10881,6 +10890,32 @@ fragment ProductDetails on Product {
     url
   }
 }`) as unknown as TypedDocumentString<ProductGetByIdQuery, ProductGetByIdQueryVariables>;
+export const ProductGetByQueryDocument = new TypedDocumentString(`
+    query ProductGetByQuery($query: String!, $skip: Int!, $first: Int!) {
+  products(where: {name_contains: $query}, skip: $skip, first: $first) {
+    ...ProductDetails
+  }
+  productsConnection(where: {name_contains: $query}, skip: $skip, first: $first) {
+    aggregate {
+      count
+    }
+  }
+}
+    fragment ProductBase on Product {
+  id
+  name
+  price
+  description
+  categories(first: 1) {
+    name
+  }
+}
+fragment ProductDetails on Product {
+  ...ProductBase
+  images(first: 3) {
+    url
+  }
+}`) as unknown as TypedDocumentString<ProductGetByQueryQuery, ProductGetByQueryQueryVariables>;
 export const ProductsGetListDocument = new TypedDocumentString(`
     query ProductsGetList($first: Int!, $skip: Int!) {
   products(first: $first, skip: $skip) {

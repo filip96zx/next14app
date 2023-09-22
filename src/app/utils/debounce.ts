@@ -16,6 +16,7 @@ export const debounce = <T extends TDebounceCallback>(
 		}
 
 		const timeout = setTimeout(() => {
+			console.log("first");
 			fn(...args);
 			activeTimeouts.delete(fn);
 		}, delay);

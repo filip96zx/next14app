@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { Suspense } from "react";
 import { ActiveLink } from "@/app/ui/atoms/ActiveLink";
+import { SearchInput } from "@/app/ui/molecules/SearchInput";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -30,6 +31,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 								<ActiveLink href="/categories/t-shirts/1">T-shirts</ActiveLink>
 							</li>
 						</ul>
+						<SearchInput />
 					</Suspense>
 				</nav>
 				<section className="mx-auto max-w-md p-12 sm:max-w-2xl sm:py-16 md:max-w-4xl lg:max-w-7xl">
