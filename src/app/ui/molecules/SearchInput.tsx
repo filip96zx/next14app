@@ -9,16 +9,16 @@ export const SearchInput = () => {
 	const router = useRouter();
 
 	const onChange = useCallback(
-		debounce((value: string) => {
+		(value: string) => {
 			const queryParams = createQueryParams({ query: value });
-			router.push(`/search/2${queryParams}` as Route);
-		}),
-		[],
+			router.push(`/search/1${queryParams}` as Route);
+		},
+		[router],
 	);
 
 	return (
 		<div className="flex items-center gap-2">
-			<Input className="w-16" onChange={(e) => onChange(e.target.value)} />
+			<Input className="w-16" onChange={(e) => debounce(onChange)(e.target.value)} />
 		</div>
 	);
 };
