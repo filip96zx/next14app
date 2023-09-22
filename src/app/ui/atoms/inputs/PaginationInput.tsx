@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { type Route } from "next";
-import { Input } from "@/app/ui/atoms/Input";
+import { Input } from "./shared/Input";
 import { debounce } from "@/app/utils";
 
 type TProps = { route: Route; totalPages: number; currentPage: number };
