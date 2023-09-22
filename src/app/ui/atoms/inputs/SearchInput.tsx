@@ -17,7 +17,16 @@ export const SearchInput = () => {
 
 	return (
 		<div className="flex items-center gap-2">
-			<Input className="w-50" onChange={(e) => debounce(onChange)(e.target.value)} />
+			<Input
+				className="w-50"
+				onChange={(e) => debounce(onChange)(e.target.value)}
+				onKeyDown={(e) => {
+					if (e.key === "Enter") {
+						const target = e.target as HTMLInputElement;
+						onChange(target.value);
+					}
+				}}
+			/>
 		</div>
 	);
 };
