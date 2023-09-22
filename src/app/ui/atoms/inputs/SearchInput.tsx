@@ -2,7 +2,7 @@
 import { useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { type Route } from "next";
-import { Input } from "@/app/ui/atoms/Input";
+import { Input } from "./shared/Input";
 import { createQueryParams, debounce } from "@/app/utils";
 
 export const SearchInput = () => {

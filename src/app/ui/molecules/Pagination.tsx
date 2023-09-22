@@ -1,7 +1,7 @@
 import { type Route } from "next";
 import { Suspense } from "react";
 import { PaginationElement } from "@/app/ui/atoms/PaginationElement";
-import { PaginationInput } from "@/app/ui/molecules/PaginationInput";
+import { PaginationInput } from "@/app/ui/atoms/inputs";
 
 const generateRange = (first: number, last: number) => {
 	const numbers: Array<number> = [];
