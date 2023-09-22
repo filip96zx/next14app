@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
 import { type Route } from "next";
+import { ProductList } from "./shared/ProductList";
 import { Pagination } from "@/app/ui/molecules/Pagination";
-import { ProductList } from "@/app/ui/organisms/ProductList";
 import { type ProductListItemFragment } from "@/gql/graphql";
 import { LIST_PAGE_SIZE } from "@/app/constants";
 import { type ListResponse } from "@/app/models";

@@ -1,6 +1,6 @@
 import { getProductsList } from "@/app/api";
 import { LIST_PAGE_SIZE } from "@/app/constants";
-import { PaginatedProductList, getPaginationParams } from "@/app/ui/organisms/PaginatedProductList";
+import { PaginatedProductList, getPaginationParams } from "@/app/ui/organisms/product-list";
 
 export async function generateStaticParams() {
 	const { totalElements } = await getProductsList({

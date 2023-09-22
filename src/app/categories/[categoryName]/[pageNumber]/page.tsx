@@ -1,5 +1,5 @@
 import { type Route } from "next";
-import { PaginatedProductList, getPaginationParams } from "@/app/ui/organisms/PaginatedProductList";
+import { PaginatedProductList, getPaginationParams } from "@/app/ui/organisms/product-list";
 import { LIST_PAGE_SIZE } from "@/app/constants";
 import { getProductsGetByCategorySlug } from "@/app/api";
 

@@ -1,5 +1,5 @@
 import { getProductsByQuery } from "@/app/api";
-import { PaginatedProductList, getPaginationParams } from "@/app/ui/organisms/PaginatedProductList";
+import { PaginatedProductList, getPaginationParams } from "@/app/ui/organisms/product-list";
 
 type TProps = {
 	params: { pageNumber: string };
