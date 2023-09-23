@@ -8,7 +8,7 @@ import { ListHeader } from "@/app/ui/ListHeader";
 import { createQueryParams, getMetadataTitle } from "@/app/utils";
 import { BackFormerPageParamName } from "@/app/models";
 
-export async function _generateStaticParams() {
+export async function generateStaticParams() {
 	const { totalElements } = await getProductsByCollectionSlug({
 		slug: "t-shirts",
 		first: 1,
