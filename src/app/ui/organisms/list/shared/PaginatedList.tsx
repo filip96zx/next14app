@@ -6,6 +6,18 @@ import { type ListResponse } from "@/app/models";
 
 type TQuery<TParams, TResult> = (params: TParams) => Promise<ListResponse<TResult>>;
 
+export const getPagesToStaticGenerate = async ({
+	totalElements,
+	pageSize = LIST_PAGE_SIZE,
+}: {
+	totalElements: number;
+	pageSize: number;
+}) => {
+	return Array.from({ length: Math.ceil(totalElements / pageSize) }, (_, i) => ({
+		pageNumber: (i + 1).toString(),
+	}));
+};
+
 export type TPaginatedListProps<TParams, TResult> = {
 	getListQuery: TQuery<TParams, TResult>;
 	params: TParams;

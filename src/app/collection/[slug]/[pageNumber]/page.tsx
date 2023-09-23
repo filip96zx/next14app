@@ -5,7 +5,7 @@ import { PaginatedProductList, getPaginationParams } from "@/app/ui/organisms/li
 import { LIST_PAGE_SIZE } from "@/app/constants";
 import { getProductsByCollectionSlug } from "@/app/api";
 import { ListHeader } from "@/app/ui/ListHeader";
-import { createGoBackParams, getMetadataTitle } from "@/app/utils";
+import { createQueryParams, getMetadataTitle } from "@/app/utils";
 
 export async function _generateStaticParams() {
 	const { totalElements } = await getProductsByCollectionSlug({
@@ -18,7 +18,9 @@ export async function _generateStaticParams() {
 	}));
 }
 
-export const generateMetadata = async ({ params: { pageNumber, collectionSlug } }: TProps) => {
+export const generateMetadata = async ({
+	params: { pageNumber, slug: collectionSlug },
+}: TProps) => {
 	const queryParams = {
 		slug: collectionSlug,
 		...getPaginationParams({ pageNumber }),
@@ -32,16 +34,16 @@ export const generateMetadata = async ({ params: { pageNumber, collectionSlug } 
 };
 
 type TProps = {
-	params: { pageNumber: string; collectionSlug: string };
+	params: { pageNumber: string; slug: string };
 	searchParams: { "from-collection": string };
 };
 
 export default async function CollectionProductPage({
-	params: { pageNumber, collectionSlug },
+	params: { pageNumber, slug },
 	searchParams: { "from-collection": from },
 }: TProps) {
 	const queryParams = {
-		slug: collectionSlug,
+		slug,
 		...getPaginationParams({ pageNumber }),
 	};
 	const { collectionName } = await getProductsByCollectionSlug(queryParams);
@@ -59,10 +61,9 @@ export default async function CollectionProductPage({
 			<PaginatedProductList
 				getListQuery={getProductsByCollectionSlug}
 				params={queryParams}
-				route={`/collection/${collectionSlug}` as Route}
-				goBackParams={`/collection/${collectionSlug}/${pageNumber}${createGoBackParams({
-					goBackParams: from,
-					paramName: "from-collection",
+				route={`/collection/${slug}` as Route}
+				goBackParams={`/collection/${slug}/${pageNumber}${createQueryParams({
+					"from-collection": from,
 				})}`}
 			/>
 		</div>

@@ -17,9 +17,9 @@ export async function _generateStaticParams() {
 	}));
 }
 
-export const generateMetadata = async ({ params: { pageNumber, categorySlug } }: TProps) => {
+export const generateMetadata = async ({ params: { pageNumber, slug } }: TProps) => {
 	const queryParams = {
-		slug: categorySlug,
+		slug,
 		...getPaginationParams({ pageNumber }),
 	};
 	const { categoryName } = await getProductsByCategorySlug(queryParams);
@@ -31,12 +31,12 @@ export const generateMetadata = async ({ params: { pageNumber, categorySlug } }:
 };
 
 type TProps = {
-	params: { pageNumber: string; categorySlug: string };
+	params: { pageNumber: string; slug: string };
 };
 
-export default async function ProductsPage({ params: { pageNumber, categorySlug } }: TProps) {
+export default async function ProductsPage({ params: { pageNumber, slug } }: TProps) {
 	const queryParams = {
-		slug: categorySlug,
+		slug,
 		...getPaginationParams({ pageNumber }),
 	};
 	const { categoryName } = await getProductsByCategorySlug(queryParams);
@@ -51,8 +51,8 @@ export default async function ProductsPage({ params: { pageNumber, categorySlug 
 			<PaginatedProductList
 				getListQuery={getProductsByCategorySlug}
 				params={queryParams}
-				route={`/categories/${categorySlug}` as Route}
-				goBackParams={`/categories/${categorySlug}/${pageNumber}`}
+				route={`/categories/${slug}` as Route}
+				goBackParams={`/categories/${slug}/${pageNumber}`}
 			/>
 		</div>
 	);

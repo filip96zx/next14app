@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { type Route } from "next";
 import { getProductById } from "@/app/api";
 import { ProductCard } from "@/app/ui/molecules/ProductCard";
-import { getMetadataTitle, goBackPath } from "@/app/utils";
+import { getMetadataTitle } from "@/app/utils";
 
 export const generateMetadata = async ({ params }: { params: { productId: string } }) => {
 	const product = await getProductById(params.productId);
@@ -26,13 +26,10 @@ export const generateMetadata = async ({ params }: { params: { productId: string
 
 interface IProps {
 	params: { productId: string };
-	searchParams: { [goBackPath]: string };
+	searchParams: { from: string };
 }
 
-export default async function ProductPage({
-	params,
-	searchParams: { [goBackPath]: from },
-}: IProps) {
+export default async function ProductPage({ params, searchParams: { from } }: IProps) {
 	const product = await getProductById(params.productId);
 
 	if (!product) {
