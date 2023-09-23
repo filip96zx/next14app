@@ -6,7 +6,7 @@ import { getProductsByCategorySlug } from "@/app/api";
 import { ListHeader } from "@/app/ui/ListHeader";
 import { getMetadataTitle } from "@/app/utils";
 
-export async function _generateStaticParams() {
+export async function generateStaticParams() {
 	const { totalElements } = await getProductsByCategorySlug({
 		slug: "t-shirts",
 		first: 1,
