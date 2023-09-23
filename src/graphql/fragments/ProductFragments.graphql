@@ -21,5 +21,7 @@ fragment ProductDetails on Product {
 	...ProductBase
 	images(first: 3) {
 		url
+		width
+		height
 	}
 }

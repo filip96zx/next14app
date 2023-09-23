@@ -10778,7 +10778,7 @@ export type ProductGetByIdQueryVariables = Exact<{
 }>;
 
 
-export type ProductGetByIdQuery = { product?: { id: string, name: string, price: number, description: string, images: Array<{ url: string }>, categories: Array<{ name: string }> } | null };
+export type ProductGetByIdQuery = { product?: { id: string, name: string, price: number, description: string, images: Array<{ url: string, width?: number | null, height?: number | null }>, categories: Array<{ name: string }> } | null };
 
 export type ProductGetByQueryQueryVariables = Exact<{
   query: Scalars['String']['input'];
@@ -10787,7 +10787,7 @@ export type ProductGetByQueryQueryVariables = Exact<{
 }>;
 
 
-export type ProductGetByQueryQuery = { products: Array<{ id: string, name: string, price: number, description: string, images: Array<{ url: string }>, categories: Array<{ name: string }> }>, productsConnection: { aggregate: { count: number } } };
+export type ProductGetByQueryQuery = { products: Array<{ id: string, name: string, price: number, description: string, images: Array<{ url: string, width?: number | null, height?: number | null }>, categories: Array<{ name: string }> }>, productsConnection: { aggregate: { count: number } } };
 
 export type ProductsGetListQueryVariables = Exact<{
   first: Scalars['Int']['input'];
@@ -10803,7 +10803,7 @@ export type ProductBaseFragment = { id: string, name: string, price: number, des
 
 export type ProductListItemFragment = { id: string, name: string, price: number, description: string, images: Array<{ url: string, width?: number | null, height?: number | null }>, categories: Array<{ name: string }> };
 
-export type ProductDetailsFragment = { id: string, name: string, price: number, description: string, images: Array<{ url: string }>, categories: Array<{ name: string }> };
+export type ProductDetailsFragment = { id: string, name: string, price: number, description: string, images: Array<{ url: string, width?: number | null, height?: number | null }>, categories: Array<{ name: string }> };
 
 export class TypedDocumentString<TResult, TVariables>
   extends String
@@ -10865,6 +10865,8 @@ export const ProductDetailsFragmentDoc = new TypedDocumentString(`
   ...ProductBase
   images(first: 3) {
     url
+    width
+    height
   }
 }
     fragment ProductBase on Product {
@@ -10978,12 +10980,14 @@ fragment ProductDetails on Product {
   ...ProductBase
   images(first: 3) {
     url
+    width
+    height
   }
 }`) as unknown as TypedDocumentString<ProductGetByIdQuery, ProductGetByIdQueryVariables>;
 export const ProductGetByQueryDocument = new TypedDocumentString(`
     query ProductGetByQuery($query: String!, $skip: Int!, $first: Int!) {
   products(where: {name_contains: $query}, skip: $skip, first: $first) {
-    ...ProductDetails
+    ...ProductListItem
   }
   productsConnection(where: {name_contains: $query}, skip: $skip, first: $first) {
     aggregate {
@@ -11000,10 +11004,12 @@ export const ProductGetByQueryDocument = new TypedDocumentString(`
     name
   }
 }
-fragment ProductDetails on Product {
+fragment ProductListItem on Product {
   ...ProductBase
-  images(first: 3) {
+  images(first: 1) {
     url
+    width
+    height
   }
 }`) as unknown as TypedDocumentString<ProductGetByQueryQuery, ProductGetByQueryQueryVariables>;
 export const ProductsGetListDocument = new TypedDocumentString(`

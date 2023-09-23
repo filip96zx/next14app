@@ -3,6 +3,9 @@ const nextConfig = {
   experimental: {
     typedRoutes: true,
   },
+  images: {
+    domains: ['media.graphassets.com']
+  },
   redirects: async () => {
     return [
       {
@@ -25,7 +28,11 @@ const nextConfig = {
         destination: '/search/1',
         permanent: false,
       },
-
+      {
+        source: '/collection/:categoryName',
+        destination: '/collection/:categoryName/1',
+        permanent: false,
+      },
     ];
   }
 
