@@ -33,6 +33,7 @@ export const PaginationInput = ({ route, totalPages, currentPage }: TProps) => {
 	return (
 		<div className="flex items-center gap-2">
 			<Input
+				aria-label="Page search input"
 				key={"input"}
 				value={value}
 				max={totalPages}
