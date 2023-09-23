@@ -1,7 +1,7 @@
 import { type Route } from "next";
 import { Suspense } from "react";
 import { PaginationElement } from "@/app/ui/atoms/PaginationElement";
-import { PaginationInput } from "@/app/ui/molecules/PaginationInput";
+import { PaginationInput } from "@/app/ui/atoms/inputs";
 
 const generateRange = (first: number, last: number) => {
 	const numbers: Array<number> = [];
@@ -35,7 +35,6 @@ const getPageNumbers = ({
 
 const bigStep = 5;
 const smallStep = 1;
-const defaultPageNumber = 1;
 
 type TProps = { page: number; totalPages: number; route: Route };
 
@@ -63,13 +62,7 @@ export const Pagination = ({ page, totalPages, route }: TProps) => {
 					</>
 				)}
 				{getButtonNumbers.map((pageNumber) => (
-					<PaginationElement
-						key={pageNumber}
-						route={route}
-						page={pageNumber}
-						label={pageNumber}
-						forceActive={[pageNumber, page].every((x) => x === defaultPageNumber)}
-					/>
+					<PaginationElement key={pageNumber} route={route} page={pageNumber} label={pageNumber} />
 				))}
 				{page < totalPages && (
 					<>
@@ -87,8 +80,11 @@ export const Pagination = ({ page, totalPages, route }: TProps) => {
 						/>
 					</>
 				)}
-				<PaginationInput route={route} totalPages={totalPages} currentPage={page} />
 			</Suspense>
+			<div className="flex items-center gap-2">
+				<PaginationInput route={route} totalPages={totalPages} currentPage={page} />
+				<span> of {totalPages}</span>
+			</div>
 		</nav>
 	);
 };

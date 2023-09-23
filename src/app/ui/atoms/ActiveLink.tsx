@@ -12,12 +12,14 @@ type TProps<T extends string> = {
 	exact?: boolean;
 	className?: string;
 	activeClassName?: string;
+	keepSearchParams?: boolean;
 };
 
 export function ActiveLink<T extends string>({
 	children,
 	href,
 	exact,
+	keepSearchParams,
 	className = "mt-2 text-blue-500 hover:text-blue-700",
 	activeClassName = "border-b border-blue-500",
 }: TProps<T>) {
@@ -25,9 +27,12 @@ export function ActiveLink<T extends string>({
 	const searchParams = useSearchParams().toString();
 	const urlSearchParams = searchParams ? `?${searchParams}` : "";
 	const isActive = exact ? currentPath + urlSearchParams === href : currentPath.startsWith(href);
-
 	return (
-		<Link href={href} className={clsx(className, isActive && activeClassName)} role="link">
+		<Link
+			href={keepSearchParams ? ((href + urlSearchParams) as Route<T>) : href}
+			className={clsx(className, isActive && activeClassName)}
+			role="link"
+		>
 			{children}
 		</Link>
 	);
