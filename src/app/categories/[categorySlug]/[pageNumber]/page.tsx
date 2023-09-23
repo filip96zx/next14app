@@ -4,8 +4,9 @@ import { PaginatedProductListPage, getPaginationParams } from "@/app/ui/organism
 import { LIST_PAGE_SIZE } from "@/app/constants";
 import { getProductsGetByCategorySlug } from "@/app/api";
 import { ListHeader } from "@/app/ui/ListHeader";
+import { getMetadataTitle } from "@/app/utils";
 
-export async function generateStaticParams() {
+export async function _generateStaticParams() {
 	const { totalElements } = await getProductsGetByCategorySlug({
 		slug: "t-shirts",
 		first: 1,
@@ -15,6 +16,19 @@ export async function generateStaticParams() {
 		pageNumber: (i + 1).toString(),
 	}));
 }
+
+export const generateMetadata = async ({ params: { pageNumber, categorySlug } }: TProps) => {
+	const queryParams = {
+		slug: categorySlug,
+		...getPaginationParams({ pageNumber }),
+	};
+	const { categoryName } = await getProductsGetByCategorySlug(queryParams);
+
+	if (!categoryName) return null;
+	return {
+		title: getMetadataTitle(categoryName),
+	};
+};
 
 type TProps = {
 	params: { pageNumber: string; categorySlug: string };

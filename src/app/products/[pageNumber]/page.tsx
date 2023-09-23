@@ -1,9 +1,16 @@
+import { type Metadata } from "next";
 import { getProductsList } from "@/app/api";
 import { LIST_PAGE_SIZE } from "@/app/constants";
 import { ListHeader } from "@/app/ui/ListHeader";
 import { PaginatedProductListPage, getPaginationParams } from "@/app/ui/organisms/product-list";
+import { getMetadataTitle } from "@/app/utils";
 
-export async function generateStaticParams() {
+export const metadata: Metadata = {
+	title: getMetadataTitle("All products"),
+	description: "All products list",
+};
+
+export async function _generateStaticParams() {
 	const { totalElements } = await getProductsList({
 		first: 1,
 		skip: 0,

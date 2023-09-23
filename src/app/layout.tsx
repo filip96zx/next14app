@@ -4,11 +4,12 @@ import { Inter } from "next/font/google";
 import { Suspense } from "react";
 import { ActiveLink } from "@/app/ui/atoms/ActiveLink";
 import { SearchInput } from "@/app/ui/atoms/inputs";
+import { getMetadataTitle } from "@/app/utils";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-	title: "Next13Masters Shop",
+	title: getMetadataTitle(),
 	description: "Next 13 shop",
 };
 
