@@ -2,12 +2,12 @@ import { type Route } from "next";
 import { redirect } from "next/navigation";
 import { PaginatedProductList, getPaginationParams } from "@/app/ui/organisms/product-list";
 import { LIST_PAGE_SIZE } from "@/app/constants";
-import { getProductsByCategorySlug } from "@/app/api";
+import { getProductsByCollectionSlug } from "@/app/api";
 import { ListHeader } from "@/app/ui/ListHeader";
 import { getMetadataTitle } from "@/app/utils";
 
 export async function _generateStaticParams() {
-	const { totalElements } = await getProductsByCategorySlug({
+	const { totalElements } = await getProductsByCollectionSlug({
 		slug: "t-shirts",
 		first: 1,
 		skip: 0,
@@ -22,11 +22,11 @@ export const generateMetadata = async ({ params: { pageNumber, categorySlug } }:
 		slug: categorySlug,
 		...getPaginationParams({ pageNumber }),
 	};
-	const { categoryName } = await getProductsByCategorySlug(queryParams);
+	const { collectionName } = await getProductsByCollectionSlug(queryParams);
 
-	if (!categoryName) return null;
+	if (!collectionName) return null;
 	return {
-		title: getMetadataTitle(categoryName),
+		title: getMetadataTitle(collectionName),
 	};
 };
 
@@ -39,20 +39,20 @@ export default async function ProductsPage({ params: { pageNumber, categorySlug 
 		slug: categorySlug,
 		...getPaginationParams({ pageNumber }),
 	};
-	const { categoryName } = await getProductsByCategorySlug(queryParams);
+	const { collectionName } = await getProductsByCollectionSlug(queryParams);
 
-	if (!categoryName) {
+	if (!collectionName) {
 		redirect("/products");
 	}
 
 	return (
 		<div>
-			<ListHeader>{categoryName}</ListHeader>
+			<ListHeader>{collectionName}</ListHeader>
 			<PaginatedProductList
-				getListQuery={getProductsByCategorySlug}
+				getListQuery={getProductsByCollectionSlug}
 				params={queryParams}
-				route={`/categories/${categorySlug}` as Route}
-				goBackParams={`/categories/${categorySlug}/${pageNumber}`}
+				route={`/collection/${categorySlug}` as Route}
+				goBackParams={`/collection/${categorySlug}/${pageNumber}`}
 			/>
 		</div>
 	);

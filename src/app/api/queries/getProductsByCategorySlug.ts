@@ -5,7 +5,7 @@ import {
 	type ProductsGetByCategorySlugQueryVariables,
 } from "@/gql/graphql";
 
-export const getProductsGetByCategorySlug = async (
+export const getProductsByCategorySlug = async (
 	params: ProductsGetByCategorySlugQueryVariables,
 ) => {
 	const { products, productsConnection, categories } = await executeGraphql(
