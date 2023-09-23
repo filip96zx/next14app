@@ -87,8 +87,11 @@ export const Pagination = ({ page, totalPages, route }: TProps) => {
 						/>
 					</>
 				)}
-				<PaginationInput route={route} totalPages={totalPages} currentPage={page} />
 			</Suspense>
+			<div className="flex items-center gap-2">
+				<PaginationInput route={route} totalPages={totalPages} currentPage={page} />
+				<span> of {totalPages}</span>
+			</div>
 		</nav>
 	);
 };

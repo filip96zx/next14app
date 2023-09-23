@@ -8,7 +8,7 @@ import { createQueryParams, debounce } from "@/app/utils";
 
 type TProps = { route: Route; totalPages: number; currentPage: number };
 
-const focusInputParam = "focus-search";
+const focusInputParam = "search-page-focus";
 
 export const PaginationInput = ({ route, totalPages, currentPage }: TProps) => {
 	const [value, setValue] = useState(currentPage);
@@ -28,27 +28,24 @@ export const PaginationInput = ({ route, totalPages, currentPage }: TProps) => {
 		};
 	}, [currentPage, route, router, value]);
 
-	const keepFocus = get(focusInputParam) === "true";
+	const keepFocusOnRouteChange = get(focusInputParam) === "true";
 
 	return (
-		<div className="flex items-center gap-2">
-			<Input
-				aria-label="Page search input"
-				key={"input"}
-				value={value}
-				max={totalPages}
-				type="number"
-				className="w-16 arrow-hide"
-				autoFocus={keepFocus}
-				onChange={(e) => {
-					const valueToNumber = parseInt(e.target.value);
-					const valueRangeFixed = isNaN(valueToNumber)
-						? 1
-						: Math.max(1, Math.min(valueToNumber, totalPages));
-					setValue(valueRangeFixed);
-				}}
-			/>
-			<span> of {totalPages}</span>
-		</div>
+		<Input
+			aria-label="Page search input"
+			key={"input"}
+			value={value}
+			max={totalPages}
+			type="number"
+			className="w-16 arrow-hide"
+			autoFocus={keepFocusOnRouteChange}
+			onChange={(e) => {
+				const valueToNumber = parseInt(e.target.value);
+				const valueRangeFixed = isNaN(valueToNumber)
+					? 1
+					: Math.max(1, Math.min(valueToNumber, totalPages));
+				setValue(valueRangeFixed);
+			}}
+		/>
 	);
 };

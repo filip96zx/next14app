@@ -17,18 +17,16 @@ export const SearchInput = () => {
 	);
 
 	return (
-		<div className="flex items-center gap-2">
-			<Input
-				aria-label="Product search input"
-				className="w-50"
-				onChange={(e) => debounce(onChange)(e.target.value)}
-				onKeyDown={(e) => {
-					if (e.key === "Enter") {
-						const target = e.target as HTMLInputElement;
-						onChange(target.value);
-					}
-				}}
-			/>
-		</div>
+		<Input
+			aria-label="Product search input"
+			className="w-50"
+			onChange={(e) => debounce(onChange)(e.target.value)}
+			onKeyDown={(e) => {
+				if (e.key === "Enter") {
+					const target = e.target as HTMLInputElement;
+					onChange(target.value);
+				}
+			}}
+		/>
 	);
 };
