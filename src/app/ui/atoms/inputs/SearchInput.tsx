@@ -19,6 +19,7 @@ export const SearchInput = () => {
 	return (
 		<Input
 			aria-label="Product search input"
+			role="searchbox"
 			className="w-50"
 			onChange={(e) => debounce(onChange)(e.target.value)}
 			onKeyDown={(e) => {
