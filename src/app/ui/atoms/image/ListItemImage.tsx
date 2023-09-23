@@ -1,6 +1,11 @@
 import NextImage from "next/image";
 
-type TImageProps = { alt: string; src: string; width?: number; height?: number };
+type TImageProps = {
+	alt: string;
+	src: string;
+	width: number | undefined;
+	height: number | undefined;
+};
 
 export const ListItemImage = ({ alt, src, width, height }: TImageProps) => {
 	return (
