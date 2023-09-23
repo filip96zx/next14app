@@ -5,3 +5,8 @@ export type ListResponse<T = any> = {
 } & { [key: string]: unknown };
 
 export type OmitKeys<T, TKey extends keyof T> = Omit<T, TKey>;
+
+export enum BackFormerPageParamName {
+	FROM = "from",
+	FROM_COLLECTION = "from-collection",
+}

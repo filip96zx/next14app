@@ -16,7 +16,7 @@ type TProps = {
 export default async function ProductsPage({ params: { pageNumber } }: TProps) {
 	return (
 		<div>
-			<ListHeader>Categories</ListHeader>
+			<ListHeader>Collections</ListHeader>
 			<PaginatedCollectionList
 				getListQuery={getCollectionList}
 				params={getPaginationParams({ pageNumber })}

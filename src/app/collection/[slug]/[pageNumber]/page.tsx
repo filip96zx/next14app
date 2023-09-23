@@ -6,6 +6,7 @@ import { LIST_PAGE_SIZE } from "@/app/constants";
 import { getProductsByCollectionSlug } from "@/app/api";
 import { ListHeader } from "@/app/ui/ListHeader";
 import { createQueryParams, getMetadataTitle } from "@/app/utils";
+import { BackFormerPageParamName } from "@/app/models";
 
 export async function _generateStaticParams() {
 	const { totalElements } = await getProductsByCollectionSlug({
@@ -35,12 +36,12 @@ export const generateMetadata = async ({
 
 type TProps = {
 	params: { pageNumber: string; slug: string };
-	searchParams: { "from-collection": string };
+	searchParams: { [BackFormerPageParamName.FROM_COLLECTION]: string };
 };
 
 export default async function CollectionProductPage({
 	params: { pageNumber, slug },
-	searchParams: { "from-collection": from },
+	searchParams: { [BackFormerPageParamName.FROM_COLLECTION]: from },
 }: TProps) {
 	const queryParams = {
 		slug,
@@ -63,7 +64,7 @@ export default async function CollectionProductPage({
 				params={queryParams}
 				route={`/collection/${slug}` as Route}
 				goBackParams={`/collection/${slug}/${pageNumber}${createQueryParams({
-					"from-collection": from,
+					[BackFormerPageParamName.FROM_COLLECTION]: from,
 				})}`}
 			/>
 		</div>

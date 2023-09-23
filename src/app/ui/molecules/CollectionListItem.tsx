@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { ListItemImage } from "@/app/ui/atoms/image";
 import { type CollectionListItemFragment } from "@/gql/graphql";
-import {  createQueryParams } from "@/app/utils";
+import { createQueryParams } from "@/app/utils";
+import { BackFormerPageParamName } from "@/app/models";
 
 type TProps = {
 	collection: CollectionListItemFragment;
@@ -16,7 +17,7 @@ export const CollectionListItem = ({
 		<li>
 			<Link
 				href={`/collection/${slug}${createQueryParams({
-					"from-collection": goBackParams,
+					[BackFormerPageParamName.FROM_COLLECTION]: goBackParams,
 				})}`}
 			>
 				<h3 className="text-sm font-semibold text-gray-700">{name}</h3>
