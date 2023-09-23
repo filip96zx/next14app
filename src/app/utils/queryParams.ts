@@ -6,3 +6,9 @@ export const createQueryParams = (params: Record<string, string | number | boole
 		.join("&");
 	return `?${queryParams}`;
 };
+
+export const goBackPath = "from";
+
+export const createGoBackParams = (param?: string | number) => {
+	return param ? createQueryParams({ [goBackPath]: param }) : "";
+};
