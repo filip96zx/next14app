@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 	description: "All products list",
 };
 
-export async function _generateStaticParams() {
+export async function generateStaticParams() {
 	const { totalElements } = await getProductsList({
 		first: 1,
 		skip: 0,
