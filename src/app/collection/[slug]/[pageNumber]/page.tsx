@@ -2,22 +2,11 @@ import { type Route } from "next";
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import { PaginatedProductList, getPaginationParams } from "@/app/ui/organisms/list";
-import { LIST_PAGE_SIZE } from "@/app/constants";
+
 import { getProductsByCollectionSlug } from "@/app/api";
 import { ListHeader } from "@/app/ui/ListHeader";
 import { createQueryParams, getMetadataTitle } from "@/app/utils";
 import { BackFormerPageParamName } from "@/app/models";
-
-export async function generateStaticParams() {
-	const { totalElements } = await getProductsByCollectionSlug({
-		slug: "t-shirts",
-		first: 1,
-		skip: 0,
-	});
-	return Array.from({ length: Math.ceil(totalElements / LIST_PAGE_SIZE) }, (_, i) => ({
-		pageNumber: (i + 1).toString(),
-	}));
-}
 
 export const generateMetadata = async ({
 	params: { pageNumber, slug: collectionSlug },
