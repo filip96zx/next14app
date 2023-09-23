@@ -14,7 +14,7 @@ export const ProductListItem = ({ product, goBackParams }: TProps) => {
 
 	return (
 		<li>
-			<Link href={`/product/${product.id}${createGoBackParams(goBackParams)}`}>
+			<Link href={`/product/${product.id}${createGoBackParams({ goBackParams })}`}>
 				<article>
 					{image && (
 						<ListItemImage

@@ -35,7 +35,6 @@ const getPageNumbers = ({
 
 const bigStep = 5;
 const smallStep = 1;
-const defaultPageNumber = 1;
 
 type TProps = { page: number; totalPages: number; route: Route };
 
@@ -63,13 +62,7 @@ export const Pagination = ({ page, totalPages, route }: TProps) => {
 					</>
 				)}
 				{getButtonNumbers.map((pageNumber) => (
-					<PaginationElement
-						key={pageNumber}
-						route={route}
-						page={pageNumber}
-						label={pageNumber}
-						forceActive={[pageNumber, page].every((x) => x === defaultPageNumber)}
-					/>
+					<PaginationElement key={pageNumber} route={route} page={pageNumber} label={pageNumber} />
 				))}
 				{page < totalPages && (
 					<>

@@ -1,10 +1,11 @@
 import { type Route } from "next";
 import { redirect } from "next/navigation";
+import Link from "next/link";
 import { PaginatedProductList, getPaginationParams } from "@/app/ui/organisms/list";
 import { LIST_PAGE_SIZE } from "@/app/constants";
 import { getProductsByCollectionSlug } from "@/app/api";
 import { ListHeader } from "@/app/ui/ListHeader";
-import { getMetadataTitle } from "@/app/utils";
+import { createGoBackParams, getMetadataTitle } from "@/app/utils";
 
 export async function _generateStaticParams() {
 	const { totalElements } = await getProductsByCollectionSlug({
@@ -17,9 +18,9 @@ export async function _generateStaticParams() {
 	}));
 }
 
-export const generateMetadata = async ({ params: { pageNumber, categorySlug } }: TProps) => {
+export const generateMetadata = async ({ params: { pageNumber, collectionSlug } }: TProps) => {
 	const queryParams = {
-		slug: categorySlug,
+		slug: collectionSlug,
 		...getPaginationParams({ pageNumber }),
 	};
 	const { collectionName } = await getProductsByCollectionSlug(queryParams);
@@ -31,12 +32,16 @@ export const generateMetadata = async ({ params: { pageNumber, categorySlug } }:
 };
 
 type TProps = {
-	params: { pageNumber: string; categorySlug: string };
+	params: { pageNumber: string; collectionSlug: string };
+	searchParams: { "from-collection": string };
 };
 
-export default async function ProductsPage({ params: { pageNumber, categorySlug } }: TProps) {
+export default async function CollectionProductPage({
+	params: { pageNumber, collectionSlug },
+	searchParams: { "from-collection": from },
+}: TProps) {
 	const queryParams = {
-		slug: categorySlug,
+		slug: collectionSlug,
 		...getPaginationParams({ pageNumber }),
 	};
 	const { collectionName } = await getProductsByCollectionSlug(queryParams);
@@ -48,11 +53,17 @@ export default async function ProductsPage({ params: { pageNumber, categorySlug 
 	return (
 		<div>
 			<ListHeader>{collectionName}</ListHeader>
+			<Link className="text-blue-500" href={(from ? `${from}` : "/products") as Route}>
+				{from ? "Back" : "All products"}
+			</Link>
 			<PaginatedProductList
 				getListQuery={getProductsByCollectionSlug}
 				params={queryParams}
-				route={`/collection/${categorySlug}` as Route}
-				goBackParams={`/collection/${categorySlug}/${pageNumber}`}
+				route={`/collection/${collectionSlug}` as Route}
+				goBackParams={`/collection/${collectionSlug}/${pageNumber}${createGoBackParams({
+					goBackParams: from,
+					paramName: "from-collection",
+				})}`}
 			/>
 		</div>
 	);

@@ -33,6 +33,11 @@ const nextConfig = {
         destination: '/collection/:categoryName/1',
         permanent: false,
       },
+      {
+        source: '/collections',
+        destination: '/collections/1',
+        permanent: false,
+      },
     ];
   }
 

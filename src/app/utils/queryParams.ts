@@ -9,6 +9,13 @@ export const createQueryParams = (params: Record<string, string | number | boole
 
 export const goBackPath = "from";
 
-export const createGoBackParams = (param?: string | number) => {
-	return param ? createQueryParams({ [goBackPath]: param }) : "";
+export const createGoBackParams = ({
+	goBackParams,
+	paramName = goBackPath,
+}: {
+	goBackParams?: string | number;
+	currentParams?: string;
+	paramName?: string;
+}) => {
+	return goBackParams ? createQueryParams({ [paramName]: goBackParams }) : "";
 };

@@ -14,7 +14,12 @@ export const CollectionListItem = ({
 }: TProps) => {
 	return (
 		<li>
-			<Link href={`/collection/${slug}${createGoBackParams(goBackParams)}`}>
+			<Link
+				href={`/collection/${slug}${createGoBackParams({
+					goBackParams,
+					paramName: "from-collection",
+				})}`}
+			>
 				<h3 className="text-sm font-semibold text-gray-700">{name}</h3>
 				<article>
 					<ListItemImage

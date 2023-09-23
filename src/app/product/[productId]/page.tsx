@@ -26,7 +26,7 @@ export const generateMetadata = async ({ params }: { params: { productId: string
 
 interface IProps {
 	params: { productId: string };
-	searchParams: { from: string };
+	searchParams: { [goBackPath]: string };
 }
 
 export default async function ProductPage({
