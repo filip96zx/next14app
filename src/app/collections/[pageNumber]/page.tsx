@@ -5,8 +5,8 @@ import { PaginatedCollectionList, getPaginationParams } from "@/app/ui/organisms
 import { getMetadataTitle } from "@/app/utils";
 
 export const metadata: Metadata = {
-	title: getMetadataTitle("Categories"),
-	description: "All categories list",
+	title: getMetadataTitle("Collections"),
+	description: "All collections list",
 };
 
 type TProps = {
