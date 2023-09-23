@@ -4,10 +4,10 @@ import { Pagination } from "@/app/ui/molecules/Pagination";
 import { LIST_PAGE_SIZE } from "@/app/constants";
 import { type ListResponse } from "@/app/models";
 
-type TQuery<TParams> = (params: TParams) => Promise<ListResponse>;
+type TQuery<TParams, TResult> = (params: TParams) => Promise<ListResponse<TResult>>;
 
-export type TPaginatedListProps<TParams> = {
-	getListQuery: TQuery<TParams>;
+export type TPaginatedListProps<TParams, TResult> = {
+	getListQuery: TQuery<TParams, TResult>;
 	params: TParams;
 	route: Route;
 	goBackParams: string | number;
@@ -22,13 +22,13 @@ export const getPaginationParams = ({
 	pageSize?: number;
 }) => ({ skip: (parseInt(pageNumber) - 1) * pageSize, first: pageSize });
 
-export async function PaginatedList<TParams extends { skip: number; first: number }>({
+export async function PaginatedList<TParams extends { skip: number; first: number }, TResult>({
 	params,
 	route,
 	getListQuery,
 	goBackParams,
 	renderList,
-}: TPaginatedListProps<TParams>) {
+}: TPaginatedListProps<TParams, TResult>) {
 	const pageIndex = params.skip / params.first;
 	const isPageNumberValid = !isNaN(params.first) && pageIndex >= 0;
 	if (!isPageNumberValid) {

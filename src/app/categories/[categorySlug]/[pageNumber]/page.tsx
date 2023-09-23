@@ -1,6 +1,6 @@
 import { type Route } from "next";
 import { redirect } from "next/navigation";
-import { PaginatedProductList, getPaginationParams } from "@/app/ui/organisms/product-list";
+import { PaginatedProductList, getPaginationParams } from "@/app/ui/organisms/list";
 import { LIST_PAGE_SIZE } from "@/app/constants";
 import { getProductsByCategorySlug } from "@/app/api";
 import { ListHeader } from "@/app/ui/ListHeader";

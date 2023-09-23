@@ -2,7 +2,7 @@ import { type Metadata } from "next";
 import { getProductsList } from "@/app/api";
 import { LIST_PAGE_SIZE } from "@/app/constants";
 import { ListHeader } from "@/app/ui/ListHeader";
-import { PaginatedProductList, getPaginationParams } from "@/app/ui/organisms/product-list";
+import { PaginatedProductList, getPaginationParams } from "@/app/ui/organisms/list";
 import { getMetadataTitle } from "@/app/utils";
 
 export const metadata: Metadata = {
