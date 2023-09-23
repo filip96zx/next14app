@@ -2,7 +2,7 @@ import { type Metadata } from "next";
 import { getProductsList } from "@/app/api";
 import { LIST_PAGE_SIZE } from "@/app/constants";
 import { ListHeader } from "@/app/ui/ListHeader";
-import { PaginatedProductListPage, getPaginationParams } from "@/app/ui/organisms/product-list";
+import { PaginatedProductList, getPaginationParams } from "@/app/ui/organisms/product-list";
 import { getMetadataTitle } from "@/app/utils";
 
 export const metadata: Metadata = {
@@ -26,12 +26,14 @@ type TProps = {
 
 export default async function ProductsPage({ params: { pageNumber } }: TProps) {
 	return (
-		<PaginatedProductListPage
-			getListQuery={getProductsList}
-			params={getPaginationParams({ pageNumber })}
-			route="/products"
-			header={<ListHeader>All products</ListHeader>}
-			goBackParams={`/products/${pageNumber}`}
-		/>
+		<div>
+			<ListHeader>All products</ListHeader>
+			<PaginatedProductList
+				getListQuery={getProductsList}
+				params={getPaginationParams({ pageNumber })}
+				route="/products"
+				goBackParams={`/products/${pageNumber}`}
+			/>
+		</div>
 	);
 }

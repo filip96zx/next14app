@@ -1,6 +1,6 @@
 import { type Route } from "next";
 import { redirect } from "next/navigation";
-import { PaginatedProductListPage, getPaginationParams } from "@/app/ui/organisms/product-list";
+import { PaginatedProductList, getPaginationParams } from "@/app/ui/organisms/product-list";
 import { LIST_PAGE_SIZE } from "@/app/constants";
 import { getProductsGetByCategorySlug } from "@/app/api";
 import { ListHeader } from "@/app/ui/ListHeader";
@@ -46,12 +46,14 @@ export default async function ProductsPage({ params: { pageNumber, categorySlug 
 	}
 
 	return (
-		<PaginatedProductListPage
-			getListQuery={getProductsGetByCategorySlug}
-			params={queryParams}
-			route={`/categories/${categorySlug}` as Route}
-			goBackParams={`/categories/${categorySlug}/${pageNumber}`}
-			header={<ListHeader>{categoryName}</ListHeader>}
-		/>
+		<div>
+			<ListHeader>{categoryName}</ListHeader>
+			<PaginatedProductList
+				getListQuery={getProductsGetByCategorySlug}
+				params={queryParams}
+				route={`/categories/${categorySlug}` as Route}
+				goBackParams={`/categories/${categorySlug}/${pageNumber}`}
+			/>
+		</div>
 	);
 }
