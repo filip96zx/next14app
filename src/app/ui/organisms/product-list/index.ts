@@ -1,1 +1,1 @@
-export { PaginatedProductList, getPaginationParams } from "./PaginatedProductList";
+export { PaginatedProductListPage, getPaginationParams } from "./PaginatedProductListPage";

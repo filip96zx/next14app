@@ -2,4 +2,4 @@
 export type ListResponse<T = any> = {
 	content: Array<T>;
 	totalElements: number;
-};
+} & { [key: string]: unknown };

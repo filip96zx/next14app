@@ -8,12 +8,13 @@ import {
 export const getProductsGetByCategorySlug = async (
 	params: ProductsGetByCategorySlugQueryVariables,
 ) => {
-	const { products, productsConnection } = await executeGraphql(
+	const { products, productsConnection, categories } = await executeGraphql(
 		ProductsGetByCategorySlugDocument,
 		params,
 	);
 	return {
 		content: products,
 		totalElements: productsConnection.aggregate.count,
+		categoryName: categories?.[0]?.name,
 	} satisfies ListResponse;
 };

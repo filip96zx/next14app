@@ -10,7 +10,7 @@ export const ProductDetailsDescription = ({ product: { categories, name, price }
 	return (
 		<div className="mt-2 flex justify-between">
 			<div>
-				<h3 className="text-sm font-semibold text-gray-700">{name}</h3>
+				<h1 className="text-sm font-semibold text-gray-700">{name}</h1>
 				<p className="text-sm text-gray-500">
 					{categoryName && (
 						<>

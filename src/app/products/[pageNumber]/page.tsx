@@ -1,6 +1,7 @@
 import { getProductsList } from "@/app/api";
 import { LIST_PAGE_SIZE } from "@/app/constants";
-import { PaginatedProductList, getPaginationParams } from "@/app/ui/organisms/product-list";
+import { ListHeader } from "@/app/ui/ListHeader";
+import { PaginatedProductListPage, getPaginationParams } from "@/app/ui/organisms/product-list";
 
 export async function generateStaticParams() {
 	const { totalElements } = await getProductsList({
@@ -18,10 +19,11 @@ type TProps = {
 
 export default async function ProductsPage({ params: { pageNumber } }: TProps) {
 	return (
-		<PaginatedProductList
+		<PaginatedProductListPage
 			getListQuery={getProductsList}
 			params={getPaginationParams({ pageNumber })}
 			route="/products"
+			header={<ListHeader>All products</ListHeader>}
 			goBackParams={`/products/${pageNumber}`}
 		/>
 	);

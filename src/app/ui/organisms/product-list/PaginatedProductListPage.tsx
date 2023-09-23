@@ -1,5 +1,6 @@
 import { redirect } from "next/navigation";
 import { type Route } from "next";
+import { type ReactNode } from "react";
 import { ProductList } from "./shared/ProductList";
 import { Pagination } from "@/app/ui/molecules/Pagination";
 import { type ProductListItemFragment } from "@/gql/graphql";
@@ -13,6 +14,7 @@ type TProps<TParams> = {
 	params: TParams;
 	route: Route;
 	goBackParams: string;
+	header: ReactNode;
 };
 
 export const getPaginationParams = ({
@@ -23,11 +25,12 @@ export const getPaginationParams = ({
 	pageSize?: number;
 }) => ({ skip: (parseInt(pageNumber) - 1) * pageSize, first: pageSize });
 
-export async function PaginatedProductList<TParams extends { skip: number; first: number }>({
+export async function PaginatedProductListPage<TParams extends { skip: number; first: number }>({
 	params,
 	route,
 	getListQuery,
 	goBackParams,
+	header,
 }: TProps<TParams>) {
 	const pageIndex = params.skip / params.first;
 	const isPageNumberValid = !isNaN(params.first) && pageIndex >= 0;
@@ -47,10 +50,13 @@ export async function PaginatedProductList<TParams extends { skip: number; first
 
 	return (
 		<div>
-			<div className="my-4 flex justify-center">
-				<Pagination page={pageNumber} totalPages={totalPages} route={route} />
+			{header}
+			<div>
+				<div className="my-4 flex justify-center">
+					<Pagination page={pageNumber} totalPages={totalPages} route={route} />
+				</div>
+				<ProductList products={products} goBackParams={goBackParams || pageNumber} />
 			</div>
-			<ProductList products={products} goBackParams={goBackParams || pageNumber} />
 		</div>
 	);
 }

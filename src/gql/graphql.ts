@@ -10754,7 +10754,7 @@ export type ProductsGetByCategorySlugQueryVariables = Exact<{
 }>;
 
 
-export type ProductsGetByCategorySlugQuery = { products: Array<{ id: string, name: string, price: number, description: string, images: Array<{ url: string }>, categories: Array<{ name: string }> }>, productsConnection: { aggregate: { count: number } } };
+export type ProductsGetByCategorySlugQuery = { products: Array<{ id: string, name: string, price: number, description: string, images: Array<{ url: string }>, categories: Array<{ name: string }> }>, categories: Array<{ name: string }>, productsConnection: { aggregate: { count: number } } };
 
 export type ProductGetByIdQueryVariables = Exact<{
   id: Scalars['ID']['input'];
@@ -10847,6 +10847,9 @@ export const ProductsGetByCategorySlugDocument = new TypedDocumentString(`
     query ProductsGetByCategorySlug($first: Int!, $skip: Int!, $slug: String!) {
   products(first: $first, skip: $skip, where: {categories_some: {slug: $slug}}) {
     ...ProductListItem
+  }
+  categories(where: {slug: $slug}, first: 1) {
+    name
   }
   productsConnection(where: {categories_some: {slug: $slug}}) {
     aggregate {
