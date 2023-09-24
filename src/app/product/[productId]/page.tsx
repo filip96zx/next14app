@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import { type Route } from "next";
 import { Suspense } from "react";
-import { getProductById, getProductsList } from "@/app/api";
+import { getProductById, getProductsByCollectionSlug } from "@/app/api";
 import { ProductCard } from "@/app/ui/molecules/ProductCard";
 import { createQueryParams, getMetadataTitle } from "@/app/utils";
 import { PaginatedProductList, getPaginationParams } from "@/app/ui/organisms/list";
@@ -62,7 +62,7 @@ export default async function ProductPage({ params, searchParams }: IProps) {
 			{collectionSlug && (
 				<Suspense fallback={<div>Loading...</div>}>
 					<PaginatedProductList
-						getListQuery={getProductsList}
+						getListQuery={getProductsByCollectionSlug}
 						params={{
 							...getPaginationParams({ pageNumber: page, pageSize: 4 }),
 							slug: collectionSlug,

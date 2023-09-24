@@ -44,7 +44,7 @@ const convertSearchParamsToObject = (searchParams: string) => {
 	};
 };
 
-export const handleForwardSearchParams = (href: string, currentSearchParams: string) => {
+export const handleForwardSearchParams = (href: string, currentSearchParams: string = "") => {
 	const hrefSearchParamsObject = convertSearchParamsToObject(getSearchParamsFromHref(href));
 	const currentSearchParamsObject = convertSearchParamsToObject(currentSearchParams);
 
@@ -55,6 +55,5 @@ export const handleForwardSearchParams = (href: string, currentSearchParams: str
 		},
 		{ omitKeysEncode: [BackFormerPageParamName.FROM] },
 	);
-	console.log({ newSearchParams, currentSearchParamsObject, hrefSearchParamsObject });
 	return `${getPathnameFromHref(href)}${newSearchParams}`;
 };
