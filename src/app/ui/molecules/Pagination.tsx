@@ -28,7 +28,7 @@ const getPageNumbers = ({
 	}
 
 	if (willExceedTotal) {
-		return generateRange(totalPages - totalButtonsCount + 1, totalPages);
+		return generateRange(Math.max(totalPages - totalButtonsCount + 1, 1), totalPages);
 	}
 	return generateRange(page - sideButtonsCount, page + sideButtonsCount);
 };
@@ -44,7 +44,6 @@ export const Pagination = ({ page, totalPages, route, searchParamsPagination }: 
 	const getNextPage = (step: number) => Math.min(page + step, totalPages);
 
 	const paginationProps = { route, searchParamsPagination };
-
 	return (
 		<nav className="flex gap-4" aria-label="Pagination">
 			<Suspense>
