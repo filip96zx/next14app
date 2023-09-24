@@ -34,9 +34,11 @@ const getPathnameFromHref = (href: string) => {
 
 const convertSearchParamsToObject = (searchParams: string) => {
 	const searchParamsNames = /(^[\w\d]*=|&[\w\d]*?=)/;
-	const separatedSearchParamsAndNames = searchParams.split(searchParamsNames).slice(1);
 
-	const removeTrailingSpecialChars = (name: string) => name.replace(/^&|=$/, "");
+	const decodedSearchParams = decodeURIComponent(searchParams);
+	const separatedSearchParamsAndNames = decodedSearchParams.split(searchParamsNames).slice(1);
+
+	const removeTrailingSpecialChars = (name: string) => name.replace(/^&|=$/g, "");
 
 	const searchParamsObject = separatedSearchParamsAndNames.reduce(
 		(acc, curr, index) => {
@@ -64,7 +66,7 @@ export function ActiveLink<T extends string>({
 	const searchParams = useSearchParams().toString();
 
 	const paramsFromHref = convertSearchParamsToObject(getSearchParamsFromHref(href));
-	const currentParams = convertSearchParamsToObject(decodeURIComponent(searchParams.toString()));
+	const currentParams = convertSearchParamsToObject(searchParams);
 
 	const isActive = exact ? currentPath + searchParams === href : currentPath.startsWith(href);
 
