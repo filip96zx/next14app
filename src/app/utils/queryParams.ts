@@ -19,7 +19,7 @@ export const createQueryParams = (
 				: "";
 		})
 		.join("&");
-	return `?${queryParams}`;
+	return queryParams ? `?${queryParams}` : "";
 };
 
 export const goBackPath = "from";
