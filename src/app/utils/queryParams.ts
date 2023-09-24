@@ -1,6 +1,8 @@
+import { BackFormerPageParamName } from "@/app/models";
+
 export const createQueryParams = (
 	params: Record<string, string | number | boolean | undefined>,
-	options?: { omitKeysEncode?: string[] },
+	options: { omitKeysEncode?: string[] } = { omitKeysEncode: [BackFormerPageParamName.FROM] },
 ) => {
 	const queryParams = Object.entries(params)
 		.map((entry) => {
