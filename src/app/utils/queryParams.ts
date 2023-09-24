@@ -1,5 +1,6 @@
 export const createQueryParams = (
 	params: Record<string, string | number | boolean | undefined>,
+	options?: { omitKeysEncode?: string[] },
 ) => {
 	const queryParams = Object.entries(params)
 		.map((entry) => {
@@ -14,7 +15,9 @@ export const createQueryParams = (
 							}
 							return true;
 						})
-						.map(encodeURIComponent)
+						.map((value) =>
+							options?.omitKeysEncode?.includes(entry[0]) ? value : encodeURIComponent(value),
+						)
 						.join("=")
 				: "";
 		})
