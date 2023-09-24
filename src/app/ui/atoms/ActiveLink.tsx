@@ -6,6 +6,7 @@ import { type Route } from "next";
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 import { createQueryParams } from "@/app/utils";
+import { BackFormerPageParamName } from "@/app/models";
 
 type TProps<T extends string> = {
 	href: Route<T>;
@@ -18,6 +19,13 @@ type TProps<T extends string> = {
 	scroll?: boolean;
 };
 
+const getPathnameFromHref = (href: string) => {
+	const indexOfQueryParamsStart = href.indexOf("?");
+	if (indexOfQueryParamsStart === -1) return href;
+	const pathname = href.slice(0, indexOfQueryParamsStart);
+	return pathname;
+};
+
 const getSearchParamsFromHref = (href: string) => {
 	const indexOfQueryParamsStart = href.indexOf("?");
 	if (indexOfQueryParamsStart === -1) return "";
@@ -25,11 +33,13 @@ const getSearchParamsFromHref = (href: string) => {
 	return searchParams;
 };
 
-const getPathnameFromHref = (href: string) => {
-	const indexOfQueryParamsStart = href.indexOf("?");
-	if (indexOfQueryParamsStart === -1) return href;
-	const pathname = href.slice(0, indexOfQueryParamsStart);
-	return pathname;
+const recursiveDecode = (searchParams: string): string => {
+	const decodedSearchParams = decodeURIComponent(searchParams);
+	const newSearch = getSearchParamsFromHref(decodedSearchParams);
+
+	if (!newSearch) return decodedSearchParams;
+
+	return `${getPathnameFromHref(searchParams)}?${recursiveDecode(newSearch)}`;
 };
 
 const convertSearchParamsToObject = (searchParams: string) => {
@@ -43,13 +53,21 @@ const convertSearchParamsToObject = (searchParams: string) => {
 	const searchParamsObject = separatedSearchParamsAndNames.reduce(
 		(acc, curr, index) => {
 			if (index % 2 === 0) {
-				acc[removeTrailingSpecialChars(curr)] = separatedSearchParamsAndNames[index + 1];
+				acc[removeTrailingSpecialChars(curr)] = decodeURIComponent(
+					separatedSearchParamsAndNames[index + 1] as string,
+				);
 			}
 			return acc;
 		},
 		{} as Record<string, string | undefined>,
 	);
-	return searchParamsObject;
+	if (!searchParamsObject.from || typeof searchParamsObject.from !== "string") {
+		return searchParamsObject;
+	}
+	return {
+		...searchParamsObject,
+		from: recursiveDecode(searchParamsObject.from),
+	};
 };
 
 export function ActiveLink<T extends string>({
@@ -75,7 +93,10 @@ export function ActiveLink<T extends string>({
 			href={
 				keepSearchParams
 					? ((getPathnameFromHref(href) +
-							createQueryParams({ ...currentParams, ...paramsFromHref })) as Route<T>)
+							createQueryParams(
+								{ ...currentParams, ...paramsFromHref },
+								{ omitKeysEncode: [BackFormerPageParamName.FROM] },
+							)) as Route<T>)
 					: href
 			}
 			className={clsx(className, (isActive || forceActive) && activeClassName)}
