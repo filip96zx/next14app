@@ -10778,7 +10778,7 @@ export type ProductGetByIdQueryVariables = Exact<{
 }>;
 
 
-export type ProductGetByIdQuery = { product?: { id: string, name: string, price: number, description: string, images: Array<{ url: string, width?: number | null, height?: number | null }>, categories: Array<{ name: string }> } | null };
+export type ProductGetByIdQuery = { product?: { id: string, name: string, price: number, description: string, collections: Array<{ slug: string }>, images: Array<{ url: string, width?: number | null, height?: number | null }>, categories: Array<{ name: string }> } | null };
 
 export type ProductGetByQueryQueryVariables = Exact<{
   query: Scalars['String']['input'];
@@ -10803,7 +10803,7 @@ export type ProductBaseFragment = { id: string, name: string, price: number, des
 
 export type ProductListItemFragment = { id: string, name: string, price: number, description: string, images: Array<{ url: string, width?: number | null, height?: number | null }>, categories: Array<{ name: string }> };
 
-export type ProductDetailsFragment = { id: string, name: string, price: number, description: string, images: Array<{ url: string, width?: number | null, height?: number | null }>, categories: Array<{ name: string }> };
+export type ProductDetailsFragment = { id: string, name: string, price: number, description: string, collections: Array<{ slug: string }>, images: Array<{ url: string, width?: number | null, height?: number | null }>, categories: Array<{ name: string }> };
 
 export class TypedDocumentString<TResult, TVariables>
   extends String
@@ -10863,6 +10863,9 @@ export const ProductListItemFragmentDoc = new TypedDocumentString(`
 export const ProductDetailsFragmentDoc = new TypedDocumentString(`
     fragment ProductDetails on Product {
   ...ProductBase
+  collections(first: 1) {
+    slug
+  }
   images(first: 3) {
     url
     width
@@ -10978,6 +10981,9 @@ export const ProductGetByIdDocument = new TypedDocumentString(`
 }
 fragment ProductDetails on Product {
   ...ProductBase
+  collections(first: 1) {
+    slug
+  }
   images(first: 3) {
     url
     width
