@@ -17,7 +17,7 @@ export const CollectionListItem = ({
 		<li>
 			<Link
 				href={`/collection/${slug}${createQueryParams({
-					[BackFormerPageParamName.FROM_COLLECTION]: goBackParams,
+					[BackFormerPageParamName.FROM]: goBackParams,
 				})}`}
 			>
 				<h3 className="text-sm font-semibold text-gray-700">{name}</h3>

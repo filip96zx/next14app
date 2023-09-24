@@ -23,3 +23,18 @@ export const createQueryParams = (
 };
 
 export const goBackPath = "from";
+
+export const createPaginationParams = ({
+	params,
+	searchParamsPagination,
+}: {
+	params: {
+		page: number;
+	} & Parameters<typeof createQueryParams>[0];
+	searchParamsPagination?: boolean;
+}) => {
+	const { page, ...restParams } = params;
+	return searchParamsPagination
+		? createQueryParams(params)
+		: `/${page}${createQueryParams(restParams)}`;
+};

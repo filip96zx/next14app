@@ -36,25 +36,28 @@ const getPageNumbers = ({
 const bigStep = 5;
 const smallStep = 1;
 
-type TProps = { page: number; totalPages: number; route: Route };
+type TProps = { page: number; totalPages: number; route: Route; searchParamsPagination?: boolean };
 
-export const Pagination = ({ page, totalPages, route }: TProps) => {
+export const Pagination = ({ page, totalPages, route, searchParamsPagination }: TProps) => {
 	const getButtonNumbers = getPageNumbers({ page, totalPages, sideButtonsCount: 2 });
 	const getPreviousPage = (step: number) => Math.max(page - step, 1);
 	const getNextPage = (step: number) => Math.min(page + step, totalPages);
+
+	const paginationProps = { route, searchParamsPagination };
+
 	return (
 		<nav className="flex gap-4" aria-label="Pagination">
 			<Suspense>
 				{page > 1 && (
 					<>
 						<PaginationElement
-							route={route}
+							{...paginationProps}
 							page={getPreviousPage(bigStep)}
 							label="<<"
 							activeDisabled
 						/>
 						<PaginationElement
-							route={route}
+							{...paginationProps}
 							page={getPreviousPage(smallStep)}
 							label="<"
 							activeDisabled
@@ -62,18 +65,24 @@ export const Pagination = ({ page, totalPages, route }: TProps) => {
 					</>
 				)}
 				{getButtonNumbers.map((pageNumber) => (
-					<PaginationElement key={pageNumber} route={route} page={pageNumber} label={pageNumber} />
+					<PaginationElement
+						{...paginationProps}
+						key={pageNumber}
+						page={pageNumber}
+						label={pageNumber}
+						isActive={page === pageNumber}
+					/>
 				))}
 				{page < totalPages && (
 					<>
 						<PaginationElement
-							route={route}
+							{...paginationProps}
 							page={getNextPage(smallStep)}
 							label=">"
 							activeDisabled
 						/>
 						<PaginationElement
-							route={route}
+							{...paginationProps}
 							page={getNextPage(bigStep)}
 							label=">>"
 							activeDisabled
@@ -82,7 +91,7 @@ export const Pagination = ({ page, totalPages, route }: TProps) => {
 				)}
 			</Suspense>
 			<div className="flex items-center gap-2">
-				<PaginationInput route={route} totalPages={totalPages} currentPage={page} />
+				<PaginationInput {...paginationProps} totalPages={totalPages} currentPage={page} />
 				<span> of {totalPages}</span>
 			</div>
 		</nav>
