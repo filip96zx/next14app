@@ -30,9 +30,12 @@ export const getPaginationParams = ({
 	pageNumber,
 	pageSize = LIST_PAGE_SIZE,
 }: {
-	pageNumber: string;
+	pageNumber: string | number;
 	pageSize?: number;
-}) => ({ skip: (parseInt(pageNumber) - 1) * pageSize, first: pageSize });
+}) => {
+	const page = typeof pageNumber === "string" ? parseInt(pageNumber) : pageNumber;
+	return { skip: (page - 1) * pageSize, first: pageSize };
+};
 
 export async function PaginatedList<TParams extends { skip: number; first: number }, TResult>({
 	params,
