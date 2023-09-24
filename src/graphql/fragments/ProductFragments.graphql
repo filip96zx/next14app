@@ -19,6 +19,9 @@ fragment ProductListItem on Product {
 
 fragment ProductDetails on Product {
 	...ProductBase
+	collections(first: 1) {
+		slug
+	}
 	images(first: 3) {
 		url
 		width
