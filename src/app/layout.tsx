@@ -15,9 +15,9 @@ export const metadata: Metadata = {
 
 const navLinks = [
 	{ href: "/", label: "Home", exact: true },
-	{ href: "/products/1", label: "All" },
-	{ href: "/categories/t-shirts/1", label: "T-Shirts" },
-	{ href: "/collections/1", label: "Collections" },
+	{ href: "/products", label: "All" },
+	{ href: "/categories/t-shirts", label: "T-Shirts" },
+	{ href: "/collections", label: "Collections" },
 ] as const;
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

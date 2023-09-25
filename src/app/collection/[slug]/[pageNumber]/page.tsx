@@ -25,12 +25,12 @@ export const generateMetadata = async ({
 
 type TProps = {
 	params: { pageNumber: string; slug: string };
-	searchParams: { [BackFormerPageParamName.FROM_COLLECTION]: string };
+	searchParams: { [BackFormerPageParamName.FROM]: string };
 };
 
 export default async function CollectionProductPage({
 	params: { pageNumber, slug },
-	searchParams: { [BackFormerPageParamName.FROM_COLLECTION]: from },
+	searchParams: { [BackFormerPageParamName.FROM]: from },
 }: TProps) {
 	const queryParams = {
 		slug,
@@ -53,7 +53,7 @@ export default async function CollectionProductPage({
 				params={queryParams}
 				route={`/collection/${slug}` as Route}
 				goBackParams={`/collection/${slug}/${pageNumber}${createQueryParams({
-					[BackFormerPageParamName.FROM_COLLECTION]: from,
+					[BackFormerPageParamName.FROM]: from,
 				})}`}
 			/>
 		</div>

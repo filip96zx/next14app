@@ -1,5 +1,8 @@
+import { BackFormerPageParamName } from "@/app/models";
+
 export const createQueryParams = (
 	params: Record<string, string | number | boolean | undefined>,
+	options: { omitKeysEncode?: string[] } = { omitKeysEncode: [BackFormerPageParamName.FROM] },
 ) => {
 	const queryParams = Object.entries(params)
 		.map((entry) => {
@@ -14,12 +17,29 @@ export const createQueryParams = (
 							}
 							return true;
 						})
-						.map(encodeURIComponent)
+						.map((value) =>
+							options?.omitKeysEncode?.includes(entry[0]) ? value : encodeURIComponent(value),
+						)
 						.join("=")
 				: "";
 		})
 		.join("&");
-	return `?${queryParams}`;
+	return queryParams ? `?${queryParams}` : "";
 };
 
 export const goBackPath = "from";
+
+export const createPaginationParams = ({
+	params,
+	searchParamsPagination,
+}: {
+	params: {
+		page: number;
+	} & Parameters<typeof createQueryParams>[0];
+	searchParamsPagination?: boolean;
+}) => {
+	const { page, ...restParams } = params;
+	return searchParamsPagination
+		? createQueryParams(params)
+		: `/${page}${createQueryParams(restParams)}`;
+};

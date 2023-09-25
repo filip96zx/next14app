@@ -24,15 +24,19 @@ export type TPaginatedListProps<TParams, TResult> = {
 	route: Route;
 	goBackParams: string | number;
 	renderList: (params: ListResponse & { goBackParams: string | number }) => React.ReactNode;
+	searchParamsPagination?: boolean;
 };
 
 export const getPaginationParams = ({
 	pageNumber,
 	pageSize = LIST_PAGE_SIZE,
 }: {
-	pageNumber: string;
+	pageNumber: string | number;
 	pageSize?: number;
-}) => ({ skip: (parseInt(pageNumber) - 1) * pageSize, first: pageSize });
+}) => {
+	const page = typeof pageNumber === "string" ? parseInt(pageNumber) : pageNumber;
+	return { skip: (page - 1) * pageSize, first: pageSize };
+};
 
 export async function PaginatedList<TParams extends { skip: number; first: number }, TResult>({
 	params,
@@ -40,6 +44,7 @@ export async function PaginatedList<TParams extends { skip: number; first: numbe
 	getListQuery,
 	goBackParams,
 	renderList,
+	searchParamsPagination,
 }: TPaginatedListProps<TParams, TResult>) {
 	const pageIndex = params.skip / params.first;
 	const isPageNumberValid = !isNaN(params.first) && pageIndex >= 0;
@@ -61,7 +66,12 @@ export async function PaginatedList<TParams extends { skip: number; first: numbe
 		<div>
 			{renderList({ content, goBackParams: goBackParams || pageNumber, totalElements })}
 			<div className="my-4 flex justify-center">
-				<Pagination page={pageNumber} totalPages={totalPages} route={route} />
+				<Pagination
+					page={pageNumber}
+					totalPages={totalPages}
+					route={route}
+					searchParamsPagination={searchParamsPagination}
+				/>
 			</div>
 		</div>
 	);
