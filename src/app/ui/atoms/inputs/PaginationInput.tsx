@@ -40,11 +40,7 @@ export const PaginationInput = ({
 		},
 		[route, router, searchParams, searchParamsPagination],
 	);
-	console.log({
-		keepFocusOnRouteChange,
-		sda: searchParams.get(focusInputParam),
-		searchParams: searchParams.toString(),
-	});
+
 	return (
 		<Input
 			aria-label="Page search input"
