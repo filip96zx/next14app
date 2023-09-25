@@ -66,6 +66,7 @@ export default async function ProductPage({ params, searchParams }: IProps) {
 						params={{
 							...getPaginationParams({ pageNumber: page, pageSize: 4 }),
 							slug: collectionSlug,
+							excludedIds: [params.productId],
 						}}
 						goBackParams={`/product/${params.productId}${createQueryParams({
 							from,

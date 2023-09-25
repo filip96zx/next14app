@@ -10768,6 +10768,7 @@ export type ProductsGetByCollectionSlugQueryVariables = Exact<{
   first: Scalars['Int']['input'];
   skip: Scalars['Int']['input'];
   slug: Scalars['String']['input'];
+  excludedIds?: InputMaybe<Array<Scalars['ID']['input']> | Scalars['ID']['input']>;
 }>;
 
 
@@ -10934,8 +10935,12 @@ fragment ProductListItem on Product {
   }
 }`) as unknown as TypedDocumentString<ProductsGetByCategorySlugQuery, ProductsGetByCategorySlugQueryVariables>;
 export const ProductsGetByCollectionSlugDocument = new TypedDocumentString(`
-    query ProductsGetByCollectionSlug($first: Int!, $skip: Int!, $slug: String!) {
-  products(first: $first, skip: $skip, where: {collections_some: {slug: $slug}}) {
+    query ProductsGetByCollectionSlug($first: Int!, $skip: Int!, $slug: String!, $excludedIds: [ID!]) {
+  products(
+    first: $first
+    skip: $skip
+    where: {collections_some: {slug: $slug}, AND: {id_not_in: $excludedIds}}
+  ) {
     ...ProductListItem
   }
   collections(where: {slug: $slug}) {
