@@ -16,14 +16,12 @@ export const ProductListItem = ({ product, goBackParams }: TProps) => {
 		<li>
 			<Link href={`/product/${product.id}${createQueryParams({ from: goBackParams })}`}>
 				<article>
-					{image && (
-						<ListItemImage
-							src={image.url}
-							width={image.width || undefined}
-							height={image.height || undefined}
-							alt={product.name}
-						/>
-					)}
+					<ListItemImage
+						src={image?.url}
+						width={image?.width}
+						height={image?.height }
+						alt={product.name}
+					/>
 					<ProductListItemDescription product={product} />
 				</article>
 			</Link>
