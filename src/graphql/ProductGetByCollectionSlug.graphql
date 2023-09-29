@@ -2,7 +2,7 @@ query ProductsGetByCollectionSlug($first: Int!, $skip: Int!, $slug: String!, $ex
 	products(
 		first: $first
 		skip: $skip
-		where: { collections_some: { slug: $slug }, AND: { id_not_in: $excludedIds } }
+		where: { collections_some: { slug: $slug }, excludedIds: $excludedIds }
 	) {
 		...ProductListItem
 	}

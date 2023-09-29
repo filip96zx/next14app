@@ -2,7 +2,7 @@ fragment CollectionListItem on Collection {
 	name
 	slug
 	description
-	image {
+	images(first: 1) {
 		url
 		width
 		height

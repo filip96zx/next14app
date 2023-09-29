@@ -11,8 +11,9 @@ type TProps = {
 
 export const CollectionListItem = ({
 	goBackParams,
-	collection: { image, name, slug, description },
+	collection: { images, name, slug, description },
 }: TProps) => {
+	const image = images && images[0];
 	return (
 		<li>
 			<Link
@@ -22,12 +23,7 @@ export const CollectionListItem = ({
 			>
 				<h3 className="text-sm font-semibold text-gray-700">{name}</h3>
 				<article>
-					<ListItemImage
-						alt={name}
-						src={image.url}
-						width={image.width || undefined}
-						height={image.height || undefined}
-					/>
+					<ListItemImage alt={name} src={image?.url} width={image?.width} height={image?.height} />
 				</article>
 			</Link>
 			<p className="text-sm font-semibold text-gray-800">{description}</p>
