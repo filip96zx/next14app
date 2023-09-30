@@ -46,9 +46,9 @@ export type CategoryWhereInput = {
 export type Collection = {
   description: Scalars['String']['output'];
   id: Scalars['ID']['output'];
-  images?: Maybe<Array<Maybe<Image>>>;
+  images: Array<Image>;
   name: Scalars['String']['output'];
-  products?: Maybe<Array<Maybe<Product>>>;
+  products: Array<Maybe<Product>>;
   slug: Scalars['String']['output'];
 };
 
@@ -73,7 +73,7 @@ export type CollectionWhereInput = {
 };
 
 export type Connection = {
-  aggregate?: Maybe<Aggregate>;
+  aggregate: Aggregate;
 };
 
 export type Image = {
@@ -81,6 +81,64 @@ export type Image = {
   url: Scalars['String']['output'];
   width: Scalars['Int']['output'];
 };
+
+export type Mutation = {
+  cartCreate?: Maybe<Order>;
+  cartIncrement?: Maybe<Order>;
+  cartUpdate?: Maybe<Order>;
+};
+
+
+export type MutationCartCreateArgs = {
+  items: Array<OrderProductInput>;
+};
+
+
+export type MutationCartIncrementArgs = {
+  id: Scalars['ID']['input'];
+  items: Array<OrderProductInput>;
+};
+
+
+export type MutationCartUpdateArgs = {
+  id: Scalars['ID']['input'];
+  items: Array<OrderProductInput>;
+};
+
+export type Order = {
+  createdAt?: Maybe<Scalars['DateTime']['output']>;
+  id: Scalars['ID']['output'];
+  items: Array<OrderItem>;
+  status: OrderStatus;
+  updatedAt?: Maybe<Scalars['DateTime']['output']>;
+};
+
+
+export type OrderItemsArgs = {
+  first?: InputMaybe<Scalars['Int']['input']>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+};
+
+export type OrderItem = {
+  id: Scalars['ID']['output'];
+  name: Scalars['String']['output'];
+  price: Scalars['Int']['output'];
+  productId: Scalars['ID']['output'];
+  quantity: Scalars['Int']['output'];
+  variantId: Scalars['ID']['output'];
+};
+
+export type OrderProductInput = {
+  productId: Scalars['ID']['input'];
+  quantity: Scalars['Int']['input'];
+  variantId: Scalars['ID']['input'];
+};
+
+export enum OrderStatus {
+  Draft = 'DRAFT',
+  Paid = 'PAID',
+  Pending = 'PENDING'
+}
 
 export type Product = {
   categories: Array<Maybe<Category>>;
@@ -91,6 +149,7 @@ export type Product = {
   name: Scalars['String']['output'];
   price: Scalars['Int']['output'];
   slug: Scalars['String']['output'];
+  variants: Array<Variant>;
 };
 
 
@@ -119,6 +178,7 @@ export type ProductWhereInput = {
 };
 
 export type Query = {
+  cart?: Maybe<Order>;
   categories: Array<Category>;
   categoriesConnection: Connection;
   category?: Maybe<Category>;
@@ -127,6 +187,11 @@ export type Query = {
   product?: Maybe<Product>;
   products: Array<Product>;
   productsConnection: Connection;
+};
+
+
+export type QueryCartArgs = {
+  id: Scalars['ID']['input'];
 };
 
 
@@ -175,13 +240,19 @@ export type QueryProductsConnectionArgs = {
   where?: InputMaybe<ProductWhereInput>;
 };
 
+export type Variant = {
+  id: Scalars['ID']['output'];
+  name: Scalars['String']['output'];
+  value: Scalars['String']['output'];
+};
+
 export type CollectionGetListQueryVariables = Exact<{
   first: Scalars['Int']['input'];
   skip: Scalars['Int']['input'];
 }>;
 
 
-export type CollectionGetListQuery = { collections: Array<{ name: string, slug: string, description: string, images?: Array<{ url: string, width: number, height: number } | null> | null } | null>, collectionsConnection: { aggregate?: { count: number } | null } };
+export type CollectionGetListQuery = { collections: Array<{ name: string, slug: string, description: string, images: Array<{ url: string, width: number, height: number }> } | null>, collectionsConnection: { aggregate: { count: number } } };
 
 export type ProductsGetByCategorySlugQueryVariables = Exact<{
   first: Scalars['Int']['input'];
@@ -190,7 +261,7 @@ export type ProductsGetByCategorySlugQueryVariables = Exact<{
 }>;
 
 
-export type ProductsGetByCategorySlugQuery = { products: Array<{ id: string, name: string, price: number, description: string, images: Array<{ url: string, width: number, height: number } | null>, categories: Array<{ name?: string | null } | null> }>, categories: Array<{ name?: string | null }>, productsConnection: { aggregate?: { count: number } | null } };
+export type ProductsGetByCategorySlugQuery = { products: Array<{ id: string, name: string, price: number, description: string, images: Array<{ url: string, width: number, height: number } | null>, categories: Array<{ name?: string | null } | null> }>, categories: Array<{ name?: string | null }>, productsConnection: { aggregate: { count: number } } };
 
 export type ProductsGetByCollectionSlugQueryVariables = Exact<{
   first: Scalars['Int']['input'];
@@ -200,14 +271,14 @@ export type ProductsGetByCollectionSlugQueryVariables = Exact<{
 }>;
 
 
-export type ProductsGetByCollectionSlugQuery = { products: Array<{ id: string, name: string, price: number, description: string, images: Array<{ url: string, width: number, height: number } | null>, categories: Array<{ name?: string | null } | null> }>, collections: Array<{ name: string } | null>, productsConnection: { aggregate?: { count: number } | null } };
+export type ProductsGetByCollectionSlugQuery = { products: Array<{ id: string, name: string, price: number, description: string, images: Array<{ url: string, width: number, height: number } | null>, categories: Array<{ name?: string | null } | null> }>, collections: Array<{ name: string } | null>, productsConnection: { aggregate: { count: number } } };
 
 export type ProductGetByIdQueryVariables = Exact<{
   id: Scalars['ID']['input'];
 }>;
 
 
-export type ProductGetByIdQuery = { product?: { id: string, name: string, price: number, description: string, collections: Array<{ slug: string } | null>, images: Array<{ url: string, width: number, height: number } | null>, categories: Array<{ name?: string | null } | null> } | null };
+export type ProductGetByIdQuery = { product?: { id: string, name: string, price: number, description: string, collections: Array<{ slug: string } | null>, images: Array<{ url: string, width: number, height: number } | null>, variants: Array<{ id: string, name: string }>, categories: Array<{ name?: string | null } | null> } | null };
 
 export type ProductGetByQueryQueryVariables = Exact<{
   query: Scalars['String']['input'];
@@ -216,7 +287,7 @@ export type ProductGetByQueryQueryVariables = Exact<{
 }>;
 
 
-export type ProductGetByQueryQuery = { products: Array<{ id: string, name: string, price: number, description: string, images: Array<{ url: string, width: number, height: number } | null>, categories: Array<{ name?: string | null } | null> }>, productsConnection: { aggregate?: { count: number } | null } };
+export type ProductGetByQueryQuery = { products: Array<{ id: string, name: string, price: number, description: string, images: Array<{ url: string, width: number, height: number } | null>, categories: Array<{ name?: string | null } | null> }>, productsConnection: { aggregate: { count: number } } };
 
 export type ProductsGetListQueryVariables = Exact<{
   first: Scalars['Int']['input'];
@@ -224,15 +295,15 @@ export type ProductsGetListQueryVariables = Exact<{
 }>;
 
 
-export type ProductsGetListQuery = { products: Array<{ id: string, name: string, price: number, description: string, images: Array<{ url: string, width: number, height: number } | null>, categories: Array<{ name?: string | null } | null> }>, productsConnection: { aggregate?: { count: number } | null } };
+export type ProductsGetListQuery = { products: Array<{ id: string, name: string, price: number, description: string, images: Array<{ url: string, width: number, height: number } | null>, categories: Array<{ name?: string | null } | null> }>, productsConnection: { aggregate: { count: number } } };
 
-export type CollectionListItemFragment = { name: string, slug: string, description: string, images?: Array<{ url: string, width: number, height: number } | null> | null };
+export type CollectionListItemFragment = { name: string, slug: string, description: string, images: Array<{ url: string, width: number, height: number }> };
 
 export type ProductBaseFragment = { id: string, name: string, price: number, description: string, categories: Array<{ name?: string | null } | null> };
 
 export type ProductListItemFragment = { id: string, name: string, price: number, description: string, images: Array<{ url: string, width: number, height: number } | null>, categories: Array<{ name?: string | null } | null> };
 
-export type ProductDetailsFragment = { id: string, name: string, price: number, description: string, collections: Array<{ slug: string } | null>, images: Array<{ url: string, width: number, height: number } | null>, categories: Array<{ name?: string | null } | null> };
+export type ProductDetailsFragment = { id: string, name: string, price: number, description: string, collections: Array<{ slug: string } | null>, images: Array<{ url: string, width: number, height: number } | null>, variants: Array<{ id: string, name: string }>, categories: Array<{ name?: string | null } | null> };
 
 export class TypedDocumentString<TResult, TVariables>
   extends String
@@ -299,6 +370,10 @@ export const ProductDetailsFragmentDoc = new TypedDocumentString(`
     url
     width
     height
+  }
+  variants {
+    id
+    name
   }
 }
     fragment ProductBase on Product {
@@ -374,7 +449,9 @@ export const ProductsGetByCollectionSlugDocument = new TypedDocumentString(`
   collections(where: {slug: $slug}) {
     name
   }
-  productsConnection(where: {collections_some: {slug: $slug}}) {
+  productsConnection(
+    where: {collections_some: {slug: $slug}, excludedIds: $excludedIds}
+  ) {
     aggregate {
       count
     }
@@ -421,6 +498,10 @@ fragment ProductDetails on Product {
     url
     width
     height
+  }
+  variants {
+    id
+    name
   }
 }`) as unknown as TypedDocumentString<ProductGetByIdQuery, ProductGetByIdQueryVariables>;
 export const ProductGetByQueryDocument = new TypedDocumentString(`

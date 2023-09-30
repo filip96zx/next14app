@@ -9,7 +9,7 @@ query ProductsGetByCollectionSlug($first: Int!, $skip: Int!, $slug: String!, $ex
 	collections(where: { slug: $slug }) {
 		name
 	}
-	productsConnection(where: { collections_some: { slug: $slug } }) {
+	productsConnection(where: { collections_some: { slug: $slug }, excludedIds: $excludedIds }) {
 		aggregate {
 			count
 		}

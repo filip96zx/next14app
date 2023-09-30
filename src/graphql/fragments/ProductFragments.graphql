@@ -27,4 +27,8 @@ fragment ProductDetails on Product {
 		width
 		height
 	}
+	variants {
+		id
+		name
+	}
 }

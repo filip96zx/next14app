@@ -7,6 +7,7 @@ import { createQueryParams, getMetadataTitle } from "@/app/utils";
 import { PaginatedProductList, getPaginationParams } from "@/app/ui/organisms/list";
 import { BackFormerPageParamName } from "@/app/models";
 import { ActiveLink } from "@/app/ui/atoms/ActiveLink";
+import { Select } from "@/app/ui/atoms/inputs";
 
 export const generateMetadata = async ({ params }: { params: { productId: string } }) => {
 	const product = await getProductById(params.productId);
@@ -57,6 +58,7 @@ export default async function ProductPage({ params, searchParams }: IProps) {
 			<h1 className="text-center text-2xl font-bold text-gray-800">{product.name}</h1>
 			<div className="max-w-md">
 				<ProductCard product={product} />
+				<Select options={product.variants.map((v) => ({ name: v.name, value: v.id }))} />
 			</div>
 			<p className="text-center text-gray-500">{product.description}</p>
 			{collectionSlug && (
