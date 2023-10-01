@@ -1,0 +1,5 @@
+mutation CartUpdate($id: ID!, $items: [OrderProductInput!]!) {
+	orderItemsUpdate(id: $id, items: $items, updateMethod: SET) {
+		...CartDetails
+	}
+}

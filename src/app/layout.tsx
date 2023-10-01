@@ -2,6 +2,7 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { Suspense } from "react";
+import Link from "next/link";
 import { ActiveLink } from "@/app/ui/atoms/ActiveLink";
 import { SearchInput } from "@/app/ui/atoms/inputs";
 import { getMetadataTitle } from "@/app/utils";
@@ -39,6 +40,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 						</Suspense>
 					</nav>
 					<SearchInput />
+					<Link href="/cart">Cart</Link>
 				</div>
 				<section className="mx-auto max-w-md p-12 sm:max-w-2xl sm:py-16 md:max-w-4xl lg:max-w-7xl">
 					{children}

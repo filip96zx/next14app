@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import { type Route } from "next";
+import { cookies } from "next/headers";
 import { Suspense } from "react";
 import { getProductById, getProductsByCollectionSlug } from "@/app/api";
 import { ProductCard } from "@/app/ui/molecules/ProductCard";
@@ -7,7 +8,8 @@ import { createQueryParams, getMetadataTitle } from "@/app/utils";
 import { PaginatedProductList, getPaginationParams } from "@/app/ui/organisms/list";
 import { BackFormerPageParamName } from "@/app/models";
 import { ActiveLink } from "@/app/ui/atoms/ActiveLink";
-import { Select } from "@/app/ui/atoms/inputs";
+import { Input, Select } from "@/app/ui/atoms/inputs";
+import { updateOrCreateCartWithItems } from "@/app/services/cart";
 
 export const generateMetadata = async ({ params }: { params: { productId: string } }) => {
 	const product = await getProductById(params.productId);
@@ -41,9 +43,29 @@ export default async function ProductPage({ params, searchParams }: IProps) {
 	const product = await getProductById(params.productId);
 
 	if (!product) {
-		return notFound();
+		throw notFound();
 	}
 	const collectionSlug = product.collections[0]?.slug;
+
+	type FromData = {
+		productId: string;
+		variantId: string;
+		quantity: string;
+	};
+
+	async function addToCartAction(formData: Map<keyof FromData, string>) {
+		"use server";
+
+		const cart = await updateOrCreateCartWithItems([
+			{
+				productId: product!.id,
+				quantity: parseInt(formData.get("quantity")!),
+				variantId: formData.get("variantId")!,
+			},
+		]);
+		cookies().set("cartId", cart.id, { httpOnly: true, sameSite: "lax" });
+	}
+
 	return (
 		<div className="flex flex-col  items-center justify-center gap-5">
 			<div>
@@ -58,7 +80,22 @@ export default async function ProductPage({ params, searchParams }: IProps) {
 			<h1 className="text-center text-2xl font-bold text-gray-800">{product.name}</h1>
 			<div className="max-w-md">
 				<ProductCard product={product} />
-				<Select options={product.variants.map((v) => ({ name: v.name, value: v.id }))} />
+				<form action={addToCartAction}>
+					<Select
+						name="variantId"
+						options={product.variants.map((v) => ({ name: v.name, value: v.id }))}
+					/>
+					<Input
+						name="quantity"
+						type="number"
+						min={1}
+						defaultValue={1}
+						// oninput="validity.valid||(value='');"
+					/>
+					<button className="rounded-md bg-blue-500 px-4 py-2 text-white shadow-sm">
+						Add to cart
+					</button>
+				</form>
 			</div>
 			<p className="text-center text-gray-500">{product.description}</p>
 			{collectionSlug && (

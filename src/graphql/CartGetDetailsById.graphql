@@ -1,0 +1,5 @@
+query CartGetDetailsById($id: ID!) {
+	order(id: $id, where: { status: DRAFT }) {
+		...CartDetails
+	}
+}
