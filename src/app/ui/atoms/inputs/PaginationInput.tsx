@@ -3,8 +3,13 @@
 import { useCallback } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { type Route } from "next";
-import { Input } from "./shared/Input";
-import { debounce, createPaginationParams, handleForwardSearchParams } from "@/app/utils";
+import { NumberInput } from "./shared/NumberInput";
+import {
+	debounce,
+	createPaginationParams,
+	handleForwardSearchParams,
+	cancelDebounce,
+} from "@/app/utils";
 
 type TProps = {
 	route: Route;
@@ -38,29 +43,26 @@ export const PaginationInput = ({
 				{ scroll: !searchParamsPagination },
 			);
 		},
-		[route, router, searchParams, searchParamsPagination],
+		[route, router, searchParamsPagination],
 	);
 
 	return (
-		<Input
+		<NumberInput
 			aria-label="Page search input"
 			key={searchParams.get("page")}
 			defaultValue={currentPage}
-			max={totalPages}
-			type="number"
 			className="w-16 arrow-hide"
 			autoFocus={keepFocusOnRouteChange}
-			onInput={(e) => {
+			min={1}
+			max={totalPages}
+			onChange={(e) => {
 				const target = e.target as HTMLInputElement;
 				const valueToNumber = parseInt(target.value);
-				const valueRangeFixed = Math.max(1, Math.min(valueToNumber, totalPages));
-
 				if (isNaN(valueToNumber)) {
-					target.value = "";
+					cancelDebounce(handleOnChange);
 					return;
 				}
-				debounce(handleOnChange)(valueRangeFixed);
-				target.value = valueRangeFixed.toString();
+				debounce(handleOnChange)(valueToNumber);
 			}}
 		/>
 	);

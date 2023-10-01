@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { Suspense } from "react";
 import Link from "next/link";
-import { ActiveLink } from "@/app/ui/atoms/ActiveLink";
+import { ActiveLink } from "@/app/ui/atoms/buttons";
 import { SearchInput } from "@/app/ui/atoms/inputs";
 import { getMetadataTitle } from "@/app/utils";
 

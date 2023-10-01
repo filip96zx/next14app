@@ -1,5 +1,5 @@
 export { parseMoney } from "./parseMoney";
-export { debounce } from "./debounce";
+export { debounce, cancelDebounce } from "./debounce";
 export { createQueryParams, goBackPath, createPaginationParams } from "./queryParams";
 export { handleForwardSearchParams } from "./searchParamsForwarding";
 export const getMetadataTitle = (title?: string) => {

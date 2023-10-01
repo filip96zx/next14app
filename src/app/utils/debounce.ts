@@ -24,3 +24,11 @@ export const debounce = <T extends TDebounceCallback>(
 
 	return debouncedFn;
 };
+
+export const cancelDebounce = <T extends TDebounceCallback>(fn: T) => {
+	const prevTimeout = activeTimeouts.get(fn);
+	if (prevTimeout) {
+		clearTimeout(prevTimeout);
+		activeTimeouts.delete(fn);
+	}
+};

@@ -8,7 +8,7 @@ import { createQueryParams, getMetadataTitle } from "@/app/utils";
 import { PaginatedProductList, getPaginationParams } from "@/app/ui/organisms/list";
 import { BackFormerPageParamName } from "@/app/models";
 import { BackButton, Button } from "@/app/ui/atoms/buttons";
-import { Input, Select } from "@/app/ui/atoms/inputs";
+import { Input, NumberInput, Select } from "@/app/ui/atoms/inputs";
 import { updateOrCreateCartWithItems } from "@/app/services/cart";
 
 export const generateMetadata = async ({ params }: { params: { productId: string } }) => {
@@ -81,7 +81,7 @@ export default async function ProductPage({ params, searchParams }: IProps) {
 						name="variantId"
 						options={product.variants.map((v) => ({ name: v.name, value: v.id }))}
 					/>
-					<Input name="quantity" type="number" min={1} defaultValue={1} />
+					<NumberInput name="quantity" min={1} max={100} defaultValue={1} className='w-20'/>
 					<Button variant="primary">Add to cart</Button>
 				</form>
 			</div>
