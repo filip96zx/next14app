@@ -1,15 +1,14 @@
 import { notFound } from "next/navigation";
 import { type Route } from "next";
-import { cookies } from "next/headers";
 import { Suspense } from "react";
 import { getProductById, getProductsByCollectionSlug } from "@/app/api";
 import { ProductCard } from "@/app/ui/molecules/ProductCard";
 import { createQueryParams, getMetadataTitle } from "@/app/utils";
 import { PaginatedProductList, getPaginationParams } from "@/app/ui/organisms/list";
 import { BackFormerPageParamName } from "@/app/models";
-import { BackButton, Button } from "@/app/ui/atoms/buttons";
-import { Input, NumberInput, Select } from "@/app/ui/atoms/inputs";
-import { updateOrCreateCartWithItems } from "@/app/services/cart";
+import { AddToCartButton, BackButton } from "@/app/ui/atoms/buttons";
+import { NumberInput, Select } from "@/app/ui/atoms/inputs";
+import { addToCartServerAction } from "@/app/services/cart";
 
 export const generateMetadata = async ({ params }: { params: { productId: string } }) => {
 	const product = await getProductById(params.productId);
@@ -47,25 +46,6 @@ export default async function ProductPage({ params, searchParams }: IProps) {
 	}
 	const collectionSlug = product.collections[0]?.slug;
 
-	type FromData = {
-		productId: string;
-		variantId: string;
-		quantity: string;
-	};
-
-	async function addToCartAction(formData: unknown) {
-		"use server";
-		const data = formData as Map<keyof FromData, string>;
-		const cart = await updateOrCreateCartWithItems([
-			{
-				productId: product!.id,
-				quantity: parseInt(data.get("quantity")!),
-				variantId: data.get("variantId")!,
-			},
-		]);
-		cookies().set("cartId", cart.id, { httpOnly: true, sameSite: "lax" });
-	}
-
 	return (
 		<div className="flex flex-col  items-center justify-center gap-5">
 			<div>
@@ -76,13 +56,13 @@ export default async function ProductPage({ params, searchParams }: IProps) {
 			<h1 className="text-center text-2xl font-bold text-gray-800">{product.name}</h1>
 			<div className="max-w-md">
 				<ProductCard product={product} />
-				<form action={addToCartAction}>
+				<form action={addToCartServerAction.bind(null, product.id)}>
 					<Select
 						name="variantId"
 						options={product.variants.map((v) => ({ name: v.name, value: v.id }))}
 					/>
-					<NumberInput name="quantity" min={1} max={100} defaultValue={1} className='w-20'/>
-					<Button variant="primary">Add to cart</Button>
+					<NumberInput name="quantity" min={1} max={100} defaultValue={1} className="w-20" />
+					<AddToCartButton />
 				</form>
 			</div>
 			<p className="text-center text-gray-500">{product.description}</p>
