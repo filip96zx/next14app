@@ -5,7 +5,6 @@ fragment Cart on Order {
 fragment CartDetails on Order {
 	...Cart
 	items {
-		id
 		name
 		price
 		quantity
