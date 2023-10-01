@@ -1,10 +1,12 @@
 "use server";
 
+import { revalidateTag } from "next/cache";
 import { cookies } from "next/headers";
 import { getCartIdFromCookies } from "../cart.service";
+import { RevalidateTags } from "@/app/models";
 import { type OrderItemInput } from "@/gql/graphql";
 import { getCartById } from "@/app/api";
-import { addToCart, createCart } from "@/app/api/mutations";
+import { addToCart, createCart, updateOrderItem } from "@/app/api/mutations";
 
 async function addItemsOrCreateCartWithItems(items: Array<OrderItemInput>) {
 	const cartId = getCartIdFromCookies();
@@ -41,4 +43,10 @@ export async function addToCartServerAction(productId: string, formData: unknown
 		},
 	]);
 	cookies().set("cartId", cart.id, { httpOnly: true, sameSite: "lax" });
+}
+
+export async function updateCartItemServerAction(orderItemId: string, quantity: number) {
+	const updatedCart = await updateOrderItem(orderItemId, quantity);
+	revalidateTag(RevalidateTags.CART);
+	return updatedCart;
 }

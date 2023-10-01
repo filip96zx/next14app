@@ -1,2 +1,1 @@
-export { updateCartItemServerAction } from "./updateCartItemServerAction";
-export { addToCartServerAction } from "./addToCartServerAction";
+export { updateCartItemServerAction, addToCartServerAction } from "./cart.server-actions";
