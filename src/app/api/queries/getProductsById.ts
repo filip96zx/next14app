@@ -2,6 +2,6 @@ import { executeGraphql } from "@/app/api/executeGraphql";
 import { ProductGetByIdDocument } from "@/gql/graphql";
 
 export const getProductById = async (id: string) => {
-	const { product } = await executeGraphql(ProductGetByIdDocument, { id });
+	const { product } = await executeGraphql({ query: ProductGetByIdDocument, variables: { id } });
 	return product;
 };

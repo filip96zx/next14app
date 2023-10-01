@@ -3,10 +3,10 @@ import { type ListResponse } from "@/app/models";
 import { CollectionGetListDocument, type CollectionGetListQueryVariables } from "@/gql/graphql";
 
 export const getCollectionList = async (params: CollectionGetListQueryVariables) => {
-	const { collections, collectionsConnection } = await executeGraphql(
-		CollectionGetListDocument,
-		params,
-	);
+	const { collections, collectionsConnection } = await executeGraphql({
+		query: CollectionGetListDocument,
+		variables: params,
+	});
 
 	return {
 		content: collections,
