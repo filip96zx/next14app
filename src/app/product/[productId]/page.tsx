@@ -7,7 +7,7 @@ import { ProductCard } from "@/app/ui/molecules/ProductCard";
 import { createQueryParams, getMetadataTitle } from "@/app/utils";
 import { PaginatedProductList, getPaginationParams } from "@/app/ui/organisms/list";
 import { BackFormerPageParamName } from "@/app/models";
-import { ActiveLink } from "@/app/ui/atoms/ActiveLink";
+import { BackButton, Button } from "@/app/ui/atoms/buttons";
 import { Input, Select } from "@/app/ui/atoms/inputs";
 import { updateOrCreateCartWithItems } from "@/app/services/cart";
 
@@ -53,14 +53,14 @@ export default async function ProductPage({ params, searchParams }: IProps) {
 		quantity: string;
 	};
 
-	async function addToCartAction(formData: Map<keyof FromData, string>) {
+	async function addToCartAction(formData: unknown) {
 		"use server";
-
+		const data = formData as Map<keyof FromData, string>;
 		const cart = await updateOrCreateCartWithItems([
 			{
 				productId: product!.id,
-				quantity: parseInt(formData.get("quantity")!),
-				variantId: formData.get("variantId")!,
+				quantity: parseInt(data.get("quantity")!),
+				variantId: data.get("variantId")!,
 			},
 		]);
 		cookies().set("cartId", cart.id, { httpOnly: true, sameSite: "lax" });
@@ -69,13 +69,9 @@ export default async function ProductPage({ params, searchParams }: IProps) {
 	return (
 		<div className="flex flex-col  items-center justify-center gap-5">
 			<div>
-				<ActiveLink
-					className="text-blue-500"
-					href={(from ? `${from}` : "/products") as Route}
-					keepSearchParams
-				>
-					{from ? "Back" : "All products"}
-				</ActiveLink>
+				<BackButton href={(from ? `${from}` : "/products") as Route} keepSearchParams>
+					{!from && "All products"}
+				</BackButton>
 			</div>
 			<h1 className="text-center text-2xl font-bold text-gray-800">{product.name}</h1>
 			<div className="max-w-md">
@@ -85,16 +81,8 @@ export default async function ProductPage({ params, searchParams }: IProps) {
 						name="variantId"
 						options={product.variants.map((v) => ({ name: v.name, value: v.id }))}
 					/>
-					<Input
-						name="quantity"
-						type="number"
-						min={1}
-						defaultValue={1}
-						// oninput="validity.valid||(value='');"
-					/>
-					<button className="rounded-md bg-blue-500 px-4 py-2 text-white shadow-sm">
-						Add to cart
-					</button>
+					<Input name="quantity" type="number" min={1} defaultValue={1} />
+					<Button variant="primary">Add to cart</Button>
 				</form>
 			</div>
 			<p className="text-center text-gray-500">{product.description}</p>
