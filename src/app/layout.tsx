@@ -18,7 +18,7 @@ const navLinks = [
 	{ href: "/", label: "Home", exact: true },
 	{ href: "/products", label: "All" },
 	{ href: "/categories/t-shirts", label: "T-Shirts" },
-	{ href: "/collections", label: "Collections" },
+	{ href: "/collections", label: "Collections", activeRoutePattern: `^\/collection\/.*` },
 ] as const;
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
