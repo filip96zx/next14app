@@ -1,6 +1,6 @@
 "use client";
 
-import { experimental_useOptimistic, useState } from "react";
+import { experimental_useOptimistic as useOptimistic } from "react";
 import clsx from "clsx";
 import { Button } from "@/app/ui/atoms/buttons";
 import { type OrderItemFragment } from "@/gql/graphql";
@@ -13,14 +13,14 @@ type TProps = {
 const className = "px-3 py-1 rounded-md border border-gray-300 bg-gray-200";
 
 export const ProductQuantityChangeInput = ({ orderItem }: TProps) => {
-	const [quantity, setQuantity] = experimental_useOptimistic(orderItem.quantity);
+	const [quantity, setQuantity] = useOptimistic(orderItem.quantity);
 	const isDecrementDisabled = quantity === 1;
 	return (
 		<div className="flex items-center justify-center space-x-2">
 			<form>
 				<Button
 					type="submit"
-					className={clsx(className, isDecrementDisabled && "opacity-40")}
+					className={clsx(className, isDecrementDisabled && "opacity-30")}
 					disabled={quantity === 1}
 					formAction={async () => {
 						const newQuantity = quantity - 1;
