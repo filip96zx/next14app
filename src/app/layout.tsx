@@ -39,8 +39,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 							</ul>
 						</Suspense>
 					</nav>
-					<SearchInput />
-					<Link href="/cart">Cart</Link>
+					<div>
+						<SearchInput />
+						<Link href="/cart">Cart</Link>
+					</div>
 				</div>
 				<section className="mx-auto max-w-md p-12 sm:max-w-2xl sm:py-16 md:max-w-4xl lg:max-w-7xl">
 					{children}

@@ -1,5 +1,7 @@
 import { redirect } from "next/navigation";
-import { getCartDetailByCookiesCartId } from "@/app/services/cart";
+import { getCartDetailByCookiesCartId } from "@/app/services/cart.service";
+import { ProductQuantityChangeInput } from "@/app/ui/molecules/ProductQuatitiyChangeInput";
+import { parseMoney } from "@/app/utils";
 
 export default async function CartPage() {
 	const cart = await getCartDetailByCookiesCartId();
@@ -11,23 +13,29 @@ export default async function CartPage() {
 		<div>
 			<h1>Cart</h1>
 
-			<table className="table-auto">
+			<table className="table-fixed text-center">
 				<thead>
 					<tr>
 						<th>Product</th>
+						<th>variant</th>
 						<th>Price</th>
 						<th>Quantity</th>
 						<th>Total</th>
+						<th></th>
 					</tr>
 				</thead>
 				<tbody>
-					{cart?.items?.map((lineItem) => {
+					{cart?.items?.map((i) => {
 						return (
-							<tr key={lineItem.id}>
-								<td>{lineItem.name}</td>
-								<td>{lineItem.price}</td>
-								<td>{lineItem.quantity}</td>
-								<td>{lineItem.price * lineItem.quantity}</td>
+							<tr key={i.variantName + i.name}>
+								<td>{i.name}</td>
+								<td>{i.variantName}</td>
+								<td>{parseMoney(i.price)}</td>
+								<td>{i.quantity}</td>
+								<td>{parseMoney(i.price * i.quantity)}</td>
+								<td>
+									<ProductQuantityChangeInput orderItem={i} />
+								</td>
 							</tr>
 						);
 					})}

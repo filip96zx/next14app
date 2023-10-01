@@ -1,4 +1,4 @@
-mutation CartIncrementItems($id: ID!, $items: [OrderProductInput!]!) {
+mutation CartIncrementItems($id: ID!, $items: [OrderItemInput!]!) {
 	orderItemsUpdate(id: $id, items: $items, updateMethod: INCREMENT) {
 		...Cart
 	}

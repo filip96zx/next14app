@@ -5,10 +5,7 @@ fragment Cart on Order {
 fragment CartDetails on Order {
 	...Cart
 	items {
-		name
-		price
-		quantity
-		variantName
+		...OrderItem
 	}
 	totalItems
 }

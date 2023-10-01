@@ -8,7 +8,7 @@ import { PaginatedProductList, getPaginationParams } from "@/app/ui/organisms/li
 import { BackFormerPageParamName } from "@/app/models";
 import { AddToCartButton, BackButton } from "@/app/ui/atoms/buttons";
 import { NumberInput, Select } from "@/app/ui/atoms/inputs";
-import { addToCartServerAction } from "@/app/services/cart";
+import { addToCartServerAction } from "@/app/services/cart.service";
 
 export const generateMetadata = async ({ params }: { params: { productId: string } }) => {
 	const product = await getProductById(params.productId);

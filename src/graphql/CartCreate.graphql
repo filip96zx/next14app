@@ -1,4 +1,4 @@
-mutation CartCreate($items: [OrderProductInput!]!) {
+mutation CartCreate($items: [OrderItemInput!]!) {
 	orderCreate(items: $items) {
 		...Cart
 	}
