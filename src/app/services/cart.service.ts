@@ -2,7 +2,7 @@
 
 import { cookies } from "next/headers";
 import { type OrderItemInput } from "@/gql/graphql";
-import { getCartById, getCartDetailsById } from "@/app/api";
+import { getCartById, getCartDetailsById, getCartTotalItemsById } from "@/app/api";
 import { addToCart, createCart, updateOrderItem } from "@/app/api/mutations";
 
 function getCartIdFromCookies() {
@@ -62,4 +62,16 @@ export async function getCartDetailByCookiesCartId() {
 	}
 	const cart = await getCartDetailsById(cartId);
 	return cart;
+}
+
+export async function getCartTotalItemsByCookiesCartId() {
+	const cartId = getCartIdFromCookies();
+	if (!cartId) {
+		return null;
+	}
+	const cart = await getCartTotalItemsById(cartId);
+	if (!cart) {
+		return null;
+	}
+	return cart.totalItems;
 }

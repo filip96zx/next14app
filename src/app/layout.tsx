@@ -6,6 +6,7 @@ import Link from "next/link";
 import { ActiveLink } from "@/app/ui/atoms/buttons";
 import { SearchInput } from "@/app/ui/atoms/inputs";
 import { getMetadataTitle } from "@/app/utils";
+import { getCartTotalItemsByCookiesCartId } from "@/app/services/cart.service";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,7 +22,8 @@ const navLinks = [
 	{ href: "/collections", label: "Collections", activeRoutePattern: `^\/collection\/.*` },
 ] as const;
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+	const totalItems = await getCartTotalItemsByCookiesCartId();
 	return (
 		<html lang="pl">
 			<body className={inter.className}>
@@ -41,7 +43,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 					</nav>
 					<div>
 						<SearchInput />
-						<Link href="/cart">Cart</Link>
+						<Link href="/cart">
+							Cart{" "}
+							<Suspense>{totalItems}</Suspense>
+						</Link>
 					</div>
 				</div>
 				<section className="mx-auto max-w-md p-12 sm:max-w-2xl sm:py-16 md:max-w-4xl lg:max-w-7xl">
