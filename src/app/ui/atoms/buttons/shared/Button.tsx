@@ -8,6 +8,7 @@ type TProps = {
 	children: React.ReactNode;
 	onClick?: () => void;
 	className?: string;
+	additionalClassName?: string;
 	type?: ButtonHTMLAttributes<HTMLButtonElement>["type"];
 	formAction?: ButtonHTMLAttributes<HTMLButtonElement>["formAction"];
 	disabled?: boolean;
@@ -26,12 +27,17 @@ export const Button = ({
 	type,
 	disabled,
 	formAction,
+	additionalClassName,
 }: TProps) => {
 	return (
 		<button
 			formAction={formAction}
 			type={type}
-			className={clsx(className || buttonVariants[variant], disabled && "opacity-60")}
+			className={clsx(
+				className || buttonVariants[variant],
+				disabled && "opacity-60",
+				additionalClassName,
+			)}
 			onClick={onClick}
 			disabled={disabled}
 		>

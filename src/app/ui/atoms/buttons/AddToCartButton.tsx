@@ -12,7 +12,7 @@ export const AddToCartButton = ({}: TProps) => {
 		<Button
 			type="submit"
 			variant="primary"
-			className={clsx(pending && "cursor-wait")}
+			additionalClassName={clsx(pending && "cursor-wait")}
 			disabled={pending}
 		>
 			Add to cart

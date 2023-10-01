@@ -10,3 +10,7 @@ export enum BackFormerPageParamName {
 	FROM = "from",
 	FROM_COLLECTION = "from-collection",
 }
+
+export enum RevalidateTags {
+	CART = "cart",
+}
