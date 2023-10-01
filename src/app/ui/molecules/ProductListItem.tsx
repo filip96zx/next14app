@@ -3,6 +3,7 @@ import { ListItemImage } from "@/app/ui/atoms/image";
 import { ProductListItemDescription } from "@/app/ui/atoms/ProductListItemDescription";
 import { type ProductListItemFragment } from "@/gql/graphql";
 import { createQueryParams } from "@/app/utils";
+import { BackFormerPageParamName } from "@/app/models";
 
 type TProps = {
 	product: ProductListItemFragment;
@@ -14,12 +15,16 @@ export const ProductListItem = ({ product, goBackParams }: TProps) => {
 
 	return (
 		<li>
-			<Link href={`/product/${product.id}${createQueryParams({ from: goBackParams })}`}>
+			<Link
+				href={`/product/${product.id}${createQueryParams({
+					[BackFormerPageParamName.FROM]: goBackParams,
+				})}`}
+			>
 				<article>
 					<ListItemImage
 						src={image?.url}
 						width={image?.width}
-						height={image?.height }
+						height={image?.height}
 						alt={product.name}
 					/>
 					<ProductListItemDescription product={product} />
