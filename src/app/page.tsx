@@ -9,9 +9,9 @@ export default function Home() {
 			<ListHeader>Collections</ListHeader>
 			<PaginatedCollectionList
 				getListQuery={getCollectionList}
-				params={{ first: 10, skip: 0 }}
+				params={{ first: 4, skip: 0 }}
 				route="/collections"
-				goBackParams={`/collections/1`}
+				goBackParams={`/`}
 			/>
 		</main>
 	);
