@@ -11,7 +11,20 @@ export async function getCartDetailByCookiesCartId() {
 	if (!cartId) {
 		return null;
 	}
-	const cart = await getCartDetailsById(cartId);
+	let cart;
+	try {
+		cart = await getCartDetailsById(cartId);
+	} catch (err: unknown) {
+		if (err instanceof TypeError) {
+			const cartNotFound = Boolean(
+				Array.isArray(err.cause) &&
+					err.cause?.find((c: { message: string }) => c?.message.includes?.("Cart not found")),
+			);
+			if (cartNotFound) {
+				return null;
+			}
+		}
+	}
 	return cart;
 }
 
@@ -20,9 +33,21 @@ export async function getCartTotalItemsByCookiesCartId() {
 	if (!cartId) {
 		return null;
 	}
-	const cart = await getCartTotalItemsById(cartId);
-	if (!cart) {
-		return null;
+	let cart;
+	try {
+		cart = await getCartTotalItemsById(cartId);
+	} catch (err: unknown) {
+		if (err instanceof TypeError) {
+			const cartNotFound = Boolean(
+				Array.isArray(err.cause) &&
+					err.cause?.find((c: { message: string }) => c?.message.includes?.("Cart not found")),
+			);
+			if (cartNotFound) {
+				// cookies().delete("cartId");
+				return null;
+			}
+			return null;
+		}
 	}
-	return cart.totalItems;
+	return cart?.totalItems;
 }
