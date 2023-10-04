@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { Suspense } from "react";
 import Link from "next/link";
-import { ActiveLink } from "@/app/ui/atoms/buttons";
+import { ActiveLink, Button } from "@/app/ui/atoms/buttons";
 import { SearchInput } from "@/app/ui/atoms/inputs";
 import { getMetadataTitle } from "@/app/utils";
 import { getCartTotalItemsByCookiesCartId } from "@/app/services/cart.service";
@@ -44,8 +44,9 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 					<div>
 						<SearchInput />
 						<Link href="/cart">
-							Cart{" "}
-							<Suspense>{totalItems}</Suspense>
+							<Button>
+								Cart <Suspense>{totalItems}</Suspense>
+							</Button>
 						</Link>
 					</div>
 				</div>
