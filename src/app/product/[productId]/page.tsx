@@ -82,6 +82,7 @@ export default async function ProductPage({ params, searchParams }: IProps) {
 						})}`}
 						route={`/product/${params.productId}` as Route}
 						searchParamsPagination
+						hidePagination
 					/>
 				</Suspense>
 			)}

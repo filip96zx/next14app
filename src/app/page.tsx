@@ -12,6 +12,7 @@ export default function Home() {
 				params={{ first: 4, skip: 0 }}
 				route="/collections"
 				goBackParams={`/`}
+				hidePagination
 			/>
 		</main>
 	);
