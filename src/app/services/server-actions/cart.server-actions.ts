@@ -11,13 +11,17 @@ import { addToCart, createCart, updateOrderItem } from "@/app/api/mutations";
 async function addItemsOrCreateCartWithItems(items: Array<OrderItemInput>) {
 	const cartId = getCartIdFromCookies();
 	if (cartId) {
-		const cart = await getCartById(cartId);
-		if (cart) {
-			const updatedCart = await addToCart(cartId, items);
-			if (!updatedCart) {
-				throw new Error("Failed to update cart");
+		try {
+			const cart = await getCartById(cartId);
+			if (cart) {
+				const updatedCart = await addToCart(cartId, items);
+				if (!updatedCart) {
+					throw new Error("Failed to update cart");
+				}
+				return updatedCart;
 			}
-			return updatedCart;
+		} catch {
+			cookies().delete("cartId");
 		}
 	}
 	const createdCart = await createCart(items);
@@ -35,6 +39,7 @@ export async function addToCartServerAction(productId: string, formData: unknown
 		quantity: string;
 	};
 	const data = formData as Map<keyof FromData, string>;
+	// try {
 	const cart = await addItemsOrCreateCartWithItems([
 		{
 			productId,
@@ -43,6 +48,9 @@ export async function addToCartServerAction(productId: string, formData: unknown
 		},
 	]);
 	cookies().set("cartId", cart.id, { httpOnly: true, sameSite: "lax" });
+	// } catch (error) {
+	// 	return null;
+	// }
 }
 
 export async function updateCartItemServerAction(orderItemId: string, quantity: number) {

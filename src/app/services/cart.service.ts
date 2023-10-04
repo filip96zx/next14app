@@ -43,7 +43,6 @@ export async function getCartTotalItemsByCookiesCartId() {
 					err.cause?.find((c: { message: string }) => c?.message.includes?.("Cart not found")),
 			);
 			if (cartNotFound) {
-				// cookies().delete("cartId");
 				return null;
 			}
 			return null;
