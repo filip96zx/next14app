@@ -1,26 +1,25 @@
 import Link from "next/link";
 import { ListItemImage } from "@/app/ui/atoms/image";
 import { type CollectionListItemFragment } from "@/gql/graphql";
-import { createQueryParams } from "@/app/utils";
-import { BackFormerPageParamName } from "@/app/models";
 
 type TProps = {
 	collection: CollectionListItemFragment;
-	goBackParams?: string | number;
+	// TODO task 1
+	// goBackParams?: string | number;
 };
 
 export const CollectionListItem = ({
-	goBackParams,
+	// goBackParams,
 	collection: { images, name, slug, description },
 }: TProps) => {
 	const image = images && images[0];
 	return (
 		<li>
-			<Link
-				href={`/collection/${slug}${createQueryParams({
-					[BackFormerPageParamName.FROM]: goBackParams,
-				})}`}
-			>
+			<Link href={`/collection/${slug}`}>
+				{/* ${createQueryParams({
+			 		[BackFormerPageParamName.FROM]: goBackParams,
+			 	})}`}
+			 > */}
 				<h3 className="text-sm font-semibold text-gray-700">{name}</h3>
 				<article>
 					<ListItemImage alt={name} src={image?.url} width={image?.width} height={image?.height} />

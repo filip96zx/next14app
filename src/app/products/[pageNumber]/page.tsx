@@ -40,7 +40,8 @@ export default async function ProductsPage({
 				getListQuery={getProductsList}
 				params={{ ...getPaginationParams({ pageNumber }), orderBy: sortParams }}
 				route="/products"
-				goBackParams={`/products/${pageNumber}${createQueryParams({ sortBy, order })}`}
+				// TODO task 1
+				// goBackParams={`/products/${pageNumber}${createQueryParams({ sortBy, order })}`}
 			/>
 		</div>
 	);

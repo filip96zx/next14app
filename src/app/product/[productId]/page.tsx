@@ -75,11 +75,12 @@ export default async function ProductPage({ params, searchParams }: IProps) {
 							slug: collectionSlug,
 							excludedIds: [params.productId],
 						}}
-						goBackParams={`/product/${params.productId}${createQueryParams({
-							from,
-							page,
-							...restParams,
-						})}`}
+						// TODO task 1
+						// goBackParams={`/product/${params.productId}${createQueryParams({
+						// 	from,
+						// 	page,
+						// 	...restParams,
+						// })}`}
 						route={`/product/${params.productId}` as Route}
 						searchParamsPagination
 						hidePagination

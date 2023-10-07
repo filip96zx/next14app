@@ -22,8 +22,9 @@ export type TPaginatedListProps<TParams, TResult> = {
 	getListQuery: TQuery<TParams, TResult>;
 	params: TParams;
 	route: Route;
-	goBackParams: string | number;
-	renderList: (params: ListResponse & { goBackParams: string | number }) => React.ReactNode;
+	// TODO task 1
+	// goBackParams: string | number;
+	renderList: (params: ListResponse /*& { goBackParams: string | number }*/) => React.ReactNode;
 	searchParamsPagination?: boolean;
 	hidePagination?: boolean;
 };
@@ -43,7 +44,6 @@ export async function PaginatedList<TParams extends { skip: number; first: numbe
 	params,
 	route,
 	getListQuery,
-	goBackParams,
 	renderList,
 	searchParamsPagination,
 	hidePagination,
@@ -66,7 +66,7 @@ export async function PaginatedList<TParams extends { skip: number; first: numbe
 
 	return (
 		<div>
-			{renderList({ content, goBackParams: goBackParams || pageNumber, totalElements })}
+			{renderList({ content, totalElements })}
 			{!hidePagination && (
 				<div className="my-4 flex justify-center">
 					<Pagination

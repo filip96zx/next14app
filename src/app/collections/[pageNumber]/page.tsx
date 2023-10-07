@@ -21,7 +21,8 @@ export default async function ProductsPage({ params: { pageNumber } }: TProps) {
 				getListQuery={getCollectionList}
 				params={getPaginationParams({ pageNumber })}
 				route="/collections"
-				goBackParams={`/collections/${pageNumber}`}
+				// TODO task 1
+				// goBackParams={`/collections/${pageNumber}`}
 			/>
 		</div>
 	);

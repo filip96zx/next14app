@@ -4,14 +4,15 @@ import { type ProductListItemFragment } from "@/gql/graphql";
 
 type TProps = {
 	products: Array<ProductListItemFragment>;
-	goBackParams: string | number;
+	// TODO task 1
+	// goBackParams: string | number;
 };
 
-export const ProductList = ({ products, goBackParams }: TProps) => {
+export const ProductList = ({ products }: TProps) => {
 	return (
 		<ListLayout data-testid="products-list">
 			{products.map((product) => (
-				<ProductListItem key={product.id} product={product} goBackParams={goBackParams} />
+				<ProductListItem key={product.id} product={product} />
 			))}
 		</ListLayout>
 	);

@@ -10,11 +10,6 @@ export async function PaginatedProductList<TParams extends { skip: number; first
 	props: OmitKeys<TPaginatedListProps<TParams, ProductListItemFragment>, "renderList">,
 ) {
 	return (
-		<PaginatedList
-			{...props}
-			renderList={({ content, goBackParams }) => (
-				<ProductList products={content} goBackParams={goBackParams} />
-			)}
-		/>
+		<PaginatedList {...props} renderList={({ content }) => <ProductList products={content} />} />
 	);
 }

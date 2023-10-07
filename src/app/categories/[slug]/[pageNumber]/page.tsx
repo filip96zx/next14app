@@ -52,7 +52,8 @@ export default async function ProductsPage({ params: { pageNumber, slug } }: TPr
 				getListQuery={getProductsByCategorySlug}
 				params={queryParams}
 				route={`/categories/${slug}` as Route}
-				goBackParams={`/categories/${slug}/${pageNumber}`}
+				// TODO task 1
+				// goBackParams={`/categories/${slug}/${pageNumber}`}
 			/>
 		</div>
 	);

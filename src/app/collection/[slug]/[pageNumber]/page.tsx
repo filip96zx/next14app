@@ -52,9 +52,10 @@ export default async function CollectionProductPage({
 				getListQuery={getProductsByCollectionSlug}
 				params={queryParams}
 				route={`/collection/${slug}` as Route}
-				goBackParams={`/collection/${slug}/${pageNumber}${createQueryParams({
-					[BackFormerPageParamName.FROM]: from,
-				})}`}
+				// TODO task 1
+				// goBackParams={`/collection/${slug}/${pageNumber}${createQueryParams({
+				//	[BackFormerPageParamName.FROM]: from,
+				// })}`}
 			/>
 		</div>
 	);
