@@ -1,4 +1,4 @@
-import { getCollectionList } from "@/app/api";
+import { getCollectionList } from "@/api";
 import { ListHeader } from "@/app/ui/ListHeader";
 import { PaginatedCollectionList } from "@/app/ui/organisms/list";
 

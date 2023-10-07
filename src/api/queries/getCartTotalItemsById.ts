@@ -1,4 +1,4 @@
-import { executeGraphql } from "@/app/api/executeGraphql";
+import { executeGraphql } from "@/api/executeGraphql";
 import { RevalidateTags } from "@/app/models";
 import { CartGetTotalItemsByIdDocument } from "@/gql/graphql";
 

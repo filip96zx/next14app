@@ -1,4 +1,4 @@
-import { executeGraphql } from "@/app/api/executeGraphql";
+import { executeGraphql } from "@/api/executeGraphql";
 import { CartCreateDocument, type OrderItemInput } from "@/gql/graphql";
 
 export async function createCart(items: Array<OrderItemInput>) {

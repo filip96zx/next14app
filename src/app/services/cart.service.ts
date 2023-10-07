@@ -1,5 +1,5 @@
 import { cookies } from "next/headers";
-import { getCartDetailsById, getCartTotalItemsById } from "@/app/api";
+import { getCartDetailsById, getCartTotalItemsById } from "@/api";
 
 export function getCartIdFromCookies() {
 	const cartId = cookies().get("cartId")?.value;

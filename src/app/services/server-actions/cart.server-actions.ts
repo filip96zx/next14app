@@ -5,8 +5,8 @@ import { cookies } from "next/headers";
 import { getCartIdFromCookies } from "../cart.service";
 import { RevalidateTags } from "@/app/models";
 import { type OrderItemInput } from "@/gql/graphql";
-import { getCartById } from "@/app/api";
-import { addToCart, createCart, updateOrderItem } from "@/app/api/mutations";
+import { getCartById } from "@/api";
+import { addToCart, createCart, updateOrderItem } from "@/api/mutations";
 
 async function addItemsOrCreateCartWithItems(items: Array<OrderItemInput>) {
 	const cartId = getCartIdFromCookies();

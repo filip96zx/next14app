@@ -1,9 +1,9 @@
 import { notFound } from "next/navigation";
 import { type Route } from "next";
 import { Suspense } from "react";
-import { getProductById, getProductsByCollectionSlug } from "@/app/api";
+import { getProductById, getProductsByCollectionSlug } from "@/api";
 import { ProductCard } from "@/app/ui/molecules/ProductCard";
-import {  getMetadataTitle } from "@/app/utils";
+import { getMetadataTitle } from "@/app/utils";
 import { PaginatedProductList, getPaginationParams } from "@/app/ui/organisms/list";
 import { BackFormerPageParamName } from "@/app/models";
 import { AddToCartButton, BackButton } from "@/app/ui/atoms/buttons";
@@ -38,7 +38,7 @@ interface IProps {
 }
 
 export default async function ProductPage({ params, searchParams }: IProps) {
-	const { [BackFormerPageParamName.FROM]: from, page = 1,  } = searchParams;
+	const { [BackFormerPageParamName.FROM]: from, page = 1 } = searchParams;
 	const product = await getProductById(params.productId);
 
 	if (!product) {

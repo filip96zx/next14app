@@ -1,4 +1,4 @@
-import { executeGraphql } from "@/app/api/executeGraphql";
+import { executeGraphql } from "@/api/executeGraphql";
 import { type ListResponse } from "@/app/models";
 import { ProductsGetListDocument, type ProductsGetListQueryVariables } from "@/gql/graphql";
 

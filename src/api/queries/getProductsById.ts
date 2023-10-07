@@ -1,4 +1,4 @@
-import { executeGraphql } from "@/app/api/executeGraphql";
+import { executeGraphql } from "@/api/executeGraphql";
 import { ProductGetByIdDocument } from "@/gql/graphql";
 
 export const getProductById = async (id: string) => {

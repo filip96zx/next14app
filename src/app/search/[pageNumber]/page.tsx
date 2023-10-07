@@ -1,4 +1,4 @@
-import { getProductsByQuery } from "@/app/api";
+import { getProductsByQuery } from "@/api";
 import { ListHeader } from "@/app/ui/ListHeader";
 import { PaginatedProductList, getPaginationParams } from "@/app/ui/organisms/list";
 

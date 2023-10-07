@@ -1,4 +1,4 @@
-import { executeGraphql } from "@/app/api/executeGraphql";
+import { executeGraphql } from "@/api/executeGraphql";
 import { OrderItemUpdateDocument } from "@/gql/graphql";
 
 export async function updateOrderItem(id: string, quantity: number) {

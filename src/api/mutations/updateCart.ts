@@ -1,4 +1,4 @@
-import { executeGraphql } from "@/app/api/executeGraphql";
+import { executeGraphql } from "@/api/executeGraphql";
 import { CartUpdateDocument, type CartUpdateMutationVariables } from "@/gql/graphql";
 
 export async function updateCart(params: CartUpdateMutationVariables) {

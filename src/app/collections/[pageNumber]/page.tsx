@@ -1,5 +1,5 @@
 import { type Metadata } from "next";
-import { getCollectionList } from "@/app/api";
+import { getCollectionList } from "@/api";
 import { ListHeader } from "@/app/ui/ListHeader";
 import { PaginatedCollectionList, getPaginationParams } from "@/app/ui/organisms/list";
 import { getMetadataTitle } from "@/app/utils";

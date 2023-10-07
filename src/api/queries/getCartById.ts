@@ -1,4 +1,4 @@
-import { executeGraphql } from "@/app/api/executeGraphql";
+import { executeGraphql } from "@/api/executeGraphql";
 import { CartGetByIdDocument } from "@/gql/graphql";
 
 export async function getCartById(cartId: string) {
