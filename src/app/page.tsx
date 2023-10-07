@@ -11,7 +11,8 @@ export default function Home() {
 				getListQuery={getCollectionList}
 				params={{ first: 4, skip: 0 }}
 				route="/collections"
-				goBackParams={`/`}
+				// TODO task 1
+				// goBackParams={`/`}
 				hidePagination
 			/>
 		</main>

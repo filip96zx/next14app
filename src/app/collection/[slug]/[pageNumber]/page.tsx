@@ -4,7 +4,7 @@ import { PaginatedProductList, getPaginationParams } from "@/app/ui/organisms/li
 
 import { getProductsByCollectionSlug } from "@/app/api";
 import { ListHeader } from "@/app/ui/ListHeader";
-import { createQueryParams, getMetadataTitle } from "@/app/utils";
+import { getMetadataTitle } from "@/app/utils";
 import { BackFormerPageParamName } from "@/app/models";
 import { BackButton } from "@/app/ui/atoms/buttons";
 

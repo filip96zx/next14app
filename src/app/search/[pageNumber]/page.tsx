@@ -1,7 +1,6 @@
 import { getProductsByQuery } from "@/app/api";
 import { ListHeader } from "@/app/ui/ListHeader";
 import { PaginatedProductList, getPaginationParams } from "@/app/ui/organisms/list";
-import { createQueryParams } from "@/app/utils";
 
 type TProps = {
 	params: { pageNumber: string };
