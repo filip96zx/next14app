@@ -1,12 +1,8 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import { Suspense } from "react";
-import Link from "next/link";
-import { ActiveLink, Button } from "@/app/ui/atoms/buttons";
-import { SearchInput } from "@/app/ui/atoms/inputs";
 import { getMetadataTitle } from "@/app/utils";
-import { getCartTotalItemsByCookiesCartId } from "@/app/services/cart.service";
+import { Navbar } from "@/app/ui/organisms/Navbar";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -15,41 +11,11 @@ export const metadata: Metadata = {
 	description: "Next 13 shop",
 };
 
-const navLinks = [
-	{ href: "/", label: "Home", exact: true },
-	{ href: "/products", label: "All" },
-	{ href: "/categories/t-shirts", label: "T-Shirts" },
-	{ href: "/collections", label: "Collections", activeRoutePattern: `^\/collection\/.*` },
-] as const;
-
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
-	const totalItems = await getCartTotalItemsByCookiesCartId();
 	return (
 		<html lang="pl">
 			<body className={inter.className}>
-				<div className="mx-auto mt-2 flex max-w-screen-xl justify-between">
-					<nav>
-						<Suspense>
-							<ul className="flex justify-center space-x-4">
-								{navLinks.map((nl) => {
-									return (
-										<li key={nl.label}>
-											<ActiveLink {...nl}>{nl.label}</ActiveLink>
-										</li>
-									);
-								})}
-							</ul>
-						</Suspense>
-					</nav>
-					<div>
-						<SearchInput />
-						<Link href="/cart">
-							<Button>
-								Cart <Suspense>{totalItems}</Suspense>
-							</Button>
-						</Link>
-					</div>
-				</div>
+				<Navbar />
 				<section className="mx-auto max-w-md p-12 sm:max-w-2xl sm:py-16 md:max-w-4xl lg:max-w-7xl">
 					{children}
 				</section>
