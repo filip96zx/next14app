@@ -39,7 +39,6 @@ export async function addToCartServerAction(productId: string, formData: unknown
 		quantity: string;
 	};
 	const data = formData as Map<keyof FromData, string>;
-	// try {
 	const cart = await addItemsOrCreateCartWithItems([
 		{
 			productId,
@@ -48,9 +47,6 @@ export async function addToCartServerAction(productId: string, formData: unknown
 		},
 	]);
 	cookies().set("cartId", cart.id, { httpOnly: true, sameSite: "lax" });
-	// } catch (error) {
-	// 	return null;
-	// }
 }
 
 export async function updateCartItemServerAction(orderItemId: string, quantity: number) {
