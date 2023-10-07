@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 import { getCartDetailByCookiesCartId } from "@/app/services/cart.service";
-import { ProductQuantityChangeInput } from "@/app/ui/molecules/ProductQuatitiyChangeInput";
+import { CartProductActions } from "@/app/ui/molecules/CartProductActions";
 import { parseMoney } from "@/app/utils";
 
 export default async function CartPage() {
@@ -34,14 +34,13 @@ export default async function CartPage() {
 								<td>{i.quantity}</td>
 								<td>{parseMoney(i.price * i.quantity)}</td>
 								<td>
-									<ProductQuantityChangeInput orderItem={i} />
+									<CartProductActions orderItem={i} />
 								</td>
 							</tr>
 						);
 					})}
 				</tbody>
 			</table>
-			{/* <pre>{JSON.stringify(cart, null, 2)}</pre> */}
 		</div>
 	);
 }

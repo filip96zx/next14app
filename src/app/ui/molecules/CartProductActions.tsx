@@ -12,7 +12,7 @@ type TProps = {
 
 const className = "px-3 py-1 rounded-md border border-gray-300 bg-gray-200";
 
-export const ProductQuantityChangeInput = ({ orderItem }: TProps) => {
+export const CartProductActions = ({ orderItem }: TProps) => {
 	const [quantity, setQuantity] = useOptimistic(orderItem.quantity);
 	const isDecrementDisabled = quantity === 1;
 	return (
