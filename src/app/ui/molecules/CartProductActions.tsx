@@ -2,7 +2,7 @@
 
 import { experimental_useOptimistic as useOptimistic } from "react";
 import clsx from "clsx";
-import { Minus, MinusIcon, PlusIcon, ShoppingBasket, Trash, Trash2, TrashIcon } from "lucide-react";
+import { MinusIcon, PlusIcon, TrashIcon } from "lucide-react";
 import { Button } from "@/app/ui/atoms/buttons";
 import { type OrderItemFragment } from "@/gql/graphql";
 import { updateCartItemServerAction } from "@/app/services/server-actions";
