@@ -23,7 +23,7 @@ export const ProductListItemDescription = ({
 				</p>
 				<div className="flex items-center justify-center gap-3">
 					<Rating rating={averageRating} />
-					<span className="text-sm text-gray-500" data-testid="">
+					<span className="text-sm text-gray-500" data-testid="product-rating">
 						{averageRating.toFixed(2)}
 					</span>
 				</div>
