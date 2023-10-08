@@ -1,31 +1,21 @@
 import { cookies } from "next/headers";
-import { getCartDetailsById, getCartTotalItemsById } from "@/api";
+import { getCartDetailsById } from "@/api";
+import { handleResponseError } from "@/app/utils";
 
 export function getCartIdFromCookies() {
 	const cartId = cookies().get("cartId")?.value;
 	return cartId;
 }
-
 export async function getCartDetailByCookiesCartId() {
 	const cartId = getCartIdFromCookies();
 	if (!cartId) {
 		return null;
 	}
-	let cart;
-	try {
-		cart = await getCartDetailsById(cartId);
-	} catch (err: unknown) {
-		if (err instanceof TypeError) {
-			const cartNotFound = Boolean(
-				Array.isArray(err.cause) &&
-					err.cause?.find((c: { message: string }) => c?.message.includes?.("Cart not found")),
-			);
-			if (cartNotFound) {
-				return null;
-			}
-		}
+	const cartResponse = await handleResponseError(getCartDetailsById(cartId));
+	if (cartResponse.error) {
+		return null;
 	}
-	return cart;
+	return cartResponse.data;
 }
 
 export async function getCartTotalItemsByCookiesCartId() {
@@ -33,20 +23,9 @@ export async function getCartTotalItemsByCookiesCartId() {
 	if (!cartId) {
 		return null;
 	}
-	let cart;
-	try {
-		cart = await getCartTotalItemsById(cartId);
-	} catch (err: unknown) {
-		if (err instanceof TypeError) {
-			const cartNotFound = Boolean(
-				Array.isArray(err.cause) &&
-					err.cause?.find((c: { message: string }) => c?.message.includes?.("Cart not found")),
-			);
-			if (cartNotFound) {
-				return null;
-			}
-			return null;
-		}
+	const cartResponse = await handleResponseError(getCartDetailsById(cartId));
+	if (cartResponse.error) {
+		return null;
 	}
-	return cart?.totalItems;
+	return cartResponse.data?.totalItems;
 }
