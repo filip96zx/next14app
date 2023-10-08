@@ -10,10 +10,10 @@ if (!process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY) {
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
 
-export const StripeForm = ({ clientSecret }: { clientSecret: string }) => {
+export const StripeForm = ({ clientSecret, amount }: { clientSecret: string; amount: number }) => {
 	return (
 		<Elements options={{ appearance: { theme: "stripe" }, clientSecret }} stripe={stripePromise}>
-			<CheckoutForm />
+			<CheckoutForm amount={amount} />
 		</Elements>
 	);
 };

@@ -2,8 +2,9 @@ import { PaymentElement, useStripe, useElements } from "@stripe/react-stripe-js"
 import { useState, useEffect, type FormEvent } from "react";
 import "./stripe.css";
 import { APP_URL } from "@/app/constants";
+import { parseMoney } from "@/app/utils";
 
-export function CheckoutForm() {
+export function CheckoutForm({ amount }: { amount: number }) {
 	const stripe = useStripe();
 	const elements = useElements();
 	const [message, setMessage] = useState<string | null>(null);
@@ -60,16 +61,23 @@ export function CheckoutForm() {
 	const paymentElementOptions = {
 		layout: "tabs",
 	} as const;
-
+	console.log({ stripe });
 	return (
 		<div className="stripe">
 			<form id="payment-form" onSubmit={handleSubmit}>
 				<PaymentElement id="payment-element" options={paymentElementOptions} />
 				<button disabled={isLoading || !stripe || !elements} id="submit">
 					<span id="button-text">
-						{isLoading ? <div className="spinner" id="spinner"></div> : "Pay now"}
+						{isLoading ? (
+							<div className="spinner" id="spinner"></div>
+						) : (
+							`Pay now ${parseMoney(amount)}`
+						)}
 					</span>
 				</button>
+				{
+					// ele.
+				}
 				{message && <div id="payment-message">{message}</div>}
 			</form>
 		</div>

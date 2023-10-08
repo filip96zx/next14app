@@ -16,8 +16,8 @@ export const CartProductActions = ({ orderItem }: TProps) => {
 	const [quantity, setQuantity] = useOptimistic(orderItem.quantity);
 	const isDecrementDisabled = quantity === 1;
 	return (
-		<div className="flex items-center justify-center space-x-2">
-			<form>
+		<form>
+			<div className="flex items-center justify-center space-x-2">
 				<Button
 					type="submit"
 					className={clsx(className, isDecrementDisabled && "opacity-30")}
@@ -30,7 +30,7 @@ export const CartProductActions = ({ orderItem }: TProps) => {
 				>
 					-
 				</Button>
-				<span>{quantity}</span>
+				<div className="inline-block w-8">{quantity}</div>
 				<Button
 					type="submit"
 					className={className}
@@ -49,7 +49,7 @@ export const CartProductActions = ({ orderItem }: TProps) => {
 				>
 					delete
 				</Button>
-			</form>
-		</div>
+			</div>
+		</form>
 	);
 };
