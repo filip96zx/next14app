@@ -8,6 +8,12 @@ dependencies:
   '@next/env':
     specifier: ^13.5.4
     version: 13.5.4
+  '@stripe/react-stripe-js':
+    specifier: ^2.3.1
+    version: 2.3.1(@stripe/stripe-js@2.1.7)(react-dom@18.2.0)(react@18.2.0)
+  '@stripe/stripe-js':
+    specifier: ^2.1.7
+    version: 2.1.7
   '@types/node':
     specifier: 20.8.3
     version: 20.8.3
@@ -47,9 +53,6 @@ dependencies:
   stripe:
     specifier: ^13.9.0
     version: 13.9.0
-  stripe-event-types:
-    specifier: ^3.0.0
-    version: 3.0.0(stripe@13.9.0)
   tailwindcss:
     specifier: 3.3.3
     version: 3.3.3
@@ -88,6 +91,9 @@ devDependencies:
   prettier-plugin-tailwindcss:
     specifier: ^0.5.5
     version: 0.5.5(prettier@3.0.3)
+  stripe-event-types:
+    specifier: ^3.0.0
+    version: 3.0.0(stripe@13.9.0)
 
 packages:
 
@@ -1626,6 +1632,23 @@ packages:
 
   /@rushstack/eslint-patch@1.5.1:
     resolution: {integrity: sha512-6i/8UoL0P5y4leBIGzvkZdS85RDMG9y1ihZzmTZQ5LdHUYmZ7pKFoj8X0236s3lusPs1Fa5HTQUpwI+UfTcmeA==}
+    dev: false
+
+  /@stripe/react-stripe-js@2.3.1(@stripe/stripe-js@2.1.7)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-vXiwcG2ZjAF4AezjP7DJ8jiwxfCWCen/X2rBhyXaKrfQ7+pwmXhsoUlKRa0eLWioY1oelOQOafauNUiwTwFHgQ==}
+    peerDependencies:
+      '@stripe/stripe-js': ^1.44.1 || ^2.0.0
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0
+      react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
+    dependencies:
+      '@stripe/stripe-js': 2.1.7
+      prop-types: 15.8.1
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+    dev: false
+
+  /@stripe/stripe-js@2.1.7:
+    resolution: {integrity: sha512-oI620ARpFp5jCXfwIYMxyBJmtTFuAjSA8x3k3JgW1M6cvLmw9XgmNcGNegQWmirpozhFNflxrZEgp10og+6MSA==}
     dev: false
 
   /@swc/helpers@0.5.2:
@@ -4436,7 +4459,6 @@ packages:
     engines: {node: '>=0.6'}
     dependencies:
       side-channel: 1.0.4
-    dev: false
 
   /queue-microtask@1.2.3:
     resolution: {integrity: sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==}
@@ -4822,7 +4844,7 @@ packages:
       stripe: '>=10.0.0'
     dependencies:
       stripe: 13.9.0
-    dev: false
+    dev: true
 
   /stripe@13.9.0:
     resolution: {integrity: sha512-sQAqodCvaw/iYWauHHdOWlFGj0oZj/3A51zs4rG5PN3SUJUFSSjtnbc9q5Djpls0iz3nXz2UwjzAdKHVP4dVqQ==}
@@ -4830,7 +4852,6 @@ packages:
     dependencies:
       '@types/node': 20.8.3
       qs: 6.11.2
-    dev: false
 
   /styled-jsx@5.1.1(@babel/core@7.23.0)(react@18.2.0):
     resolution: {integrity: sha512-pW7uC1l4mBZ8ugbiZrcIsiIvVx1UmTfw7UkC3Um2tmfUq9Bhk8IiyEIPl6F8agHgjzku6j0xQEZbfA5uSgSaCw==}

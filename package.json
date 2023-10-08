@@ -11,6 +11,8 @@
 	},
 	"dependencies": {
 		"@next/env": "^13.5.4",
+		"@stripe/react-stripe-js": "^2.3.1",
+		"@stripe/stripe-js": "^2.1.7",
 		"@types/node": "20.8.3",
 		"@types/react": "18.2.25",
 		"@types/react-dom": "18.2.11",
@@ -24,7 +26,6 @@
 		"react": "18.2.0",
 		"react-dom": "18.2.0",
 		"stripe": "^13.9.0",
-		"stripe-event-types": "^3.0.0",
 		"tailwindcss": "3.3.3",
 		"typescript": "5.2.2"
 	},
@@ -38,6 +39,7 @@
 		"eslint-config-prettier": "^9.0.0",
 		"eslint-plugin-import": "^2.28.1",
 		"prettier": "^3.0.3",
-		"prettier-plugin-tailwindcss": "^0.5.5"
+		"prettier-plugin-tailwindcss": "^0.5.5",
+		"stripe-event-types": "^3.0.0"
 	}
 }

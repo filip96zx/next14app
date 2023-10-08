@@ -22,6 +22,7 @@ const documents = {
     "mutation CartUpdate($id: ID!, $items: [OrderItemInput!]!) {\n  orderItemsUpdate(id: $id, items: $items, updateMethod: SET) {\n    ...CartDetails\n  }\n}": types.CartUpdateDocument,
     "query CollectionGetList($first: Int!, $skip: Int!) {\n  collections(first: $first, skip: $skip) {\n    ...CollectionListItem\n  }\n  collectionsConnection {\n    aggregate {\n      count\n    }\n  }\n}": types.CollectionGetListDocument,
     "mutation OrderItemUpdate($id: ID!, $quantity: Int!) {\n  orderItemUpdate(id: $id, quantity: $quantity) {\n    id\n  }\n}": types.OrderItemUpdateDocument,
+    "mutation UpdateOrderStatus($id: ID!, $status: OrderStatus!) {\n  orderUpdateStatus(id: $id, status: $status) {\n    id\n  }\n}": types.UpdateOrderStatusDocument,
     "query ProductsGetByCategorySlug($first: Int!, $skip: Int!, $slug: String!) {\n  products(first: $first, skip: $skip, where: {categories_some: {slug: $slug}}) {\n    ...ProductListItem\n  }\n  categories(where: {slug: $slug}, first: 1) {\n    name\n  }\n  productsConnection(where: {categories_some: {slug: $slug}}) {\n    aggregate {\n      count\n    }\n  }\n}": types.ProductsGetByCategorySlugDocument,
     "query ProductsGetByCollectionSlug($first: Int!, $skip: Int!, $slug: String!, $excludedIds: [ID!]) {\n  products(\n    first: $first\n    skip: $skip\n    where: {collections_some: {slug: $slug}, excludedIds: $excludedIds}\n  ) {\n    ...ProductListItem\n  }\n  collections(where: {slug: $slug}) {\n    name\n  }\n  productsConnection(\n    where: {collections_some: {slug: $slug}, excludedIds: $excludedIds}\n  ) {\n    aggregate {\n      count\n    }\n  }\n}": types.ProductsGetByCollectionSlugDocument,
     "query ProductGetById($id: ID!) {\n  product(id: $id) {\n    ...ProductDetails\n  }\n}": types.ProductGetByIdDocument,
@@ -65,6 +66,10 @@ export function graphql(source: "query CollectionGetList($first: Int!, $skip: In
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "mutation OrderItemUpdate($id: ID!, $quantity: Int!) {\n  orderItemUpdate(id: $id, quantity: $quantity) {\n    id\n  }\n}"): typeof import('./graphql').OrderItemUpdateDocument;
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "mutation UpdateOrderStatus($id: ID!, $status: OrderStatus!) {\n  orderUpdateStatus(id: $id, status: $status) {\n    id\n  }\n}"): typeof import('./graphql').UpdateOrderStatusDocument;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

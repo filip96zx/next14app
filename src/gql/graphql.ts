@@ -86,6 +86,7 @@ export type Mutation = {
   orderCreate?: Maybe<Order>;
   orderItemUpdate?: Maybe<OrderItem>;
   orderItemsUpdate?: Maybe<Order>;
+  orderUpdateStatus?: Maybe<Order>;
   productCalculateAndUpdateAverageRating?: Maybe<Product>;
   productsCalculateAndUpdateAverageRating: Array<Product>;
 };
@@ -106,6 +107,12 @@ export type MutationOrderItemsUpdateArgs = {
   id: Scalars['ID']['input'];
   items: Array<OrderItemInput>;
   updateMethod?: InputMaybe<OrderItemsUpdateMethod>;
+};
+
+
+export type MutationOrderUpdateStatusArgs = {
+  id: Scalars['ID']['input'];
+  status: OrderStatus;
 };
 
 
@@ -360,6 +367,14 @@ export type OrderItemUpdateMutationVariables = Exact<{
 
 
 export type OrderItemUpdateMutation = { orderItemUpdate?: { id: string } | null };
+
+export type UpdateOrderStatusMutationVariables = Exact<{
+  id: Scalars['ID']['input'];
+  status: OrderStatus;
+}>;
+
+
+export type UpdateOrderStatusMutation = { orderUpdateStatus?: { id: string } | null };
 
 export type ProductsGetByCategorySlugQueryVariables = Exact<{
   first: Scalars['Int']['input'];
@@ -642,6 +657,13 @@ export const OrderItemUpdateDocument = new TypedDocumentString(`
   }
 }
     `) as unknown as TypedDocumentString<OrderItemUpdateMutation, OrderItemUpdateMutationVariables>;
+export const UpdateOrderStatusDocument = new TypedDocumentString(`
+    mutation UpdateOrderStatus($id: ID!, $status: OrderStatus!) {
+  orderUpdateStatus(id: $id, status: $status) {
+    id
+  }
+}
+    `) as unknown as TypedDocumentString<UpdateOrderStatusMutation, UpdateOrderStatusMutationVariables>;
 export const ProductsGetByCategorySlugDocument = new TypedDocumentString(`
     query ProductsGetByCategorySlug($first: Int!, $skip: Int!, $slug: String!) {
   products(first: $first, skip: $skip, where: {categories_some: {slug: $slug}}) {
