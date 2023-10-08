@@ -11,6 +11,7 @@ export default async function CartPage() {
 	if (!cart) {
 		redirect("/");
 	}
+	const totalAmount = cart.items.reduce((acc, { price, quantity }) => acc + price * quantity, 0);
 	return (
 		<div>
 			<PageHeader>Cart</PageHeader>
@@ -44,7 +45,7 @@ export default async function CartPage() {
 				</table>
 				<div className="flex flex-row-reverse">
 					<Link href="/payment">
-						<Button variant="primary">Go checkout</Button>
+						<Button variant="primary">{`Go checkout ${parseMoney(totalAmount)}`}</Button>
 					</Link>
 				</div>
 			</div>
