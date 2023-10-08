@@ -3,7 +3,7 @@ import { redirect } from "next/navigation";
 import { PaginatedProductList, getPaginationParams } from "@/app/ui/organisms/list";
 
 import { getProductsByCollectionSlug } from "@/api";
-import { ListHeader } from "@/app/ui/ListHeader";
+import { PageHeader } from "@/app/ui/atoms/PageHeader";
 import { getMetadataTitle } from "@/app/utils";
 import { BackFormerPageParamName } from "@/app/models";
 import { BackButton } from "@/app/ui/atoms/buttons";
@@ -44,7 +44,7 @@ export default async function CollectionProductPage({
 
 	return (
 		<div>
-			<ListHeader>{collectionName}</ListHeader>
+			<PageHeader>{collectionName}</PageHeader>
 			<BackButton href={(from ? `${from}` : "/products") as Route}>
 				{!from && "All products"}
 			</BackButton>

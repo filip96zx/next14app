@@ -28,5 +28,5 @@ export default async function PaymentPage() {
 		throw new Error("Missing client_secret");
 	}
 
-	return <StripeForm clientSecret={paymentIntent.client_secret} />;
+	return <StripeForm clientSecret={paymentIntent.client_secret} amount={totalAmount} />;
 }

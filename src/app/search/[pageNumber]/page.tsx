@@ -1,5 +1,5 @@
 import { getProductsByQuery } from "@/api";
-import { ListHeader } from "@/app/ui/ListHeader";
+import { PageHeader } from "@/app/ui/atoms/PageHeader";
 import { PaginatedProductList, getPaginationParams } from "@/app/ui/organisms/list";
 
 type TProps = {
@@ -13,7 +13,7 @@ export default async function ProductsPage({
 }: TProps) {
 	return (
 		<div>
-			<ListHeader>{query ? `Search results for: ${query}` : "All products"}</ListHeader>
+			<PageHeader>{query ? `Search results for: ${query}` : "All products"}</PageHeader>
 			<PaginatedProductList
 				getListQuery={getProductsByQuery}
 				params={{ ...getPaginationParams({ pageNumber }), query: query || "" }}

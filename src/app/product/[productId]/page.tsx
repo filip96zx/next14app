@@ -61,7 +61,14 @@ export default async function ProductPage({ params, searchParams }: IProps) {
 						name="variantId"
 						options={product.variants.map((v) => ({ name: v.name, value: v.id }))}
 					/>
-					<NumberInput name="quantity" min={1} max={100} defaultValue={1} className="w-20" />
+					<NumberInput
+						name="quantity"
+						min={1}
+						max={100}
+						defaultValue={1}
+						className="w-20"
+						setDefaultValueOnClear
+					/>
 					<AddToCartButton />
 				</form>
 			</div>

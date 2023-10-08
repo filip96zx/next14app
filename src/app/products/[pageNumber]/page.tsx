@@ -1,7 +1,7 @@
 import { type Metadata } from "next";
 import { getProductsList } from "@/api";
 // import { LIST_PAGE_SIZE } from "@/app/constants";
-import { ListHeader } from "@/app/ui/ListHeader";
+import { PageHeader } from "@/app/ui/atoms/PageHeader";
 import { PaginatedProductList, getPaginationParams } from "@/app/ui/organisms/list";
 import { getMetadataTitle } from "@/app/utils";
 import { SortSelect } from "@/app/ui/atoms/inputs/SortSelect";
@@ -34,7 +34,7 @@ export default async function ProductsPage({
 	const sortParams = sortBy && order ? { field: sortBy, order } : undefined;
 	return (
 		<div>
-			<ListHeader>All products</ListHeader>
+			<PageHeader>All products</PageHeader>
 			<SortSelect route="/products" currentPage={+pageNumber} />
 			<PaginatedProductList
 				getListQuery={getProductsList}
