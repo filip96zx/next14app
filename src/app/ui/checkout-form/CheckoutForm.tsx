@@ -48,7 +48,7 @@ export function CheckoutForm({ amount }: { amount: number }) {
 		const { error } = await stripe.confirmPayment({
 			elements,
 			confirmParams: {
-				return_url: `${APP_URL}/payment/success`,
+				return_url: `${APP_URL}/payment/status`,
 			},
 		});
 		if (error.type === "card_error" || error.type === "validation_error") {
@@ -75,9 +75,6 @@ export function CheckoutForm({ amount }: { amount: number }) {
 						)}
 					</span>
 				</button>
-				{
-					// ele.
-				}
 				{message && <div id="payment-message">{message}</div>}
 			</form>
 		</div>
