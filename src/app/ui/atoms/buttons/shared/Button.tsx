@@ -12,6 +12,7 @@ type TProps = {
 	type?: ButtonHTMLAttributes<HTMLButtonElement>["type"];
 	formAction?: ButtonHTMLAttributes<HTMLButtonElement>["formAction"];
 	disabled?: boolean;
+	dataTestid?: string;
 };
 
 const buttonVariants: { [key in ButtonVariant]: string } = {
@@ -27,6 +28,7 @@ export const Button = ({
 	type,
 	disabled,
 	formAction,
+	dataTestid,
 	additionalClassName,
 }: TProps) => {
 	return (
@@ -40,6 +42,7 @@ export const Button = ({
 			)}
 			onClick={onClick}
 			disabled={disabled}
+			data-testid={dataTestid}
 		>
 			{children}
 		</button>

@@ -28,10 +28,13 @@ export const CartProductActions = ({ orderItem }: TProps) => {
 						setQuantity(newQuantity);
 						await updateCartItemServerAction(orderItem.id, newQuantity);
 					}}
+					dataTestid="decrement"
 				>
 					<MinusIcon />
 				</Button>
-				<div className="inline-block w-8">{quantity}</div>
+				<div className="inline-block w-8" data-testid="quantity">
+					{quantity}
+				</div>
 				<Button
 					type="submit"
 					className={className}
@@ -40,6 +43,7 @@ export const CartProductActions = ({ orderItem }: TProps) => {
 						setQuantity(newQuantity);
 						await updateCartItemServerAction(orderItem.id, newQuantity);
 					}}
+					dataTestid="increment"
 				>
 					<PlusIcon />
 				</Button>
