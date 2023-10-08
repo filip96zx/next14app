@@ -3,6 +3,7 @@
 import { useCallback } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { type Route } from "next";
+import { ArrowBigUp, ArrowUpIcon, ArrowUpNarrowWide, ChevronDown, ChevronUp } from "lucide-react";
 import { createPaginationParams, handleForwardSearchParams } from "@/app/utils";
 import { Button } from "@/app/ui/atoms/buttons";
 import { Select } from "@/app/ui/atoms/inputs/shared/Select";
@@ -72,32 +73,33 @@ export const SortSelect = ({ route, currentPage, searchParamsPagination }: TProp
 	];
 
 	const SortIcons = {
-		[SortOrder.Asc]: "^",
-		[SortOrder.Desc]: "v",
+		[SortOrder.Asc]: <ChevronUp />,
+		[SortOrder.Desc]: <ChevronDown />,
 	};
 
 	const sortOrder: SortOrder = getSearchParamsSortBy();
 	const value = searchParams.get("sortBy");
 	return (
-		<>
-			<Select
-				className="mb-4"
-				aria-label="sort select"
-				key={value}
-				defaultValue={value ?? undefined}
-				autoFocus={keepFocusOnRouteChange}
-				options={options}
-				onChange={(e) => {
-					handleOnChange({ value: e.target.value });
-					// const target = e.target as HTMLInputElement;
-					// const valueToNumber = parseInt(target.value);
-					// if (isNaN(valueToNumber)) {
-					// 	cancelDebounce(handleOnChange);
-					// 	return;
-					// }
-					// debounce(handleOnChange)(valueToNumber);
-				}}
-			/>
+		<div className="flex items-center mb-5">
+			<div className="mr-2 inline-block w-60">
+				<Select
+					aria-label="sort select"
+					key={value}
+					defaultValue={value ?? undefined}
+					autoFocus={keepFocusOnRouteChange}
+					options={options}
+					onChange={(e) => {
+						handleOnChange({ value: e.target.value });
+						// const target = e.target as HTMLInputElement;
+						// const valueToNumber = parseInt(target.value);
+						// if (isNaN(valueToNumber)) {
+						// 	cancelDebounce(handleOnChange);
+						// 	return;
+						// }
+						// debounce(handleOnChange)(valueToNumber);
+					}}
+				/>
+			</div>
 			{value && (
 				<Button
 					onClick={() => {
@@ -106,10 +108,11 @@ export const SortSelect = ({ route, currentPage, searchParamsPagination }: TProp
 							order: sortOrder === SortOrder.Asc ? SortOrder.Desc : SortOrder.Asc,
 						});
 					}}
+					className="rounded-md bg-gray-200 px-1 py-1"
 				>
 					{SortIcons[sortOrder]}
 				</Button>
 			)}
-		</>
+		</div>
 	);
 };

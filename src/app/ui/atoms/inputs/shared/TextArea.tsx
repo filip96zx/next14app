@@ -12,6 +12,6 @@ export const TextArea = ({
 	label,
 	...props
 }: TProps & React.ComponentPropsWithoutRef<"textarea">) => {
-	const Input = <textarea {...props} className={clsx(className, inputClassName)} />;
+	const Input = <textarea {...props} className={clsx(className, inputClassName, "w-full")} />;
 	return label ? <Label content={label}>{Input}</Label> : Input;
 };

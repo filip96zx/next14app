@@ -1,0 +1,36 @@
+.radioInput {
+	position: fixed;
+	opacity: 0;
+	pointer-events: none;
+}
+
+.radioLabel {
+	cursor: pointer;
+	font-size: 0;
+	color: rgba(0, 0, 0, 0.2);
+	transition: color 0.1s ease-in-out;
+}
+
+.radioLabel:before {
+	content: "★";
+	display: inline-block;
+	font-size: 32px;
+}
+
+.radioInput:checked ~ .radioLabel {
+	color: #ffc700;
+	color: gold;
+}
+
+.radioLabel:hover,
+.radioLabel:hover ~ .radioLabel {
+	color: goldenrod;
+}
+
+.radioInput:checked + .radioLabel:hover,
+.radioInput:checked + .radioLabel:hover ~ .radioLabel,
+.radioInput:checked ~ .radioLabel:hover,
+.radioInput:checked ~ .radioLabel:hover ~ .radioLabel,
+.radioLabel:hover ~ .radioInput:checked ~ .radioLabel {
+	color: darkgoldenrod;
+}
