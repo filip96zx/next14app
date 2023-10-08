@@ -2,6 +2,7 @@
 
 import { experimental_useOptimistic as useOptimistic } from "react";
 import clsx from "clsx";
+import { Minus, MinusIcon, PlusIcon, ShoppingBasket, Trash, Trash2, TrashIcon } from "lucide-react";
 import { Button } from "@/app/ui/atoms/buttons";
 import { type OrderItemFragment } from "@/gql/graphql";
 import { updateCartItemServerAction } from "@/app/services/server-actions";
@@ -28,7 +29,7 @@ export const CartProductActions = ({ orderItem }: TProps) => {
 						await updateCartItemServerAction(orderItem.id, newQuantity);
 					}}
 				>
-					-
+					<MinusIcon />
 				</Button>
 				<div className="inline-block w-8">{quantity}</div>
 				<Button
@@ -40,14 +41,14 @@ export const CartProductActions = ({ orderItem }: TProps) => {
 						await updateCartItemServerAction(orderItem.id, newQuantity);
 					}}
 				>
-					+
+					<PlusIcon />
 				</Button>
 				<Button
 					type="submit"
 					className={className}
 					formAction={() => updateCartItemServerAction(orderItem.id, 0)}
 				>
-					delete
+					<TrashIcon />
 				</Button>
 			</div>
 		</form>

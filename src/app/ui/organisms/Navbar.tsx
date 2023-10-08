@@ -1,8 +1,7 @@
 import { Suspense } from "react";
-import Link from "next/link";
-import { getCartTotalItemsByCookiesCartId } from "@/app/services/cart.service";
-import { ActiveLink, Button } from "@/app/ui/atoms/buttons";
+import { ActiveLink } from "@/app/ui/atoms/buttons";
 import { SearchInput } from "@/app/ui/atoms/inputs";
+import { GoCartButton } from "@/app/ui/atoms/buttons/GoCartButton";
 
 const navLinks = [
 	{ href: "/", label: "Home", exact: true },
@@ -10,9 +9,8 @@ const navLinks = [
 	{ href: "/categories/t-shirts", label: "T-Shirts" },
 	{ href: "/collections", label: "Collections", activeRoutePattern: `^\/collection\/.*` },
 ] as const;
-export const Navbar = async () => {
-	const totalItems = await getCartTotalItemsByCookiesCartId();
 
+export const Navbar = async () => {
 	return (
 		<div className="mx-auto mt-2 flex max-w-screen-xl justify-between">
 			<nav>
@@ -28,13 +26,9 @@ export const Navbar = async () => {
 					</ul>
 				</Suspense>
 			</nav>
-			<div>
+			<div className="flex gap-2 items-center">
 				<SearchInput />
-				<Link href="/cart">
-					<Button>
-						Cart <Suspense>{totalItems}</Suspense>
-					</Button>
-				</Link>
+				<GoCartButton />
 			</div>
 		</div>
 	);
