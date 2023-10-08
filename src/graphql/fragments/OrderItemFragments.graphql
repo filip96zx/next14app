@@ -1,0 +1,7 @@
+fragment OrderItem on OrderItem {
+	id
+	name
+	price
+	quantity
+	variantName
+}

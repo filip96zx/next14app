@@ -2,9 +2,10 @@
 const nextConfig = {
   experimental: {
     typedRoutes: true,
+    serverActions: true,
   },
   images: {
-    domains: ['media.graphassets.com']
+    domains: ['media.graphassets.com', 'picsum.photos', 'loremflickr.com']
   },
   redirects: async () => {
     return [

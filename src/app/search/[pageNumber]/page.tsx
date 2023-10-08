@@ -1,7 +1,6 @@
-import { getProductsByQuery } from "@/app/api";
-import { ListHeader } from "@/app/ui/ListHeader";
+import { getProductsByQuery } from "@/api";
+import { PageHeader } from "@/app/ui/atoms/PageHeader";
 import { PaginatedProductList, getPaginationParams } from "@/app/ui/organisms/list";
-import { createQueryParams } from "@/app/utils";
 
 type TProps = {
 	params: { pageNumber: string };
@@ -14,12 +13,13 @@ export default async function ProductsPage({
 }: TProps) {
 	return (
 		<div>
-			<ListHeader>{query ? `Search results for: ${query}` : "All products"}</ListHeader>
+			<PageHeader>{query ? `Search results for: ${query}` : "All products"}</PageHeader>
 			<PaginatedProductList
 				getListQuery={getProductsByQuery}
 				params={{ ...getPaginationParams({ pageNumber }), query: query || "" }}
 				route="/search"
-				goBackParams={`/search/${pageNumber}${createQueryParams({ query })}`}
+				// TODO task 1
+				// goBackParams={`/search/${pageNumber}${createQueryParams({ query })}`}
 			/>
 		</div>
 	);

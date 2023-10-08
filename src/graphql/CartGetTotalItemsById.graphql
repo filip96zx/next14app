@@ -1,0 +1,5 @@
+query CartGetTotalItemsById($id: ID!) {
+	order(id: $id, where: { status: DRAFT }) {
+		totalItems
+	}
+}

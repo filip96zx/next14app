@@ -1,12 +1,12 @@
 import { type Route } from "next";
 import { redirect } from "next/navigation";
-import Link from "next/link";
 import { PaginatedProductList, getPaginationParams } from "@/app/ui/organisms/list";
 
-import { getProductsByCollectionSlug } from "@/app/api";
-import { ListHeader } from "@/app/ui/ListHeader";
-import { createQueryParams, getMetadataTitle } from "@/app/utils";
+import { getProductsByCollectionSlug } from "@/api";
+import { PageHeader } from "@/app/ui/atoms/PageHeader";
+import { getMetadataTitle } from "@/app/utils";
 import { BackFormerPageParamName } from "@/app/models";
+import { BackButton } from "@/app/ui/atoms/buttons";
 
 export const generateMetadata = async ({
 	params: { pageNumber, slug: collectionSlug },
@@ -44,17 +44,18 @@ export default async function CollectionProductPage({
 
 	return (
 		<div>
-			<ListHeader>{collectionName}</ListHeader>
-			<Link className="text-blue-500" href={(from ? `${from}` : "/products") as Route}>
-				{from ? "Back" : "All products"}
-			</Link>
+			<PageHeader>{collectionName}</PageHeader>
+			<BackButton href={(from ? `${from}` : "/products") as Route}>
+				{!from && "All products"}
+			</BackButton>
 			<PaginatedProductList
 				getListQuery={getProductsByCollectionSlug}
 				params={queryParams}
 				route={`/collection/${slug}` as Route}
-				goBackParams={`/collection/${slug}/${pageNumber}${createQueryParams({
-					[BackFormerPageParamName.FROM]: from,
-				})}`}
+				// TODO task 1
+				// goBackParams={`/collection/${slug}/${pageNumber}${createQueryParams({
+				//	[BackFormerPageParamName.FROM]: from,
+				// })}`}
 			/>
 		</div>
 	);

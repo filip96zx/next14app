@@ -4,17 +4,19 @@ import { type CollectionListItemFragment } from "@/gql/graphql";
 
 type TProps = {
 	collections: Array<CollectionListItemFragment>;
-	goBackParams: string | number;
+	// TODO task 1
+	// goBackParams: string | number;
 };
 
-export const CollectionList = ({ collections, goBackParams }: TProps) => {
+export const CollectionList = ({ collections }: TProps) => {
 	return (
 		<ListLayout data-testid="collection-list">
 			{collections.map((collection) => (
 				<CollectionListItem
 					key={collection.slug}
 					collection={collection}
-					goBackParams={goBackParams}
+					// TODO task 1
+					// goBackParams={goBackParams}
 				/>
 			))}
 		</ListLayout>

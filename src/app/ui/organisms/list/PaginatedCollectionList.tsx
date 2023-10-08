@@ -12,8 +12,8 @@ export async function PaginatedCollectionList<TParams extends { skip: number; fi
 	return (
 		<PaginatedList
 			{...props}
-			renderList={({ content, goBackParams }) => (
-				<CollectionList collections={content} goBackParams={goBackParams} />
+			renderList={({ content, }) => (
+				<CollectionList collections={content} /*goBackParams={goBackParams}*/ />
 			)}
 		/>
 	);

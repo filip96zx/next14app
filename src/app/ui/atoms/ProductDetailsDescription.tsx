@@ -19,7 +19,7 @@ export const ProductDetailsDescription = ({ product: { categories, name, price }
 					)}
 				</p>
 			</div>
-			<p className="text-sm font-medium text-gray-900">{parseMoney(price / 100)}</p>
+			<p className="text-sm font-medium text-gray-900">{parseMoney(price)}</p>
 		</div>
 	);
 };

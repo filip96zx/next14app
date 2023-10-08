@@ -1,6 +1,6 @@
 export const parseMoney = (price: number) => {
 	return Intl.NumberFormat("pl-PL", {
 		style: "currency",
-		currency: "PLN",
-	}).format(price);
+		currency: "USD",
+	}).format(price / 100);
 };

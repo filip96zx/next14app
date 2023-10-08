@@ -1,8 +1,8 @@
 query ProductGetByQuery($query: String!, $skip: Int!, $first: Int!) {
-	products(where: { name_contains: $query }, skip: $skip, first: $first) {
+	products(where: { nameContains: $query }, skip: $skip, first: $first) {
 		...ProductListItem
 	}
-	productsConnection(where: { name_contains: $query }, skip: $skip, first: $first) {
+	productsConnection(where: { nameContains: $query }) {
 		aggregate {
 			count
 		}

@@ -1,6 +1,6 @@
 import { type Route } from "next";
 import clsx from "clsx";
-import { ActiveLink } from "@/app/ui/atoms/ActiveLink";
+import { ActiveLink } from "@/app/ui/atoms/buttons";
 import { createPaginationParams } from "@/app/utils";
 
 type TProps = {

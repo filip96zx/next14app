@@ -1,12 +1,14 @@
 import { notFound } from "next/navigation";
 import { type Route } from "next";
 import { Suspense } from "react";
-import { getProductById, getProductsByCollectionSlug } from "@/app/api";
+import { getProductById, getProductsByCollectionSlug } from "@/api";
 import { ProductCard } from "@/app/ui/molecules/ProductCard";
-import { createQueryParams, getMetadataTitle } from "@/app/utils";
+import { getMetadataTitle } from "@/app/utils";
 import { PaginatedProductList, getPaginationParams } from "@/app/ui/organisms/list";
 import { BackFormerPageParamName } from "@/app/models";
-import { ActiveLink } from "@/app/ui/atoms/ActiveLink";
+import { AddToCartButton, BackButton } from "@/app/ui/atoms/buttons";
+import { NumberInput, Select } from "@/app/ui/atoms/inputs";
+import { addToCartServerAction } from "@/app/services/server-actions";
 
 export const generateMetadata = async ({ params }: { params: { productId: string } }) => {
 	const product = await getProductById(params.productId);
@@ -36,27 +38,39 @@ interface IProps {
 }
 
 export default async function ProductPage({ params, searchParams }: IProps) {
-	const { [BackFormerPageParamName.FROM]: from, page = 1, ...restParams } = searchParams;
+	const { [BackFormerPageParamName.FROM]: from, page = 1 } = searchParams;
 	const product = await getProductById(params.productId);
 
 	if (!product) {
-		return notFound();
+		throw notFound();
 	}
 	const collectionSlug = product.collections[0]?.slug;
+
 	return (
 		<div className="flex flex-col  items-center justify-center gap-5">
 			<div>
-				<ActiveLink
-					className="text-blue-500"
-					href={(from ? `${from}` : "/products") as Route}
-					keepSearchParams
-				>
-					{from ? "Back" : "All products"}
-				</ActiveLink>
+				<BackButton href={(from ? `${from}` : "/products") as Route} keepSearchParams>
+					{!from && "All products"}
+				</BackButton>
 			</div>
 			<h1 className="text-center text-2xl font-bold text-gray-800">{product.name}</h1>
 			<div className="max-w-md">
 				<ProductCard product={product} />
+				<form action={addToCartServerAction.bind(null, product.id)}>
+					<Select
+						name="variantId"
+						options={product.variants.map((v) => ({ name: v.name, value: v.id }))}
+					/>
+					<NumberInput
+						name="quantity"
+						min={1}
+						max={100}
+						defaultValue={1}
+						className="w-20"
+						setDefaultValueOnClear
+					/>
+					<AddToCartButton />
+				</form>
 			</div>
 			<p className="text-center text-gray-500">{product.description}</p>
 			{collectionSlug && (
@@ -68,13 +82,15 @@ export default async function ProductPage({ params, searchParams }: IProps) {
 							slug: collectionSlug,
 							excludedIds: [params.productId],
 						}}
-						goBackParams={`/product/${params.productId}${createQueryParams({
-							from,
-							page,
-							...restParams,
-						})}`}
+						// TODO task 1
+						// goBackParams={`/product/${params.productId}${createQueryParams({
+						// 	from,
+						// 	page,
+						// 	...restParams,
+						// })}`}
 						route={`/product/${params.productId}` as Route}
 						searchParamsPagination
+						hidePagination
 					/>
 				</Suspense>
 			)}

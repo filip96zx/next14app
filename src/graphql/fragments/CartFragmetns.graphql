@@ -1,0 +1,11 @@
+fragment Cart on Order {
+	id
+}
+
+fragment CartDetails on Order {
+	...Cart
+	items {
+		...OrderItem
+	}
+	totalItems
+}

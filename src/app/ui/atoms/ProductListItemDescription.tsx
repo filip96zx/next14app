@@ -5,7 +5,9 @@ type TProps = {
 	product: ProductListItemFragment;
 };
 
-export const ProductListItemDescription = ({ product: { categories, name, price } }: TProps) => {
+export const ProductListItemDescription = ({
+	product: { categories, name, price, averageRating },
+}: TProps) => {
 	const categoryName = categories?.[0]?.name;
 	return (
 		<div className="mt-2 flex justify-between">
@@ -18,8 +20,9 @@ export const ProductListItemDescription = ({ product: { categories, name, price 
 						</>
 					)}
 				</p>
+				<p>rate {averageRating.toFixed(2)}</p>
 			</div>
-			<p className="text-sm font-medium text-gray-900">{parseMoney(price / 100)}</p>
+			<p className="text-sm font-medium text-gray-900">{parseMoney(price)}</p>
 		</div>
 	);
 };

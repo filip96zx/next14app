@@ -1,6 +1,6 @@
 import { type Metadata } from "next";
-import { getCollectionList } from "@/app/api";
-import { ListHeader } from "@/app/ui/ListHeader";
+import { getCollectionList } from "@/api";
+import { PageHeader } from "@/app/ui/atoms/PageHeader";
 import { PaginatedCollectionList, getPaginationParams } from "@/app/ui/organisms/list";
 import { getMetadataTitle } from "@/app/utils";
 
@@ -16,12 +16,13 @@ type TProps = {
 export default async function ProductsPage({ params: { pageNumber } }: TProps) {
 	return (
 		<div>
-			<ListHeader>Collections</ListHeader>
+			<PageHeader>Collections</PageHeader>
 			<PaginatedCollectionList
 				getListQuery={getCollectionList}
 				params={getPaginationParams({ pageNumber })}
 				route="/collections"
-				goBackParams={`/collections/${pageNumber}`}
+				// TODO task 1
+				// goBackParams={`/collections/${pageNumber}`}
 			/>
 		</div>
 	);

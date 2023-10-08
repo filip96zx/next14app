@@ -1,21 +1,20 @@
 import { type Route } from "next";
 import { redirect } from "next/navigation";
 import { PaginatedProductList, getPaginationParams } from "@/app/ui/organisms/list";
-import { LIST_PAGE_SIZE } from "@/app/constants";
-import { getProductsByCategorySlug } from "@/app/api";
-import { ListHeader } from "@/app/ui/ListHeader";
+import { getProductsByCategorySlug } from "@/api";
+import { PageHeader } from "@/app/ui/atoms/PageHeader";
 import { getMetadataTitle } from "@/app/utils";
 
-export async function generateStaticParams() {
-	const { totalElements } = await getProductsByCategorySlug({
-		slug: "t-shirts",
-		first: 1,
-		skip: 0,
-	});
-	return Array.from({ length: Math.ceil(totalElements / LIST_PAGE_SIZE) }, (_, i) => ({
-		pageNumber: (i + 1).toString(),
-	}));
-}
+// export async function generateStaticParams() {
+// 	const { totalElements } = await getProductsByCategorySlug({
+// 		slug: "t-shirts",
+// 		first: 1,
+// 		skip: 0,
+// 	});
+// 	return Array.from({ length: Math.ceil(totalElements / LIST_PAGE_SIZE) }, (_, i) => ({
+// 		pageNumber: (i + 1).toString(),
+// 	}));
+// }
 
 export const generateMetadata = async ({ params: { pageNumber, slug } }: TProps) => {
 	const queryParams = {
@@ -47,12 +46,13 @@ export default async function ProductsPage({ params: { pageNumber, slug } }: TPr
 
 	return (
 		<div>
-			<ListHeader>{categoryName}</ListHeader>
+			<PageHeader>{categoryName}</PageHeader>
 			<PaginatedProductList
 				getListQuery={getProductsByCategorySlug}
 				params={queryParams}
 				route={`/categories/${slug}` as Route}
-				goBackParams={`/categories/${slug}/${pageNumber}`}
+				// TODO task 1
+				// goBackParams={`/categories/${slug}/${pageNumber}`}
 			/>
 		</div>
 	);

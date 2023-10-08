@@ -1,4 +1,4 @@
-import { executeGraphql } from "@/app/api/executeGraphql";
+import { executeGraphql } from "@/api/executeGraphql";
 import { type ListResponse } from "@/app/models";
 import {
 	ProductsGetByCollectionSlugDocument,
@@ -8,10 +8,10 @@ import {
 export const getProductsByCollectionSlug = async (
 	params: ProductsGetByCollectionSlugQueryVariables,
 ) => {
-	const { products, productsConnection, collections } = await executeGraphql(
-		ProductsGetByCollectionSlugDocument,
-		params,
-	);
+	const { products, productsConnection, collections } = await executeGraphql({
+		query: ProductsGetByCollectionSlugDocument,
+		variables: params,
+	});
 	return {
 		content: products,
 		totalElements: productsConnection.aggregate.count,

@@ -2,14 +2,14 @@ query ProductsGetByCollectionSlug($first: Int!, $skip: Int!, $slug: String!, $ex
 	products(
 		first: $first
 		skip: $skip
-		where: { collections_some: { slug: $slug }, AND: { id_not_in: $excludedIds } }
+		where: { collections_some: { slug: $slug }, excludedIds: $excludedIds }
 	) {
 		...ProductListItem
 	}
 	collections(where: { slug: $slug }) {
 		name
 	}
-	productsConnection(where: { collections_some: { slug: $slug } }) {
+	productsConnection(where: { collections_some: { slug: $slug }, excludedIds: $excludedIds }) {
 		aggregate {
 			count
 		}
