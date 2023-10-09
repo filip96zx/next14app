@@ -13,4 +13,5 @@ export enum BackFormerPageParamName {
 
 export enum RevalidateTags {
 	CART = "cart",
+	PRODUCT_RATING = "product_rating",
 }

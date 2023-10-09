@@ -15,7 +15,7 @@ export type Scalars = {
   Int: { input: number; output: number; }
   Float: { input: number; output: number; }
   /** A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `date-time` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar. */
-  DateTime: { input: unknown; output: unknown; }
+  DateTime: { input: string; output: string; }
 };
 
 export type Aggregate = {
@@ -89,6 +89,7 @@ export type Mutation = {
   orderUpdateStatus?: Maybe<Order>;
   productCalculateAndUpdateAverageRating?: Maybe<Product>;
   productsCalculateAndUpdateAverageRating: Array<Product>;
+  ratingCreate: Rating;
 };
 
 
@@ -118,6 +119,12 @@ export type MutationOrderUpdateStatusArgs = {
 
 export type MutationProductCalculateAndUpdateAverageRatingArgs = {
   id: Scalars['ID']['input'];
+};
+
+
+export type MutationRatingCreateArgs = {
+  productId: Scalars['ID']['input'];
+  ratingInput: RatingInput;
 };
 
 export type Order = {
@@ -227,6 +234,8 @@ export type Query = {
   product?: Maybe<Product>;
   products: Array<Product>;
   productsConnection: Connection;
+  ratingConnection: Connection;
+  ratings: Array<Rating>;
 };
 
 
@@ -282,12 +291,39 @@ export type QueryProductsConnectionArgs = {
   where?: InputMaybe<ProductWhereInput>;
 };
 
+
+export type QueryRatingConnectionArgs = {
+  where?: InputMaybe<RatingWhereInput>;
+};
+
+
+export type QueryRatingsArgs = {
+  first?: InputMaybe<Scalars['Int']['input']>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<RatingWhereInput>;
+};
+
 export type Rating = {
   comment: Scalars['String']['output'];
   createdAt: Scalars['DateTime']['output'];
+  email: Scalars['String']['output'];
   id: Scalars['ID']['output'];
   rating: Scalars['Int']['output'];
+  title: Scalars['String']['output'];
   updatedAt: Scalars['DateTime']['output'];
+  userName: Scalars['String']['output'];
+};
+
+export type RatingInput = {
+  comment: Scalars['String']['input'];
+  email: Scalars['String']['input'];
+  rating: Scalars['Int']['input'];
+  title: Scalars['String']['input'];
+  userName: Scalars['String']['input'];
+};
+
+export type RatingWhereInput = {
+  productId?: InputMaybe<Scalars['ID']['input']>;
 };
 
 export enum SortOrder {
@@ -420,6 +456,23 @@ export type ProductsGetListQueryVariables = Exact<{
 
 export type ProductsGetListQuery = { products: Array<{ id: string, name: string, price: number, description: string, averageRating: number, images: Array<{ url: string, width: number, height: number } | null>, categories: Array<{ name?: string | null } | null> }>, productsConnection: { aggregate: { count: number } } };
 
+export type RatingCreateMutationVariables = Exact<{
+  productId: Scalars['ID']['input'];
+  rating: RatingInput;
+}>;
+
+
+export type RatingCreateMutation = { ratingCreate: { id: string } };
+
+export type RatingGetListByProductIdQueryVariables = Exact<{
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<RatingWhereInput>;
+}>;
+
+
+export type RatingGetListByProductIdQuery = { ratings: Array<{ createdAt: string, comment: string, rating: number, title: string, userName: string }> };
+
 export type CartFragment = { id: string };
 
 export type CartDetailsFragment = { totalItems: number, id: string, items: Array<{ id: string, name: string, price: number, quantity: number, variantName: string }> };
@@ -433,6 +486,8 @@ export type ProductBaseFragment = { id: string, name: string, price: number, des
 export type ProductListItemFragment = { id: string, name: string, price: number, description: string, averageRating: number, images: Array<{ url: string, width: number, height: number } | null>, categories: Array<{ name?: string | null } | null> };
 
 export type ProductDetailsFragment = { id: string, name: string, price: number, description: string, averageRating: number, collections: Array<{ slug: string } | null>, images: Array<{ url: string, width: number, height: number } | null>, variants: Array<{ id: string, name: string }>, categories: Array<{ name?: string | null } | null> };
+
+export type RatingListItemFragment = { createdAt: string, comment: string, rating: number, title: string, userName: string };
 
 export class TypedDocumentString<TResult, TVariables>
   extends String
@@ -549,6 +604,15 @@ export const ProductDetailsFragmentDoc = new TypedDocumentString(`
     name
   }
 }`, {"fragmentName":"ProductDetails"}) as unknown as TypedDocumentString<ProductDetailsFragment, unknown>;
+export const RatingListItemFragmentDoc = new TypedDocumentString(`
+    fragment RatingListItem on Rating {
+  createdAt
+  comment
+  rating
+  title
+  userName
+}
+    `, {"fragmentName":"RatingListItem"}) as unknown as TypedDocumentString<RatingListItemFragment, unknown>;
 export const CartCreateDocument = new TypedDocumentString(`
     mutation CartCreate($items: [OrderItemInput!]!) {
   orderCreate(items: $items) {
@@ -823,3 +887,23 @@ fragment ProductListItem on Product {
     height
   }
 }`) as unknown as TypedDocumentString<ProductsGetListQuery, ProductsGetListQueryVariables>;
+export const RatingCreateDocument = new TypedDocumentString(`
+    mutation RatingCreate($productId: ID!, $rating: RatingInput!) {
+  ratingCreate(productId: $productId, ratingInput: $rating) {
+    id
+  }
+}
+    `) as unknown as TypedDocumentString<RatingCreateMutation, RatingCreateMutationVariables>;
+export const RatingGetListByProductIdDocument = new TypedDocumentString(`
+    query RatingGetListByProductId($skip: Int, $first: Int, $where: RatingWhereInput) {
+  ratings(first: $first, skip: $skip, where: $where) {
+    ...RatingListItem
+  }
+}
+    fragment RatingListItem on Rating {
+  createdAt
+  comment
+  rating
+  title
+  userName
+}`) as unknown as TypedDocumentString<RatingGetListByProductIdQuery, RatingGetListByProductIdQueryVariables>;

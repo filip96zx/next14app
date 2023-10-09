@@ -2,7 +2,7 @@ import classes from "./rating-input.module.css";
 import { Label } from "@/app/ui/atoms/inputs";
 type TProps = { name: string };
 
-export const RatingInput = ({}: TProps) => {
+export const RatingInput = ({ name }: TProps) => {
 	return (
 		<Label content="Rate the product:">
 			<div className="flex flex-row-reverse justify-end">
@@ -10,7 +10,7 @@ export const RatingInput = ({}: TProps) => {
 					className={classes.radioInput}
 					type="radio"
 					id="star5"
-					name="star-input"
+					name={name}
 					value="5"
 					required
 				/>
@@ -22,7 +22,7 @@ export const RatingInput = ({}: TProps) => {
 					className={classes.radioInput}
 					type="radio"
 					id="star4"
-					name="star-input"
+					name={name}
 					value="4"
 					required
 				/>
@@ -34,7 +34,7 @@ export const RatingInput = ({}: TProps) => {
 					className={classes.radioInput}
 					type="radio"
 					id="star3"
-					name="star-input"
+					name={name}
 					value="3"
 					required
 				/>
@@ -46,7 +46,7 @@ export const RatingInput = ({}: TProps) => {
 					className={classes.radioInput}
 					type="radio"
 					id="star2"
-					name="star-input"
+					name={name}
 					value="2"
 					required
 				/>
@@ -58,7 +58,7 @@ export const RatingInput = ({}: TProps) => {
 					className={classes.radioInput}
 					type="radio"
 					id="star1"
-					name="star-input"
+					name={name}
 					value="1"
 					required
 				/>

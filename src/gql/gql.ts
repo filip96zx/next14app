@@ -28,10 +28,13 @@ const documents = {
     "query ProductGetById($id: ID!) {\n  product(id: $id) {\n    ...ProductDetails\n  }\n}": types.ProductGetByIdDocument,
     "query ProductGetByQuery($query: String!, $skip: Int!, $first: Int!) {\n  products(where: {nameContains: $query}, skip: $skip, first: $first) {\n    ...ProductListItem\n  }\n  productsConnection(where: {nameContains: $query}) {\n    aggregate {\n      count\n    }\n  }\n}": types.ProductGetByQueryDocument,
     "query ProductsGetList($first: Int!, $skip: Int!, $orderBy: OrderByInput) {\n  products(first: $first, skip: $skip, orderBy: $orderBy) {\n    ...ProductListItem\n  }\n  productsConnection {\n    aggregate {\n      count\n    }\n  }\n}": types.ProductsGetListDocument,
+    "mutation RatingCreate($productId: ID!, $rating: RatingInput!) {\n  ratingCreate(productId: $productId, ratingInput: $rating) {\n    id\n  }\n}": types.RatingCreateDocument,
+    "query RatingGetListByProductId($skip: Int, $first: Int, $where: RatingWhereInput) {\n  ratings(first: $first, skip: $skip, where: $where) {\n    ...RatingListItem\n  }\n}": types.RatingGetListByProductIdDocument,
     "fragment Cart on Order {\n  id\n}\n\nfragment CartDetails on Order {\n  ...Cart\n  items {\n    ...OrderItem\n  }\n  totalItems\n}": types.CartFragmentDoc,
     "fragment CollectionListItem on Collection {\n  name\n  slug\n  description\n  images(first: 1) {\n    url\n    width\n    height\n  }\n}": types.CollectionListItemFragmentDoc,
     "fragment OrderItem on OrderItem {\n  id\n  name\n  price\n  quantity\n  variantName\n}": types.OrderItemFragmentDoc,
     "fragment ProductBase on Product {\n  id\n  name\n  price\n  description\n  averageRating\n  categories(first: 1) {\n    name\n  }\n}\n\nfragment ProductListItem on Product {\n  ...ProductBase\n  images(first: 1) {\n    url\n    width\n    height\n  }\n}\n\nfragment ProductDetails on Product {\n  ...ProductBase\n  collections(first: 1) {\n    slug\n  }\n  images(first: 3) {\n    url\n    width\n    height\n  }\n  variants {\n    id\n    name\n  }\n}": types.ProductBaseFragmentDoc,
+    "fragment RatingListItem on Rating {\n  createdAt\n  comment\n  rating\n  title\n  userName\n}": types.RatingListItemFragmentDoc,
 };
 
 /**
@@ -93,6 +96,14 @@ export function graphql(source: "query ProductsGetList($first: Int!, $skip: Int!
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
+export function graphql(source: "mutation RatingCreate($productId: ID!, $rating: RatingInput!) {\n  ratingCreate(productId: $productId, ratingInput: $rating) {\n    id\n  }\n}"): typeof import('./graphql').RatingCreateDocument;
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "query RatingGetListByProductId($skip: Int, $first: Int, $where: RatingWhereInput) {\n  ratings(first: $first, skip: $skip, where: $where) {\n    ...RatingListItem\n  }\n}"): typeof import('./graphql').RatingGetListByProductIdDocument;
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
 export function graphql(source: "fragment Cart on Order {\n  id\n}\n\nfragment CartDetails on Order {\n  ...Cart\n  items {\n    ...OrderItem\n  }\n  totalItems\n}"): typeof import('./graphql').CartFragmentDoc;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
@@ -106,6 +117,10 @@ export function graphql(source: "fragment OrderItem on OrderItem {\n  id\n  name
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "fragment ProductBase on Product {\n  id\n  name\n  price\n  description\n  averageRating\n  categories(first: 1) {\n    name\n  }\n}\n\nfragment ProductListItem on Product {\n  ...ProductBase\n  images(first: 1) {\n    url\n    width\n    height\n  }\n}\n\nfragment ProductDetails on Product {\n  ...ProductBase\n  collections(first: 1) {\n    slug\n  }\n  images(first: 3) {\n    url\n    width\n    height\n  }\n  variants {\n    id\n    name\n  }\n}"): typeof import('./graphql').ProductBaseFragmentDoc;
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "fragment RatingListItem on Rating {\n  createdAt\n  comment\n  rating\n  title\n  userName\n}"): typeof import('./graphql').RatingListItemFragmentDoc;
 
 
 export function graphql(source: string) {
