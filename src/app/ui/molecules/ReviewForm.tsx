@@ -23,7 +23,7 @@ export const ReviewForm = ({}: TProps) => {
 						<TextArea name="content" label="Content" className="h-20" required maxLength={2000} />
 					</div>
 					<div>
-						<RatingInput name="stars" />
+						<RatingInput name="rating" />
 					</div>
 				</div>
 				<Button
