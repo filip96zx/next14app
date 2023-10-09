@@ -3,7 +3,7 @@
 import { useCallback } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { type Route } from "next";
-import { ArrowBigUp, ArrowUpIcon, ArrowUpNarrowWide, ChevronDown, ChevronUp } from "lucide-react";
+import { ChevronDown, ChevronUp } from "lucide-react";
 import { createPaginationParams, handleForwardSearchParams } from "@/app/utils";
 import { Button } from "@/app/ui/atoms/buttons";
 import { Select } from "@/app/ui/atoms/inputs/shared/Select";
@@ -80,7 +80,7 @@ export const SortSelect = ({ route, currentPage, searchParamsPagination }: TProp
 	const sortOrder: SortOrder = getSearchParamsSortBy();
 	const value = searchParams.get("sortBy");
 	return (
-		<div className="flex items-center mb-5">
+		<div className="mb-5 flex items-center">
 			<div className="mr-2 inline-block w-60">
 				<Select
 					aria-label="sort select"
