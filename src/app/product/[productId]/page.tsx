@@ -9,7 +9,6 @@ import { BackFormerPageParamName } from "@/app/models";
 import { AddToCartButton, BackButton } from "@/app/ui/atoms/buttons";
 import { NumberInput, Select } from "@/app/ui/atoms/inputs";
 import { addToCartServerAction } from "@/app/services/server-actions";
-import { ReviewForm } from "@/app/ui/molecules/ReviewForm";
 import { ReviewList } from "@/app/ui/molecules/review/ReviewList";
 
 export const generateMetadata = async ({ params }: { params: { productId: string } }) => {
@@ -97,7 +96,6 @@ export default async function ProductPage({ params, searchParams }: IProps) {
 				</Suspense>
 			)}
 			<ReviewList productId={params.productId} />
-			<ReviewForm productId={params.productId} />
 		</div>
 	);
 }
