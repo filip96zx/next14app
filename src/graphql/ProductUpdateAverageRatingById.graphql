@@ -1,0 +1,5 @@
+mutation ProductUpdateAverageRatingById($productId: ID!) {
+	productCalculateAndUpdateAverageRating(id: $productId) {
+		id
+	}
+}

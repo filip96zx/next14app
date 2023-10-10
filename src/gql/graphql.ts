@@ -456,6 +456,13 @@ export type ProductsGetListQueryVariables = Exact<{
 
 export type ProductsGetListQuery = { products: Array<{ id: string, name: string, price: number, description: string, averageRating: number, images: Array<{ url: string, width: number, height: number } | null>, categories: Array<{ name?: string | null } | null> }>, productsConnection: { aggregate: { count: number } } };
 
+export type ProductUpdateAverageRatingByIdMutationVariables = Exact<{
+  productId: Scalars['ID']['input'];
+}>;
+
+
+export type ProductUpdateAverageRatingByIdMutation = { productCalculateAndUpdateAverageRating?: { id: string } | null };
+
 export type RatingCreateMutationVariables = Exact<{
   productId: Scalars['ID']['input'];
   rating: RatingInput;
@@ -887,6 +894,13 @@ fragment ProductListItem on Product {
     height
   }
 }`) as unknown as TypedDocumentString<ProductsGetListQuery, ProductsGetListQueryVariables>;
+export const ProductUpdateAverageRatingByIdDocument = new TypedDocumentString(`
+    mutation ProductUpdateAverageRatingById($productId: ID!) {
+  productCalculateAndUpdateAverageRating(id: $productId) {
+    id
+  }
+}
+    `) as unknown as TypedDocumentString<ProductUpdateAverageRatingByIdMutation, ProductUpdateAverageRatingByIdMutationVariables>;
 export const RatingCreateDocument = new TypedDocumentString(`
     mutation RatingCreate($productId: ID!, $rating: RatingInput!) {
   ratingCreate(productId: $productId, ratingInput: $rating) {

@@ -1,4 +1,4 @@
-import { RatingStars } from "@/app/ui/atoms/RatingStars";
+import { RatingStarsWithLabel } from "@/app/ui/atoms/rating";
 import { parseMoney } from "@/app/utils";
 import { type ProductListItemFragment } from "@/gql/graphql";
 
@@ -21,12 +21,7 @@ export const ProductListItemDescription = ({
 						</>
 					)}
 				</p>
-				<div className="flex items-center justify-center gap-3">
-					<RatingStars rating={averageRating} />
-					<span className="text-sm text-gray-500" data-testid="product-rating">
-						{averageRating.toFixed(2)}
-					</span>
-				</div>
+				<RatingStarsWithLabel rating={averageRating} />
 			</div>
 			<p className="text-sm font-medium text-gray-900">{parseMoney(price)}</p>
 		</div>

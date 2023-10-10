@@ -1,5 +1,5 @@
 import { executeGraphql } from "@/api/executeGraphql";
-import { RevalidateTags } from "@/app/models";
+import { RevalidateTags, getTagToRevalidate } from "@/app/models";
 import {
 	RatingGetListByProductIdDocument,
 	type RatingGetListByProductIdQueryVariables,
@@ -10,7 +10,12 @@ export const getRatingListByProductId = async (params: RatingGetListByProductIdQ
 		query: RatingGetListByProductIdDocument,
 		variables: params,
 		next: {
-			tags: [RevalidateTags.PRODUCT_RATING],
+			tags: [
+				getTagToRevalidate({
+					tag: RevalidateTags.PRODUCT_RATING,
+					param: params.where?.productId || undefined,
+				}),
+			],
 		},
 	});
 	return ratings;

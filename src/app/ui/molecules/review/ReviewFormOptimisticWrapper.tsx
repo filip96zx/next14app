@@ -1,6 +1,6 @@
 "use client";
 
-import { experimental_useOptimistic as useOptimistic } from "react";
+import { experimental_useOptimistic as useOptimistic, useState } from "react";
 import { CheckCircle } from "lucide-react";
 import { Button } from "@/app/ui/atoms/buttons";
 import { type RatingCreateMutationVariables, type RatingListItemFragment } from "@/gql/graphql";
@@ -21,19 +21,17 @@ export const ReviewFormOptimisticWrapper = ({ children }: TProps) => {
 	const [optimisticRating, optimisticCreateRating] = useOptimistic<RatingListItemFragment | null>(
 		null,
 	);
+	const [formSubmitted, setFormSubmitted] = useState(false);
 	return (
 		<>
-			{optimisticRating ? (
-				<>
-					<div className="py2 rounded-md bg-slate-100">
-						<ReviewListItem rating={optimisticRating} />
-					</div>
-					<div className="mb-20 mt-10 flex justify-center gap-1">
-						<CheckCircle />
-						<span>Thank you for your review</span>
-					</div>
-				</>
-			) : (
+			{optimisticRating && <ReviewListItem rating={optimisticRating} />}
+			{formSubmitted && (
+				<div className="mb-20 mt-10 flex justify-center gap-1">
+					<CheckCircle />
+					<span>Thank you for your review</span>
+				</div>
+			)}
+			{!formSubmitted && (
 				<>
 					{children}
 					<Button
@@ -59,6 +57,7 @@ export const ReviewFormOptimisticWrapper = ({ children }: TProps) => {
 								userName: rateResponse.rating.userName,
 								createdAt: new Date().toISOString(),
 							});
+							setFormSubmitted(true);
 							await handleCreateProductRatingServerAction(rateResponse);
 						}}
 					>

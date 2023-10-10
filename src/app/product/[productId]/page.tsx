@@ -10,6 +10,7 @@ import { AddToCartButton, BackButton } from "@/app/ui/atoms/buttons";
 import { NumberInput, Select } from "@/app/ui/atoms/inputs";
 import { addToCartServerAction } from "@/app/services/server-actions";
 import { ReviewList } from "@/app/ui/molecules/review/ReviewList";
+import { RatingStarsWithLabel } from "@/app/ui/atoms/rating";
 
 export const generateMetadata = async ({ params }: { params: { productId: string } }) => {
 	const product = await getProductById(params.productId);
@@ -57,6 +58,7 @@ export default async function ProductPage({ params, searchParams }: IProps) {
 			<h1 className="text-center text-2xl font-bold text-gray-800">{product.name}</h1>
 			<div className="max-w-md">
 				<ProductCard product={product} />
+				<RatingStarsWithLabel rating={product.averageRating} />
 				<form action={addToCartServerAction.bind(null, product.id)}>
 					<Select
 						name="variantId"

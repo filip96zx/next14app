@@ -1,4 +1,4 @@
-import { RatingStars } from "@/app/ui/atoms/RatingStars";
+import { RatingStars } from "@/app/ui/atoms/rating";
 import { type RatingListItemFragment } from "@/gql/graphql";
 
 type TProps = { rating: RatingListItemFragment };
@@ -14,7 +14,7 @@ export const ReviewListItem = ({
 				{Intl.DateTimeFormat("en-US").format(new Date(createdAt))}
 			</div>
 			<div>
-				<p className="my-3 text-base break-all">{comment}</p>
+				<p className="my-3 break-all text-base">{comment}</p>
 				<p className="text-right text-sm text-gray-400">{userName}</p>
 			</div>
 		</li>

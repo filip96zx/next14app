@@ -1,6 +1,8 @@
 "use server";
 
-import { createRating } from "@/api/mutations";
+import { revalidateTag } from "next/cache";
+import { createRating, updateProductAverageRating } from "@/api/mutations";
+import { RevalidateTags, getTagToRevalidate } from "@/app/models";
 import { type RatingCreateMutationVariables } from "@/gql/graphql";
 
 type TFormValues = {
@@ -28,4 +30,8 @@ export const parseRatingFormDataToCreateRequest = (
 };
 export async function handleCreateProductRatingServerAction(data: RatingCreateMutationVariables) {
 	await createRating(data);
+	await updateProductAverageRating(data.productId);
+	revalidateTag(getTagToRevalidate({ param: data.productId, tag: RevalidateTags.PRODUCT }));
+	revalidateTag(getTagToRevalidate({ param: data.productId, tag: RevalidateTags.PRODUCT_RATING }));
+	revalidateTag(RevalidateTags.PRODUCT_LIST);
 }
