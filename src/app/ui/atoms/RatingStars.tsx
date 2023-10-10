@@ -2,12 +2,12 @@ type TProps = {
 	rating: number;
 };
 
-export const Rating = ({ rating }: TProps) => {
+export const RatingStars = ({ rating }: TProps) => {
 	const backgroundGradient = (value: number) =>
 		`linear-gradient(90deg, gold ${(value / 5) * 100}%, rgba(0, 0, 0, 0.2) ${(value / 5) * 100}%`;
 	return (
 		<meter
-			className="w-auto appearance-none text-2xl h-auto"
+			className="h-auto w-auto appearance-none text-2xl"
 			min="0"
 			max="5"
 			value={rating}
