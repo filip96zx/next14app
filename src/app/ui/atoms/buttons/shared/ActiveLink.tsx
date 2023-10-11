@@ -5,7 +5,6 @@ import { type Route } from "next";
 
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
-import { use } from "react";
 import { handleForwardSearchParams } from "@/app/utils";
 
 type TProps<T extends string> = {
