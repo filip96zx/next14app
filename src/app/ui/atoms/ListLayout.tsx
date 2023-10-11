@@ -1,12 +1,12 @@
 type TProps = {
 	children: React.ReactNode;
-	"data-test-id"?: string;
+	dataTestid?: string;
 };
 
-export const ListLayout = ({ children, ...rest }: TProps) => {
+export const ListLayout = ({ children, dataTestid }: TProps) => {
 	return (
 		<ul
-			data-test-id={rest["data-test-id"]}
+			data-test-id={dataTestid}
 			className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
 		>
 			{children}

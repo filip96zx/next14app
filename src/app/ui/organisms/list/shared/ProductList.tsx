@@ -10,7 +10,7 @@ type TProps = {
 
 export const ProductList = ({ products }: TProps) => {
 	return (
-		<ListLayout data-testid="products-list">
+		<ListLayout dataTestid="products-list">
 			{products.map((product) => (
 				<ProductListItem key={product.id} product={product} />
 			))}
