@@ -11,7 +11,7 @@ export const SearchInput = () => {
 	const onChange = useCallback(
 		(value: string) => {
 			const queryParams = createQueryParams({ query: value });
-			router.push(`/search/1${queryParams}`);
+			router.push(`/search?${queryParams.replace(/^\?/, "")}`);
 		},
 		[router],
 	);

@@ -25,11 +25,6 @@ const nextConfig = {
         permanent: false,
       },
       {
-        source: '/search',
-        destination: '/search/1',
-        permanent: false,
-      },
-      {
         source: '/collection/:categoryName',
         destination: '/collection/:categoryName/1',
         permanent: false,

@@ -85,6 +85,7 @@ export default async function ProductPage({ params, searchParams }: IProps) {
 							slug: collectionSlug,
 							excludedIds: [params.productId],
 						}}
+						dataTestid="related-products"
 						// TODO task 1
 						// goBackParams={`/product/${params.productId}${createQueryParams({
 						// 	from,

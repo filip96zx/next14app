@@ -6,8 +6,8 @@ import { GoCartButton } from "@/app/ui/atoms/buttons/GoCartButton";
 const navLinks = [
 	{ href: "/", label: "Home", exact: true },
 	{ href: "/products", label: "All" },
+	{ href: "/collections/1", label: "Collections", activeRoutePattern: `^\/collection\/.*` },
 	{ href: "/categories/t-shirts", label: "T-Shirts" },
-	{ href: "/collections", label: "Collections", activeRoutePattern: `^\/collection\/.*` },
 ] as const;
 
 export const Navbar = async () => {

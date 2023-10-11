@@ -42,7 +42,6 @@ export const Pagination = ({ page, totalPages, route, searchParamsPagination }: 
 	const getButtonNumbers = getPageNumbers({ page, totalPages, sideButtonsCount: 2 });
 	const getPreviousPage = (step: number) => Math.max(page - step, 1);
 	const getNextPage = (step: number) => Math.min(page + step, totalPages);
-
 	const paginationProps = { route, searchParamsPagination };
 	return (
 		<nav className="flex gap-4" aria-label="Pagination">
