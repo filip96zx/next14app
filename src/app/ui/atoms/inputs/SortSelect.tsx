@@ -49,29 +49,6 @@ export const SortSelect = ({ route, currentPage, searchParamsPagination }: TProp
 		[route, router],
 	);
 
-	const options: Array<{ name: string; value: SortableField | "none" }> = [
-		{
-			name: "None",
-			value: "none",
-		},
-		{
-			name: "Price",
-			value: SortableField.Price,
-		},
-		{
-			name: "Name",
-			value: SortableField.Name,
-		},
-		{
-			name: "Created at",
-			value: SortableField.CreatedAt,
-		},
-		{
-			name: "Rating",
-			value: SortableField.AverageRating,
-		},
-	];
-
 	const SortIcons = {
 		[SortOrder.Asc]: <ChevronUp />,
 		[SortOrder.Desc]: <ChevronDown />,
@@ -87,7 +64,6 @@ export const SortSelect = ({ route, currentPage, searchParamsPagination }: TProp
 					key={value}
 					defaultValue={value ?? undefined}
 					autoFocus={keepFocusOnRouteChange}
-					options={options}
 					onChange={(e) => {
 						handleOnChange({ value: e.target.value });
 						// const target = e.target as HTMLInputElement;
@@ -98,7 +74,17 @@ export const SortSelect = ({ route, currentPage, searchParamsPagination }: TProp
 						// }
 						// debounce(handleOnChange)(valueToNumber);
 					}}
-				/>
+				>
+					<option value="none">None</option>
+					<option value={SortableField.Price} data-testid="sort-by-price">
+						Price
+					</option>
+					<option value={SortableField.Name}>Name</option>
+					<option value={SortableField.CreatedAt}>Created at</option>
+					<option value={SortableField.AverageRating} data-testid="sort-by-rating">
+						Rating
+					</option>
+				</Select>
 			</div>
 			{value && (
 				<Button

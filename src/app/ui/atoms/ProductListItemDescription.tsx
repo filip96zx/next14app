@@ -23,7 +23,9 @@ export const ProductListItemDescription = ({
 				</p>
 				<RatingStarsWithLabel rating={averageRating} />
 			</div>
-			<p className="text-sm font-medium text-gray-900">{parseMoney(price)}</p>
+			<p className="text-sm font-medium text-gray-900" data-testid="product-price">
+				{parseMoney(price)}
+			</p>
 		</div>
 	);
 };
