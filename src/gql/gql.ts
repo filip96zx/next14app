@@ -28,6 +28,7 @@ const documents = {
     "query ProductGetById($id: ID!) {\n  product(id: $id) {\n    ...ProductDetails\n  }\n}": types.ProductGetByIdDocument,
     "query ProductGetByQuery($query: String!, $skip: Int!, $first: Int!) {\n  products(where: {nameContains: $query}, skip: $skip, first: $first) {\n    ...ProductListItem\n  }\n  productsConnection(where: {nameContains: $query}) {\n    aggregate {\n      count\n    }\n  }\n}": types.ProductGetByQueryDocument,
     "query ProductsGetList($first: Int!, $skip: Int!, $orderBy: OrderByInput) {\n  products(first: $first, skip: $skip, orderBy: $orderBy) {\n    ...ProductListItem\n  }\n  productsConnection {\n    aggregate {\n      count\n    }\n  }\n}": types.ProductsGetListDocument,
+    "query ProductGetRelatedProductByProductName($first: Int!, $skip: Int!, $productName: String!) {\n  productsRelated(first: $first, skip: $skip, where: {productName: $productName}) {\n    ...ProductListItem\n  }\n}": types.ProductGetRelatedProductByProductNameDocument,
     "mutation ProductUpdateAverageRatingById($productId: ID!) {\n  productCalculateAndUpdateAverageRating(id: $productId) {\n    id\n  }\n}": types.ProductUpdateAverageRatingByIdDocument,
     "mutation RatingCreate($productId: ID!, $rating: RatingInput!) {\n  ratingCreate(productId: $productId, ratingInput: $rating) {\n    id\n  }\n}": types.RatingCreateDocument,
     "query RatingGetListByProductId($skip: Int, $first: Int, $where: RatingWhereInput) {\n  ratings(first: $first, skip: $skip, where: $where) {\n    ...RatingListItem\n  }\n}": types.RatingGetListByProductIdDocument,
@@ -94,6 +95,10 @@ export function graphql(source: "query ProductGetByQuery($query: String!, $skip:
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "query ProductsGetList($first: Int!, $skip: Int!, $orderBy: OrderByInput) {\n  products(first: $first, skip: $skip, orderBy: $orderBy) {\n    ...ProductListItem\n  }\n  productsConnection {\n    aggregate {\n      count\n    }\n  }\n}"): typeof import('./graphql').ProductsGetListDocument;
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "query ProductGetRelatedProductByProductName($first: Int!, $skip: Int!, $productName: String!) {\n  productsRelated(first: $first, skip: $skip, where: {productName: $productName}) {\n    ...ProductListItem\n  }\n}"): typeof import('./graphql').ProductGetRelatedProductByProductNameDocument;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

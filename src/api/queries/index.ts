@@ -8,3 +8,4 @@ export { getCartById } from "./getCartById";
 export { getCartTotalItemsById } from "./getCartTotalItemsById";
 export { getCartDetailsById } from "./getCartDetailsById";
 export { getRatingListByProductId } from "./getRatingListByProductId";
+export { getProductRelatedProductsByProductName } from "./getProductRelatedProductsByProductName";

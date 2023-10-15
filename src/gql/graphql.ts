@@ -24,6 +24,7 @@ export type Aggregate = {
 
 export type Category = {
   id: Scalars['ID']['output'];
+  image: Image;
   name?: Maybe<Scalars['String']['output']>;
   products?: Maybe<Array<Maybe<Product>>>;
   slug?: Maybe<Scalars['String']['output']>;
@@ -189,6 +190,7 @@ export type Product = {
   name: Scalars['String']['output'];
   price: Scalars['Int']['output'];
   ratings: Array<Rating>;
+  ratingsCount: Scalars['Int']['output'];
   slug: Scalars['String']['output'];
   variants: Array<Variant>;
 };
@@ -217,10 +219,15 @@ export type ProductRatingsArgs = {
   skip?: InputMaybe<Scalars['Int']['input']>;
 };
 
+export type ProductRelatedWhereInput = {
+  productName?: InputMaybe<Scalars['String']['input']>;
+};
+
 export type ProductWhereInput = {
   categories_some?: InputMaybe<CategorySomeInput>;
   collections_some?: InputMaybe<CollectionSomeInput>;
   excludedIds?: InputMaybe<Array<Scalars['ID']['input']>>;
+  id?: InputMaybe<Scalars['ID']['input']>;
   nameContains?: InputMaybe<Scalars['String']['input']>;
 };
 
@@ -234,6 +241,7 @@ export type Query = {
   product?: Maybe<Product>;
   products: Array<Product>;
   productsConnection: Connection;
+  productsRelated: Array<Product>;
   ratingConnection: Connection;
   ratings: Array<Rating>;
 };
@@ -289,6 +297,13 @@ export type QueryProductsArgs = {
 
 export type QueryProductsConnectionArgs = {
   where?: InputMaybe<ProductWhereInput>;
+};
+
+
+export type QueryProductsRelatedArgs = {
+  first?: InputMaybe<Scalars['Int']['input']>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<ProductRelatedWhereInput>;
 };
 
 
@@ -455,6 +470,15 @@ export type ProductsGetListQueryVariables = Exact<{
 
 
 export type ProductsGetListQuery = { products: Array<{ id: string, name: string, price: number, description: string, averageRating: number, images: Array<{ url: string, width: number, height: number } | null>, categories: Array<{ name?: string | null } | null> }>, productsConnection: { aggregate: { count: number } } };
+
+export type ProductGetRelatedProductByProductNameQueryVariables = Exact<{
+  first: Scalars['Int']['input'];
+  skip: Scalars['Int']['input'];
+  productName: Scalars['String']['input'];
+}>;
+
+
+export type ProductGetRelatedProductByProductNameQuery = { productsRelated: Array<{ id: string, name: string, price: number, description: string, averageRating: number, images: Array<{ url: string, width: number, height: number } | null>, categories: Array<{ name?: string | null } | null> }> };
 
 export type ProductUpdateAverageRatingByIdMutationVariables = Exact<{
   productId: Scalars['ID']['input'];
@@ -894,6 +918,30 @@ fragment ProductListItem on Product {
     height
   }
 }`) as unknown as TypedDocumentString<ProductsGetListQuery, ProductsGetListQueryVariables>;
+export const ProductGetRelatedProductByProductNameDocument = new TypedDocumentString(`
+    query ProductGetRelatedProductByProductName($first: Int!, $skip: Int!, $productName: String!) {
+  productsRelated(first: $first, skip: $skip, where: {productName: $productName}) {
+    ...ProductListItem
+  }
+}
+    fragment ProductBase on Product {
+  id
+  name
+  price
+  description
+  averageRating
+  categories(first: 1) {
+    name
+  }
+}
+fragment ProductListItem on Product {
+  ...ProductBase
+  images(first: 1) {
+    url
+    width
+    height
+  }
+}`) as unknown as TypedDocumentString<ProductGetRelatedProductByProductNameQuery, ProductGetRelatedProductByProductNameQueryVariables>;
 export const ProductUpdateAverageRatingByIdDocument = new TypedDocumentString(`
     mutation ProductUpdateAverageRatingById($productId: ID!) {
   productCalculateAndUpdateAverageRating(id: $productId) {

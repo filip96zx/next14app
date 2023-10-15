@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import { type Route } from "next";
 import { Suspense } from "react";
-import { getProductById, getProductsByCollectionSlug } from "@/api";
+import { getProductById, getProductRelatedProductsByProductName } from "@/api";
 import { ProductCard } from "@/app/ui/molecules/ProductCard";
 import { getMetadataTitle } from "@/app/utils";
 import { PaginatedProductList, getPaginationParams } from "@/app/ui/organisms/list";
@@ -80,11 +80,10 @@ export default async function ProductPage({ params, searchParams }: IProps) {
 			{collectionSlug && (
 				<Suspense fallback={<Spinner />}>
 					<PaginatedProductList
-						getListQuery={getProductsByCollectionSlug}
+						getListQuery={getProductRelatedProductsByProductName}
 						params={{
 							...getPaginationParams({ pageNumber: page, pageSize: 4 }),
-							slug: collectionSlug,
-							excludedIds: [params.productId],
+							productName: product.name,
 						}}
 						dataTestid="related-products"
 						// TODO task 1
