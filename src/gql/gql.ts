@@ -37,7 +37,7 @@ const documents = {
     "fragment CategoryListItem on Category {\n  name\n  slug\n  image {\n    url\n    height\n    width\n  }\n}": types.CategoryListItemFragmentDoc,
     "fragment CollectionListItem on Collection {\n  name\n  slug\n  description\n  images(first: 1) {\n    url\n    width\n    height\n  }\n}": types.CollectionListItemFragmentDoc,
     "fragment OrderItem on OrderItem {\n  id\n  name\n  price\n  quantity\n  variantName\n}": types.OrderItemFragmentDoc,
-    "fragment ProductBase on Product {\n  id\n  name\n  price\n  description\n  averageRating\n  categories(first: 1) {\n    name\n  }\n}\n\nfragment ProductListItem on Product {\n  ...ProductBase\n  images(first: 1) {\n    url\n    width\n    height\n  }\n}\n\nfragment ProductDetails on Product {\n  ...ProductBase\n  collections(first: 1) {\n    slug\n  }\n  images(first: 3) {\n    url\n    width\n    height\n  }\n  variants {\n    id\n    name\n  }\n}": types.ProductBaseFragmentDoc,
+    "fragment ProductBase on Product {\n  id\n  name\n  price\n  description\n  ratingsCount\n  averageRating\n  categories(first: 1) {\n    name\n  }\n}\n\nfragment ProductListItem on Product {\n  ...ProductBase\n  images(first: 1) {\n    url\n    width\n    height\n  }\n}\n\nfragment ProductDetails on Product {\n  ...ProductBase\n  collections(first: 1) {\n    slug\n  }\n  images(first: 3) {\n    url\n    width\n    height\n  }\n  variants {\n    id\n    name\n  }\n}": types.ProductBaseFragmentDoc,
     "fragment RatingListItem on Rating {\n  createdAt\n  comment\n  rating\n  title\n  userName\n}": types.RatingListItemFragmentDoc,
 };
 
@@ -136,7 +136,7 @@ export function graphql(source: "fragment OrderItem on OrderItem {\n  id\n  name
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "fragment ProductBase on Product {\n  id\n  name\n  price\n  description\n  averageRating\n  categories(first: 1) {\n    name\n  }\n}\n\nfragment ProductListItem on Product {\n  ...ProductBase\n  images(first: 1) {\n    url\n    width\n    height\n  }\n}\n\nfragment ProductDetails on Product {\n  ...ProductBase\n  collections(first: 1) {\n    slug\n  }\n  images(first: 3) {\n    url\n    width\n    height\n  }\n  variants {\n    id\n    name\n  }\n}"): typeof import('./graphql').ProductBaseFragmentDoc;
+export function graphql(source: "fragment ProductBase on Product {\n  id\n  name\n  price\n  description\n  ratingsCount\n  averageRating\n  categories(first: 1) {\n    name\n  }\n}\n\nfragment ProductListItem on Product {\n  ...ProductBase\n  images(first: 1) {\n    url\n    width\n    height\n  }\n}\n\nfragment ProductDetails on Product {\n  ...ProductBase\n  collections(first: 1) {\n    slug\n  }\n  images(first: 3) {\n    url\n    width\n    height\n  }\n  variants {\n    id\n    name\n  }\n}"): typeof import('./graphql').ProductBaseFragmentDoc;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

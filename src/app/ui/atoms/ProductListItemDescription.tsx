@@ -7,7 +7,7 @@ type TProps = {
 };
 
 export const ProductListItemDescription = ({
-	product: { categories, name, price, averageRating },
+	product: { categories, name, price, averageRating, ratingsCount },
 }: TProps) => {
 	const categoryName = categories?.[0]?.name;
 	return (
@@ -21,7 +21,7 @@ export const ProductListItemDescription = ({
 						</>
 					)}
 				</p>
-				<RatingStarsWithLabel rating={averageRating} />
+				<RatingStarsWithLabel rating={averageRating} ratingCount={ratingsCount} />
 			</div>
 			<p className="text-sm font-medium text-gray-900" data-testid="product-price">
 				{parseMoney(price)}

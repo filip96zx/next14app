@@ -3,6 +3,7 @@ fragment ProductBase on Product {
 	name
 	price
 	description
+	ratingsCount
 	averageRating
 	categories(first: 1) {
 		name

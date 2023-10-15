@@ -59,7 +59,7 @@ export default async function ProductPage({ params, searchParams }: IProps) {
 			<h1 className="text-center text-2xl font-bold text-gray-800">{product.name}</h1>
 			<div className="max-w-md">
 				<ProductCard product={product} />
-				<RatingStarsWithLabel rating={product.averageRating} />
+				<RatingStarsWithLabel rating={product.averageRating} ratingCount={product.ratingsCount} />
 				<form action={addToCartServerAction.bind(null, product.id)}>
 					<Select
 						name="variantId"
