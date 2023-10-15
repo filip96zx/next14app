@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import { type Route } from "next";
 import { Suspense } from "react";
-import { getProductById, getProductRelatedProductsByProductName, getProductsList } from "@/api";
+import { getProductById, getProductRelatedProductsByProductName } from "@/api";
 import { ProductCard } from "@/app/ui/molecules/ProductCard";
 import { getMetadataTitle } from "@/app/utils";
 import { PaginatedProductList, getPaginationParams } from "@/app/ui/organisms/list";
