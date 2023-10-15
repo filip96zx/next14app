@@ -471,8 +471,8 @@ export type ProductGetByQueryQueryVariables = Exact<{
 export type ProductGetByQueryQuery = { products: Array<{ id: string, name: string, price: number, description: string, ratingsCount: number, averageRating: number, images: Array<{ url: string, width: number, height: number } | null>, categories: Array<{ name?: string | null } | null> }>, productsConnection: { aggregate: { count: number } } };
 
 export type ProductsGetListQueryVariables = Exact<{
-  first: Scalars['Int']['input'];
-  skip: Scalars['Int']['input'];
+  first?: InputMaybe<Scalars['Int']['input']>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
   orderBy?: InputMaybe<OrderByInput>;
 }>;
 
@@ -938,7 +938,7 @@ fragment ProductListItem on Product {
   }
 }`) as unknown as TypedDocumentString<ProductGetByQueryQuery, ProductGetByQueryQueryVariables>;
 export const ProductsGetListDocument = new TypedDocumentString(`
-    query ProductsGetList($first: Int!, $skip: Int!, $orderBy: OrderByInput) {
+    query ProductsGetList($first: Int, $skip: Int, $orderBy: OrderByInput) {
   products(first: $first, skip: $skip, orderBy: $orderBy) {
     ...ProductListItem
   }

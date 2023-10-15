@@ -1,4 +1,4 @@
-query ProductsGetList($first: Int!, $skip: Int!, $orderBy: OrderByInput) {
+query ProductsGetList($first: Int, $skip: Int, $orderBy: OrderByInput) {
 	products(first: $first, skip: $skip, orderBy: $orderBy) {
 		...ProductListItem
 	}
