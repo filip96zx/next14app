@@ -5,7 +5,7 @@ const nextConfig = {
     serverActions: true,
   },
   images: {
-    domains: ['media.graphassets.com', 'picsum.photos', 'loremflickr.com']
+    domains: ['media.graphassets.com', 'picsum.photos', 'loremflickr.com', 'nxt13masters.shop', 'www.nxt13masters.shop']
   },
   redirects: async () => {
     return [
