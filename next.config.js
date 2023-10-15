@@ -34,6 +34,11 @@ const nextConfig = {
         destination: '/collections/1',
         permanent: false,
       },
+      {
+        source: '/category-list',
+        destination: '/category-list/1',
+        permanent: false,
+      },
     ];
   }
 

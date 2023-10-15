@@ -7,6 +7,7 @@ const navLinks = [
 	{ href: "/", label: "Home", exact: true },
 	{ href: "/products", label: "All" },
 	{ href: "/collections/1", label: "Collections", activeRoutePattern: `^\/collection\/.*` },
+	{ href: "/category-list/1", label: "Categories" },
 	{ href: "/categories/t-shirts", label: "T-Shirts" },
 ] as const;
 

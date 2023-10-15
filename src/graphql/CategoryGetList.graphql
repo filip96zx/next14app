@@ -1,0 +1,10 @@
+query CategoryGetList($skip: Int!, $first: Int!) {
+	categories(skip: $skip, first: $first) {
+		...CategoryListItem
+	}
+	categoriesConnection {
+		aggregate {
+			count
+		}
+	}
+}

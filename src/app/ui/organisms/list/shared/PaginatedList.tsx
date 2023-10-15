@@ -24,7 +24,9 @@ export type TPaginatedListProps<TParams, TResult> = {
 	route: Route;
 	// TODO task 1
 	// goBackParams: string | number;
-	renderList: (params: ListResponse /*& { goBackParams: string | number }*/) => React.ReactNode;
+	renderList: (
+		params: ListResponse<TResult> /*& { goBackParams: string | number }*/,
+	) => React.ReactNode;
 	searchParamsPagination?: boolean;
 	hidePagination?: boolean;
 };

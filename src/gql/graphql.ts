@@ -403,6 +403,14 @@ export type CartUpdateMutationVariables = Exact<{
 
 export type CartUpdateMutation = { orderItemsUpdate?: { totalItems: number, id: string, items: Array<{ id: string, name: string, price: number, quantity: number, variantName: string }> } | null };
 
+export type CategoryGetListQueryVariables = Exact<{
+  skip: Scalars['Int']['input'];
+  first: Scalars['Int']['input'];
+}>;
+
+
+export type CategoryGetListQuery = { categories: Array<{ name?: string | null, slug?: string | null, image: { url: string, height: number, width: number } }>, categoriesConnection: { aggregate: { count: number } } };
+
 export type CollectionGetListQueryVariables = Exact<{
   first: Scalars['Int']['input'];
   skip: Scalars['Int']['input'];
@@ -508,6 +516,8 @@ export type CartFragment = { id: string };
 
 export type CartDetailsFragment = { totalItems: number, id: string, items: Array<{ id: string, name: string, price: number, quantity: number, variantName: string }> };
 
+export type CategoryListItemFragment = { name?: string | null, slug?: string | null, image: { url: string, height: number, width: number } };
+
 export type CollectionListItemFragment = { name: string, slug: string, description: string, images: Array<{ url: string, width: number, height: number }> };
 
 export type OrderItemFragment = { id: string, name: string, price: number, quantity: number, variantName: string };
@@ -566,6 +576,17 @@ fragment OrderItem on OrderItem {
   quantity
   variantName
 }`, {"fragmentName":"CartDetails"}) as unknown as TypedDocumentString<CartDetailsFragment, unknown>;
+export const CategoryListItemFragmentDoc = new TypedDocumentString(`
+    fragment CategoryListItem on Category {
+  name
+  slug
+  image {
+    url
+    height
+    width
+  }
+}
+    `, {"fragmentName":"CategoryListItem"}) as unknown as TypedDocumentString<CategoryListItemFragment, unknown>;
 export const CollectionListItemFragmentDoc = new TypedDocumentString(`
     fragment CollectionListItem on Collection {
   name
@@ -724,6 +745,26 @@ fragment OrderItem on OrderItem {
   quantity
   variantName
 }`) as unknown as TypedDocumentString<CartUpdateMutation, CartUpdateMutationVariables>;
+export const CategoryGetListDocument = new TypedDocumentString(`
+    query CategoryGetList($skip: Int!, $first: Int!) {
+  categories(skip: $skip, first: $first) {
+    ...CategoryListItem
+  }
+  categoriesConnection {
+    aggregate {
+      count
+    }
+  }
+}
+    fragment CategoryListItem on Category {
+  name
+  slug
+  image {
+    url
+    height
+    width
+  }
+}`) as unknown as TypedDocumentString<CategoryGetListQuery, CategoryGetListQueryVariables>;
 export const CollectionGetListDocument = new TypedDocumentString(`
     query CollectionGetList($first: Int!, $skip: Int!) {
   collections(first: $first, skip: $skip) {
