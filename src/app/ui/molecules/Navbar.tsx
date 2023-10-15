@@ -6,13 +6,14 @@ import { GoCartButton } from "@/app/ui/atoms/buttons/GoCartButton";
 const navLinks = [
 	{ href: "/", label: "Home", exact: true },
 	{ href: "/products", label: "All" },
+	{ href: "/collections/1", label: "Collections", activeRoutePattern: `^\/collection\/.*` },
+	{ href: "/category-list/1", label: "Categories" },
 	{ href: "/categories/t-shirts", label: "T-Shirts" },
-	{ href: "/collections", label: "Collections", activeRoutePattern: `^\/collection\/.*` },
 ] as const;
 
 export const Navbar = async () => {
 	return (
-		<div className="mx-auto mt-2 flex max-w-screen-xl justify-between">
+		<div className="fixed left-[50%] top-0 mt-2 flex h-10 w-full max-w-screen-xl translate-x-[-50%] justify-between text-center">
 			<nav>
 				<Suspense>
 					<ul className="flex justify-center space-x-4">
@@ -26,7 +27,7 @@ export const Navbar = async () => {
 					</ul>
 				</Suspense>
 			</nav>
-			<div className="flex gap-2 items-center">
+			<div className="flex items-center gap-2">
 				<SearchInput />
 				<GoCartButton />
 			</div>

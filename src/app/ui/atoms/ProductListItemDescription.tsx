@@ -1,3 +1,4 @@
+import { RatingStarsWithLabel } from "@/app/ui/atoms/rating";
 import { parseMoney } from "@/app/utils";
 import { type ProductListItemFragment } from "@/gql/graphql";
 
@@ -6,7 +7,7 @@ type TProps = {
 };
 
 export const ProductListItemDescription = ({
-	product: { categories, name, price, averageRating },
+	product: { categories, name, price, averageRating, ratingsCount },
 }: TProps) => {
 	const categoryName = categories?.[0]?.name;
 	return (
@@ -20,9 +21,11 @@ export const ProductListItemDescription = ({
 						</>
 					)}
 				</p>
-				<p>rate {averageRating.toFixed(2)}</p>
+				<RatingStarsWithLabel rating={averageRating} ratingCount={ratingsCount} />
 			</div>
-			<p className="text-sm font-medium text-gray-900">{parseMoney(price)}</p>
+			<p className="text-sm font-medium text-gray-900" data-testid="product-price">
+				{parseMoney(price)}
+			</p>
 		</div>
 	);
 };

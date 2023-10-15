@@ -47,23 +47,25 @@ export const PaginationInput = ({
 	);
 
 	return (
-		<NumberInput
-			aria-label="Page search input"
-			key={searchParams.get("page")}
-			defaultValue={currentPage}
-			className="w-16 arrow-hide"
-			autoFocus={keepFocusOnRouteChange}
-			min={1}
-			max={totalPages}
-			onChange={(e) => {
-				const target = e.target as HTMLInputElement;
-				const valueToNumber = parseInt(target.value);
-				if (isNaN(valueToNumber)) {
-					cancelDebounce(handleOnChange);
-					return;
-				}
-				debounce(handleOnChange)(valueToNumber);
-			}}
-		/>
+		<div className="w16">
+			<NumberInput
+				aria-label="Page search input"
+				key={searchParams.get("page")}
+				defaultValue={currentPage}
+				className="arrow-hide"
+				autoFocus={keepFocusOnRouteChange}
+				min={1}
+				max={totalPages}
+				onChange={(e) => {
+					const target = e.target as HTMLInputElement;
+					const valueToNumber = parseInt(target.value);
+					if (isNaN(valueToNumber)) {
+						cancelDebounce(handleOnChange);
+						return;
+					}
+					debounce(handleOnChange)(valueToNumber);
+				}}
+			/>
+		</div>
 	);
 };

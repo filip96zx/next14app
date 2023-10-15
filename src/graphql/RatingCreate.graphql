@@ -1,0 +1,5 @@
+mutation RatingCreate($productId: ID!, $rating: RatingInput!) {
+	ratingCreate(productId: $productId, ratingInput: $rating) {
+		id
+	}
+}

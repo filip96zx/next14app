@@ -1,5 +1,4 @@
 import { CollectionListItem } from "@/app/ui/molecules/CollectionListItem";
-import { ListLayout } from "@/app/ui/atoms/ListLayout";
 import { type CollectionListItemFragment } from "@/gql/graphql";
 
 type TProps = {
@@ -10,7 +9,7 @@ type TProps = {
 
 export const CollectionList = ({ collections }: TProps) => {
 	return (
-		<ListLayout data-testid="collection-list">
+		<ul data-testid="collection-list" className="grid grid-cols-1 gap-6 sm:grid-cols-2">
 			{collections.map((collection) => (
 				<CollectionListItem
 					key={collection.slug}
@@ -19,6 +18,6 @@ export const CollectionList = ({ collections }: TProps) => {
 					// goBackParams={goBackParams}
 				/>
 			))}
-		</ListLayout>
+		</ul>
 	);
 };

@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import { type Route } from "next";
 import { Suspense } from "react";
-import { getProductById, getProductsByCollectionSlug } from "@/api";
+import { getProductById, getProductRelatedProductsByProductName } from "@/api";
 import { ProductCard } from "@/app/ui/molecules/ProductCard";
 import { getMetadataTitle } from "@/app/utils";
 import { PaginatedProductList, getPaginationParams } from "@/app/ui/organisms/list";
@@ -9,6 +9,9 @@ import { BackFormerPageParamName } from "@/app/models";
 import { AddToCartButton, BackButton } from "@/app/ui/atoms/buttons";
 import { NumberInput, Select } from "@/app/ui/atoms/inputs";
 import { addToCartServerAction } from "@/app/services/server-actions";
+import { ReviewList } from "@/app/ui/molecules/review/ReviewList";
+import { RatingStarsWithLabel } from "@/app/ui/atoms/rating";
+import { Spinner } from "@/app/ui/atoms/Spinner";
 
 export const generateMetadata = async ({ params }: { params: { productId: string } }) => {
 	const product = await getProductById(params.productId);
@@ -56,6 +59,7 @@ export default async function ProductPage({ params, searchParams }: IProps) {
 			<h1 className="text-center text-2xl font-bold text-gray-800">{product.name}</h1>
 			<div className="max-w-md">
 				<ProductCard product={product} />
+				<RatingStarsWithLabel rating={product.averageRating} ratingCount={product.ratingsCount} />
 				<form action={addToCartServerAction.bind(null, product.id)}>
 					<Select
 						name="variantId"
@@ -74,14 +78,14 @@ export default async function ProductPage({ params, searchParams }: IProps) {
 			</div>
 			<p className="text-center text-gray-500">{product.description}</p>
 			{collectionSlug && (
-				<Suspense fallback={<div>Loading...</div>}>
+				<Suspense fallback={<Spinner />}>
 					<PaginatedProductList
-						getListQuery={getProductsByCollectionSlug}
+						getListQuery={getProductRelatedProductsByProductName}
 						params={{
 							...getPaginationParams({ pageNumber: page, pageSize: 4 }),
-							slug: collectionSlug,
-							excludedIds: [params.productId],
+							productName: product.name,
 						}}
+						dataTestid="related-products"
 						// TODO task 1
 						// goBackParams={`/product/${params.productId}${createQueryParams({
 						// 	from,
@@ -94,6 +98,7 @@ export default async function ProductPage({ params, searchParams }: IProps) {
 					/>
 				</Suspense>
 			)}
+			<ReviewList productId={params.productId} />
 		</div>
 	);
 }

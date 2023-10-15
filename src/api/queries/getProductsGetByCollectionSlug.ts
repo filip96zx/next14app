@@ -1,5 +1,5 @@
 import { executeGraphql } from "@/api/executeGraphql";
-import { type ListResponse } from "@/app/models";
+import { RevalidateTags, type ListResponse } from "@/app/models";
 import {
 	ProductsGetByCollectionSlugDocument,
 	type ProductsGetByCollectionSlugQueryVariables,
@@ -11,6 +11,9 @@ export const getProductsByCollectionSlug = async (
 	const { products, productsConnection, collections } = await executeGraphql({
 		query: ProductsGetByCollectionSlugDocument,
 		variables: params,
+		next: {
+			tags: [RevalidateTags.PRODUCT_LIST],
+		},
 	});
 	return {
 		content: products,

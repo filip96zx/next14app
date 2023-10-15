@@ -1,0 +1,7 @@
+fragment RatingListItem on Rating {
+	createdAt
+	comment
+	rating
+	title
+	userName
+}

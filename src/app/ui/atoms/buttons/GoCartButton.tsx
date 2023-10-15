@@ -10,9 +10,14 @@ export const GoCartButton = async () => {
 	const isCartDisabled = !totalItems;
 
 	const CartButtonContent = (
-		<span className={clsx(isCartDisabled && "opacity-40", "w-7")} aria-disabled>
-			<ShoppingCartIcon className="inline-block" />{" "}
-			<Suspense>{!!totalItems && totalItems}</Suspense>
+		<span
+			className={clsx(isCartDisabled && "opacity-40", "relative w-7")}
+			{...(isCartDisabled && { "aria-disabled": true })}
+		>
+			<ShoppingCartIcon className="inline-block" />
+			<Suspense>
+				<span className="left-100 absolute ml-2">{!!totalItems && totalItems}</span>
+			</Suspense>
 		</span>
 	);
 	return isCartDisabled ? CartButtonContent : <Link href="/cart">{CartButtonContent}</Link>;

@@ -6,10 +6,16 @@ import {
 } from "@/app/ui/organisms/list/shared/PaginatedList";
 import { type ProductListItemFragment } from "@/gql/graphql";
 
-export async function PaginatedProductList<TParams extends { skip: number; first: number }>(
-	props: OmitKeys<TPaginatedListProps<TParams, ProductListItemFragment>, "renderList">,
-) {
+export async function PaginatedProductList<TParams extends { skip: number; first: number }>({
+	dataTestid,
+	...props
+}: OmitKeys<TPaginatedListProps<TParams, ProductListItemFragment>, "renderList"> & {
+	dataTestid?: string;
+}) {
 	return (
-		<PaginatedList {...props} renderList={({ content }) => <ProductList products={content} />} />
+		<PaginatedList
+			{...props}
+			renderList={({ content }) => <ProductList products={content} dataTestid={dataTestid} />}
+		/>
 	);
 }

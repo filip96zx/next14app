@@ -5,7 +5,7 @@ const nextConfig = {
     serverActions: true,
   },
   images: {
-    domains: ['media.graphassets.com', 'picsum.photos', 'loremflickr.com']
+    domains: ['media.graphassets.com', 'picsum.photos', 'loremflickr.com', 'nxt13masters.shop', 'www.nxt13masters.shop']
   },
   redirects: async () => {
     return [
@@ -25,11 +25,6 @@ const nextConfig = {
         permanent: false,
       },
       {
-        source: '/search',
-        destination: '/search/1',
-        permanent: false,
-      },
-      {
         source: '/collection/:categoryName',
         destination: '/collection/:categoryName/1',
         permanent: false,
@@ -37,6 +32,11 @@ const nextConfig = {
       {
         source: '/collections',
         destination: '/collections/1',
+        permanent: false,
+      },
+      {
+        source: '/category-list',
+        destination: '/category-list/1',
         permanent: false,
       },
     ];

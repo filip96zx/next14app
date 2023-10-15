@@ -25,9 +25,11 @@ const toNumber = (value?: string | number) => (value ? parseInt(value.toString()
 
 export const NumberInput = ({
 	setDefaultValueOnClear,
+	label,
 	...props
 }: Omit<React.ComponentProps<"input">, "type" | "defaultValue"> & {
 	defaultValue?: number;
+	label?: string;
 	setDefaultValueOnClear?: boolean;
 }) => {
 	const maxToNumber = toNumber(props.max);
@@ -36,6 +38,7 @@ export const NumberInput = ({
 		<Input
 			{...props}
 			type="number"
+			label={label}
 			onInput={handleInputValidValueOnType(maxToNumber, defaultValue)}
 		/>
 	);

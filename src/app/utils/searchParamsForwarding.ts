@@ -44,13 +44,17 @@ const convertSearchParamsToObject = (searchParams: string) => {
 	};
 };
 
-export const handleForwardSearchParams = (href: string, currentSearchParams: string = "") => {
+export const handleForwardSearchParams = (
+	href: string,
+	currentSearchParams: string = "",
+	currentSearchObject?: Record<string, string>,
+) => {
 	const hrefSearchParamsObject = convertSearchParamsToObject(getSearchParamsFromHref(href));
 	const currentSearchParamsObject = convertSearchParamsToObject(currentSearchParams);
 
 	const newSearchParams = createQueryParams(
 		{
-			...currentSearchParamsObject,
+			...(currentSearchObject || currentSearchParamsObject),
 			...hrefSearchParamsObject,
 		},
 		{ omitKeysEncode: [BackFormerPageParamName.FROM] },

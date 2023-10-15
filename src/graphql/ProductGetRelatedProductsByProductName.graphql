@@ -1,0 +1,5 @@
+query ProductGetRelatedProductByProductName($first: Int!, $skip: Int!, $productName: String!) {
+	productsRelated(first: $first, skip: $skip, where: { productName: $productName }) {
+		...ProductListItem
+	}
+}

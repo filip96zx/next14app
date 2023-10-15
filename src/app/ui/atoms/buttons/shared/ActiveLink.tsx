@@ -33,6 +33,12 @@ export function ActiveLink<T extends string>({
 	const currentPath = usePathname();
 	const searchParams = useSearchParams().toString();
 
+	const currentSearchParamsObject: Record<string, string> = {};
+
+	useSearchParams().forEach((value, key) => {
+		currentSearchParamsObject[key] = value;
+	});
+
 	const checkRouteMatchActivePattern = () => {
 		if (!activeRoutePattern) {
 			return false;
@@ -44,10 +50,15 @@ export function ActiveLink<T extends string>({
 
 	return (
 		<Link
-			href={keepSearchParams ? (handleForwardSearchParams(href, searchParams) as Route<T>) : href}
+			href={
+				keepSearchParams
+					? (handleForwardSearchParams(href, searchParams, currentSearchParamsObject) as Route<T>)
+					: href
+			}
 			className={clsx(className, isActive && activeClassName)}
 			role="link"
 			scroll={scroll}
+			{...(isActive && { "aria-current": "page" })}
 		>
 			{children}
 		</Link>

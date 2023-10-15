@@ -5,17 +5,6 @@ import { getProductsByCategorySlug } from "@/api";
 import { PageHeader } from "@/app/ui/atoms/PageHeader";
 import { getMetadataTitle } from "@/app/utils";
 
-// export async function generateStaticParams() {
-// 	const { totalElements } = await getProductsByCategorySlug({
-// 		slug: "t-shirts",
-// 		first: 1,
-// 		skip: 0,
-// 	});
-// 	return Array.from({ length: Math.ceil(totalElements / LIST_PAGE_SIZE) }, (_, i) => ({
-// 		pageNumber: (i + 1).toString(),
-// 	}));
-// }
-
 export const generateMetadata = async ({ params: { pageNumber, slug } }: TProps) => {
 	const queryParams = {
 		slug,

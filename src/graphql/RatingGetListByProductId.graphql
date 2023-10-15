@@ -1,0 +1,5 @@
+query RatingGetListByProductId($skip: Int, $first: Int, $where: RatingWhereInput) {
+	ratings(first: $first, skip: $skip, where: $where) {
+		...RatingListItem
+	}
+}
