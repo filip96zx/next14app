@@ -12,32 +12,32 @@ const nextConfig = {
       {
         source: '/products',
         destination: '/products/1',
-        permanent: false,
+        permanent: true,
       },
       {
         source: '/categories',
         destination: '/products/1',
-        permanent: false,
+        permanent: true,
       },
       {
         source: '/categories/:categoryName',
         destination: '/categories/:categoryName/1',
-        permanent: false,
+        permanent: true,
       },
       {
         source: '/collection/:categoryName',
         destination: '/collection/:categoryName/1',
-        permanent: false,
+        permanent: true,
       },
       {
         source: '/collections',
         destination: '/collections/1',
-        permanent: false,
+        permanent: true,
       },
       {
         source: '/category-list',
         destination: '/category-list/1',
-        permanent: false,
+        permanent: true,
       },
     ];
   }

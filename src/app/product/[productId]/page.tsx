@@ -32,12 +32,12 @@ export const generateMetadata = async ({ params }: { params: { productId: string
 	};
 };
 
-export async function generateStaticParams() {
-	const { content } = await getProductsList({});
-	return content.map((product) => ({
-		productId: product.id,
-	}));
-}
+// export async function generateStaticParams() {
+// 	const { content } = await getProductsList({});
+// 	return content.map((product) => ({
+// 		productId: product.id,
+// 	}));
+// }
 
 interface IProps {
 	params: { productId: string };
