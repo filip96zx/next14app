@@ -11,6 +11,7 @@ import { NumberInput, Select } from "@/app/ui/atoms/inputs";
 import { addToCartServerAction } from "@/app/services/server-actions";
 import { ReviewList } from "@/app/ui/molecules/review/ReviewList";
 import { RatingStarsWithLabel } from "@/app/ui/atoms/rating";
+import { Spinner } from "@/app/ui/atoms/Spinner";
 
 export const generateMetadata = async ({ params }: { params: { productId: string } }) => {
 	const product = await getProductById(params.productId);
@@ -77,7 +78,7 @@ export default async function ProductPage({ params, searchParams }: IProps) {
 			</div>
 			<p className="text-center text-gray-500">{product.description}</p>
 			{collectionSlug && (
-				<Suspense fallback={<div>Loading...</div>}>
+				<Suspense fallback={<Spinner />}>
 					<PaginatedProductList
 						getListQuery={getProductsByCollectionSlug}
 						params={{
