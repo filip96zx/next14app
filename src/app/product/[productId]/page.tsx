@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import { type Route } from "next";
 import { Suspense } from "react";
-import { getProductById, getProductRelatedProductsByProductName } from "@/api";
+import { getProductById, getProductRelatedProductsByProductName, getProductsList } from "@/api";
 import { ProductCard } from "@/app/ui/molecules/ProductCard";
 import { getMetadataTitle } from "@/app/utils";
 import { PaginatedProductList, getPaginationParams } from "@/app/ui/organisms/list";
@@ -32,12 +32,12 @@ export const generateMetadata = async ({ params }: { params: { productId: string
 	};
 };
 
-// export async function generateStaticParams() {
-// 	const { content } = await getProductsList({});
-// 	return content.map((product) => ({
-// 		productId: product.id,
-// 	}));
-// }
+export async function generateStaticParams() {
+	const { content } = await getProductsList({});
+	return content.map((product) => ({
+		productId: product.id,
+	}));
+}
 
 interface IProps {
 	params: { productId: string };
