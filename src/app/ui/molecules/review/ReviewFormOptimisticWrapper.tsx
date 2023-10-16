@@ -18,20 +18,20 @@ type TFormValues = {
 	productId: string;
 };
 export const ReviewFormOptimisticWrapper = ({ children }: TProps) => {
-	const [optimisticRating, optimisticCreateRating] = useOptimistic<RatingListItemFragment | null>(
-		null,
-	);
+	const [optimisticRating, optimisticCreateRating] = useOptimistic<
+		(RatingListItemFragment & { submitted: boolean }) | null
+	>(null);
 	const [formSubmitted, setFormSubmitted] = useState(false);
 	return (
 		<>
 			{optimisticRating && <ReviewListItem rating={optimisticRating} />}
-			{formSubmitted && (
+			{(formSubmitted || optimisticRating?.submitted) && (
 				<div className="mb-20 mt-10 flex justify-center gap-1">
 					<CheckCircle />
 					<span>Thank you for your review</span>
 				</div>
 			)}
-			{!formSubmitted && (
+			{!formSubmitted && !optimisticRating?.submitted && (
 				<>
 					{children}
 					<Button
@@ -51,6 +51,7 @@ export const ReviewFormOptimisticWrapper = ({ children }: TProps) => {
 								},
 							};
 							optimisticCreateRating({
+								submitted: true,
 								comment: rateResponse.rating.comment,
 								rating: rateResponse.rating.rating,
 								title: rateResponse.rating.title,
