@@ -35,5 +35,5 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-public/winter
-public/summer
+# public/winter
+# public/summer
