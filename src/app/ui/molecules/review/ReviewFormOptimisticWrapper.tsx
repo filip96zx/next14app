@@ -1,6 +1,6 @@
 "use client";
 
-import { experimental_useOptimistic as useOptimistic, useState } from "react";
+import { useOptimistic, useState } from "react";
 import { CheckCircle } from "lucide-react";
 import { Button } from "@/app/ui/atoms/buttons";
 import { type RatingCreateMutationVariables, type RatingListItemFragment } from "@/gql/graphql";

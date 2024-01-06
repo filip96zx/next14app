@@ -1,6 +1,6 @@
 "use client";
 
-import { experimental_useOptimistic as useOptimistic } from "react";
+import { useOptimistic } from "react";
 import clsx from "clsx";
 import { MinusIcon, PlusIcon, TrashIcon } from "lucide-react";
 import { Button } from "@/app/ui/atoms/buttons";
