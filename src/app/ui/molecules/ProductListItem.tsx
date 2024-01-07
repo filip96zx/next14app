@@ -1,7 +1,8 @@
-import Link from "next/link";
+import { type Route } from "next";
 import { ListItemImage } from "@/app/ui/atoms/image";
 import { ProductListItemDescription } from "@/app/ui/atoms/ProductListItemDescription";
 import { type ProductListItemFragment } from "@/gql/graphql";
+import { LinkWithProductCache } from "@/app/ui/atoms/buttons";
 type TProps = {
 	product: ProductListItemFragment;
 	// TODO task 1
@@ -13,7 +14,7 @@ export const ProductListItem = ({ product }: TProps) => {
 
 	return (
 		<li>
-			<Link href={`/product/${product.id}`}>
+			<LinkWithProductCache href={`/product/${product.id}` as Route} product={product}>
 				{/* ${createQueryParams({
 					[BackFormerPageParamName.FROM]: goBackParams,
 				})}`}
@@ -27,7 +28,7 @@ export const ProductListItem = ({ product }: TProps) => {
 					/>
 					<ProductListItemDescription product={product} />
 				</article>
-			</Link>
+			</LinkWithProductCache>
 		</li>
 	);
 };
