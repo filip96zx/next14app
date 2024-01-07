@@ -1,8 +1,8 @@
 import { ProductDetailsDescription } from "@/app/ui/atoms/ProductDetailsDescription";
 import { ListItemImage } from "@/app/ui/atoms/image";
-import { type ProductDetailsFragment } from "@/gql/graphql";
+import { type ProductListItemFragment } from "@/gql/graphql";
 
-type TProps = { product: ProductDetailsFragment };
+type TProps = { product: ProductListItemFragment };
 
 export function ProductCard({ product }: TProps) {
 	const image = product.images[0];
