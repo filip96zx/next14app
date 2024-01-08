@@ -1,6 +1,6 @@
 import { type Route } from "next";
 import { Suspense } from "react";
-import { getProductById, getProductsList } from "@/api";
+import { getProductsList } from "@/api";
 import { getMetadataTitle } from "@/app/utils";
 import { BackFormerPageParamName } from "@/app/models";
 import { BackButton } from "@/app/ui/atoms/buttons";
@@ -10,7 +10,9 @@ import { ProductDetailsMainSection } from "@/app/ui/molecules/product-details-se
 import { ProductMainSectionFallback } from "@/app/ui/molecules/product-details-section/ProductMainSectionFallback";
 
 export const generateMetadata = async ({ params }: { params: { productId: string } }) => {
-	const product = await getProductById(params.productId);
+	const { content } = await getProductsList({});
+	const product = content.find((i) => i.id === params.productId);
+
 	if (!product) return null;
 	return {
 		title: getMetadataTitle(product.name),
