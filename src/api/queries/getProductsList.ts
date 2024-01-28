@@ -9,6 +9,7 @@ export const getProductsList = async (params: ProductsGetListQueryVariables) => 
 		next: {
 			tags: [RevalidateTags.PRODUCT_LIST],
 		},
+		cache: "force-cache",
 	});
 	return {
 		content: products,

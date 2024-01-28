@@ -9,6 +9,7 @@ export const getProductById = async (id: string) => {
 		next: {
 			tags: [getTagToRevalidate({ param: id, tag: RevalidateTags.PRODUCT })],
 		},
+		cache: "force-cache",
 	});
 	return product;
 };
