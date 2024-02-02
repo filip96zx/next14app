@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
-import { getCartDetailByCookiesCartId } from "@/app/services/cart.service";
-import { StripeForm } from "@/app/ui/checkout-form/StripeForm";
-import { StripeInstance } from "@/app/services/stripe.service";
+import { getCartDetailByCookiesCartId } from "@/services/cart.service";
+import { StripeForm } from "@/ui/checkout-form/StripeForm";
+import { StripeInstance } from "@/services/stripe.service";
 
 export default async function PaymentPage() {
 	const cart = await getCartDetailByCookiesCartId();

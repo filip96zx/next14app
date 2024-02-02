@@ -1,12 +1,12 @@
 import { type Route } from "next";
 import { redirect } from "next/navigation";
-import { PaginatedProductList, getPaginationParams } from "@/app/ui/organisms/list";
+import { PaginatedProductList, getPaginationParams } from "@/ui/organisms/list";
 
 import { getProductsByCollectionSlug } from "@/api";
-import { PageHeader } from "@/app/ui/atoms/PageHeader";
-import { getMetadataTitle } from "@/app/utils";
-import { BackFormerPageParamName } from "@/app/models";
-import { BackButton } from "@/app/ui/atoms/buttons";
+import { PageHeader } from "@/ui/atoms/PageHeader";
+import { getMetadataTitle } from "@/utils";
+import { BackFormerPageParamName } from "@/models";
+import { BackButton } from "@/ui/atoms/buttons";
 
 export const generateMetadata = async ({
 	params: { pageNumber, slug: collectionSlug },

@@ -2,9 +2,9 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import clsx from "clsx";
-import { getMetadataTitle } from "@/app/utils";
-import { Navbar } from "@/app/ui/molecules/Navbar";
-import { ProductCacheContextProvider } from "@/app/services/product-cache.service";
+import { getMetadataTitle } from "@/utils";
+import { Navbar } from "@/ui/molecules/Navbar";
+import { ProductCacheContextProvider } from "@/services/product-cache.service";
 
 const inter = Inter({ subsets: ["latin"] });
 

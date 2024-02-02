@@ -1,6 +1,6 @@
 import { getProductsList } from "@/api";
-import { PageHeader } from "@/app/ui/atoms/PageHeader";
-import { PaginatedProductList } from "@/app/ui/organisms/list";
+import { PageHeader } from "@/ui/atoms/PageHeader";
+import { PaginatedProductList } from "@/ui/organisms/list";
 
 export default function Home() {
 	return (

@@ -1,6 +1,6 @@
 import { type NextRequest } from "next/server";
 import { revalidateTag } from "next/cache";
-import { RevalidateTags, getTagToRevalidate } from "@/app/models";
+import { RevalidateTags, getTagToRevalidate } from "@/models";
 
 export async function POST(request: NextRequest): Promise<Response> {
 	const data: unknown = await request.json();

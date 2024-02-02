@@ -1,5 +1,5 @@
 import { executeGraphql } from "@/api/executeGraphql";
-import { RevalidateTags, type ListResponse } from "@/app/models";
+import { RevalidateTags, type ListResponse } from "@/models";
 import {
 	ProductsGetByCollectionSlugDocument,
 	type ProductsGetByCollectionSlugQueryVariables,

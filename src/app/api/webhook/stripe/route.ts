@@ -1,7 +1,7 @@
 /// <reference types="stripe-event-types" />
 import { type Stripe } from "stripe";
 import { type NextRequest } from "next/server";
-import { StripeInstance } from "@/app/services/stripe.service";
+import { StripeInstance } from "@/services/stripe.service";
 import { updateOrderStatus } from "@/api/mutations";
 import { OrderStatus } from "@/gql/graphql";
 

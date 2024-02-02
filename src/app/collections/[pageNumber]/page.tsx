@@ -1,8 +1,8 @@
 import { type Metadata } from "next";
 import { getCollectionList } from "@/api";
-import { PageHeader } from "@/app/ui/atoms/PageHeader";
-import { PaginatedCollectionList, getPaginationParams } from "@/app/ui/organisms/list";
-import { getMetadataTitle } from "@/app/utils";
+import { PageHeader } from "@/ui/atoms/PageHeader";
+import { PaginatedCollectionList, getPaginationParams } from "@/ui/organisms/list";
+import { getMetadataTitle } from "@/utils";
 
 export const metadata: Metadata = {
 	title: getMetadataTitle("Collections"),

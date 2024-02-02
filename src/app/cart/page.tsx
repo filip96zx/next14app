@@ -1,10 +1,10 @@
 import { redirect } from "next/navigation";
 import Link from "next/link";
-import { getCartDetailByCookiesCartId } from "@/app/services/cart.service";
-import { CartProductActions } from "@/app/ui/molecules/CartProductActions";
-import { parseMoney } from "@/app/utils";
-import { Button } from "@/app/ui/atoms/buttons";
-import { PageHeader } from "@/app/ui/atoms/PageHeader";
+import { getCartDetailByCookiesCartId } from "@/services/cart.service";
+import { CartProductActions } from "@/ui/molecules/CartProductActions";
+import { parseMoney } from "@/utils";
+import { Button } from "@/ui/atoms/buttons";
+import { PageHeader } from "@/ui/atoms/PageHeader";
 
 export default async function CartPage() {
 	const cart = await getCartDetailByCookiesCartId();

@@ -1,13 +1,13 @@
 import { type Route } from "next";
 import { Suspense } from "react";
 import { getProductsList } from "@/api";
-import { getMetadataTitle } from "@/app/utils";
-import { BackFormerPageParamName } from "@/app/models";
-import { BackButton } from "@/app/ui/atoms/buttons";
-import { ReviewList } from "@/app/ui/molecules/review/ReviewList";
-import { Spinner } from "@/app/ui/atoms/Spinner";
-import { ProductDetailsMainSection } from "@/app/ui/molecules/product-details-section";
-import { ProductMainSectionFallback } from "@/app/ui/molecules/product-details-section/ProductMainSectionFallback";
+import { getMetadataTitle } from "@/utils";
+import { BackFormerPageParamName } from "@/models";
+import { BackButton } from "@/ui/atoms/buttons";
+import { ReviewList } from "@/ui/molecules/review/ReviewList";
+import { Spinner } from "@/ui/atoms/Spinner";
+import { ProductDetailsMainSection } from "@/ui/molecules/product-details-section";
+import { ProductMainSectionFallback } from "@/ui/molecules/product-details-section/ProductMainSectionFallback";
 
 export const generateMetadata = async ({ params }: { params: { productId: string } }) => {
 	const { content } = await getProductsList({});
