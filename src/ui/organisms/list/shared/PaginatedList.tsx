@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
 import { type Route } from "next";
-import { Pagination } from "@/ui/molecules/Pagination";
 import { LIST_PAGE_SIZE } from "../../../../../constants";
+import { Pagination } from "@/ui/molecules/Pagination";
 import { type ListResponse } from "@/models";
 
 type TQuery<TParams, TResult> = (params: TParams) => Promise<ListResponse<TResult>>;
