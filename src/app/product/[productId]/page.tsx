@@ -2,7 +2,6 @@ import { notFound } from "next/navigation";
 import { type Route } from "next";
 import { Suspense } from "react";
 import { getProductById, getProductRelatedProductsByProductName, getProductsList } from "@/api";
-import { ProductCard } from "@/app/ui/molecules/ProductCard";
 import { getMetadataTitle } from "@/app/utils";
 import { PaginatedProductList, getPaginationParams } from "@/app/ui/organisms/list";
 import { BackFormerPageParamName } from "@/app/models";
@@ -12,9 +11,12 @@ import { addToCartServerAction } from "@/app/services/server-actions";
 import { ReviewList } from "@/app/ui/molecules/review/ReviewList";
 import { RatingStarsWithLabel } from "@/app/ui/atoms/rating";
 import { Spinner } from "@/app/ui/atoms/Spinner";
+import { ProductCard } from '@/app/ui/molecules/ProductCard';
 
 export const generateMetadata = async ({ params }: { params: { productId: string } }) => {
-	const product = await getProductById(params.productId);
+	const { content } = await getProductsList({});
+	const product = content.find((i) => i.id === params.productId);
+
 	if (!product) return null;
 	return {
 		title: getMetadataTitle(product.name),

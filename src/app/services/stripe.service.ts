@@ -8,7 +8,7 @@ export const StripeInstance = () => {
 		throw new Error("Missing STRIPE_WEBHOOK_SECRET env variable");
 	}
 	return new Stripe(process.env.STRIPE_SECRET_KEY, {
-		apiVersion: "2023-08-16",
+		apiVersion: "2023-10-16",
 		typescript: true,
 	});
 };

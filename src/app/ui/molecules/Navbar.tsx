@@ -1,4 +1,5 @@
 import { Suspense } from "react";
+import { ShoppingCartIcon } from "lucide-react";
 import { ActiveLink } from "@/app/ui/atoms/buttons";
 import { SearchInput } from "@/app/ui/atoms/inputs";
 import { GoCartButton } from "@/app/ui/atoms/buttons/GoCartButton";
@@ -29,7 +30,15 @@ export const Navbar = async () => {
 			</nav>
 			<div className="flex items-center gap-2">
 				<SearchInput />
-				<GoCartButton />
+				<Suspense
+					fallback={
+						<span className="opacity-40">
+							<ShoppingCartIcon className="inline-block" />
+						</span>
+					}
+				>
+					<GoCartButton />
+				</Suspense>
 			</div>
 		</div>
 	);
