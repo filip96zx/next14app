@@ -33,7 +33,7 @@ export function ProductDetails({ product, afterProductSection, productVariants }
 						className="w-20"
 						setDefaultValueOnClear
 					/>
-					<AddToCartButton />
+					<AddToCartButton disabled={!productVariants || productVariants?.length === 0} />
 				</form>
 			</div>
 			<p className="text-center text-gray-500">{product.description}</p>

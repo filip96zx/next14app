@@ -10,8 +10,8 @@ type TProps = {
 
 export const Spinner = ({
 	borderWidth = "4px",
-	height = "24px",
-	width = "24px",
+	height = "28px",
+	width = "28px",
 	className,
 	centered,
 }: TProps) => {

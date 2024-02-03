@@ -21,7 +21,7 @@ export function LoadingScreen() {
 	}, [showProduct, product?.name]);
 
 	return showProduct ? (
-		<ProductDetails product={product} />
+		<ProductDetails product={product} afterProductSection={<Spinner />} />
 	) : (
 		<Spinner width="36px" height="36px" centered />
 	);
