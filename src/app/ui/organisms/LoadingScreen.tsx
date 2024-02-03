@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import { ProductDetails } from "./ProductDetails";
 import { useProductCache } from "@/app/services/product-cache.service";
 import { Spinner } from "@/app/ui/atoms/Spinner";
+import { getMetadataTitle } from "@/app/utils";
 
 export function LoadingScreen() {
 	const pathname = usePathname();
@@ -14,8 +15,8 @@ export function LoadingScreen() {
 	const showProduct = isProductPage && product;
 
 	useEffect(() => {
-		if (showProduct) {
-			document.title = product.name;
+		if (showProduct && product?.name) {
+			document.title = getMetadataTitle(product.name);
 		}
 	}, [showProduct, product?.name]);
 
