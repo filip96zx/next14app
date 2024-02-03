@@ -1,5 +1,5 @@
-import { Spinner } from "@/app/ui/atoms/Spinner";
+import { LoadingScreen } from "@/app/ui/organisms/LoadingScreen";
 
 export default function Loading() {
-	return <Spinner width="36px" height="36px" centered />;
+	return <LoadingScreen />;
 }
