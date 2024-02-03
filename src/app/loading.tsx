@@ -1,5 +1,6 @@
-import { Spinner } from "@/ui/atoms/Spinner";
+import { ProductMainSectionFallback } from "@/ui/molecules/product-details-section/ProductMainSectionFallback";
 
 export default function Loading() {
-	return <Spinner width="36px" height="36px" centered />;
+	
+	return <ProductMainSectionFallback />;
 }
