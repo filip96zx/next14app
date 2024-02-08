@@ -1,9 +1,9 @@
 import { type Route } from "next";
 import { redirect } from "next/navigation";
-import { PaginatedProductList, getPaginationParams } from "@/app/ui/organisms/list";
+import { PaginatedProductList, getPaginationParams } from "@/ui/organisms/list";
 import { getProductsByCategorySlug } from "@/api";
-import { PageHeader } from "@/app/ui/atoms/PageHeader";
-import { getMetadataTitle } from "@/app/utils";
+import { PageHeader } from "@/ui/atoms/PageHeader";
+import { getMetadataTitle } from "@/utils";
 
 export const generateMetadata = async ({ params: { pageNumber, slug } }: TProps) => {
 	const queryParams = {

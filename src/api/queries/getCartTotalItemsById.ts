@@ -1,5 +1,5 @@
 import { executeGraphql } from "@/api/executeGraphql";
-import { RevalidateTags } from "@/app/models";
+import { RevalidateTags } from "@/models";
 import { CartGetTotalItemsByIdDocument } from "@/gql/graphql";
 
 export async function getCartTotalItemsById(cartId: string) {

@@ -1,5 +1,5 @@
 import { executeGraphql } from "@/api/executeGraphql";
-import {  type ListResponse } from "@/app/models";
+import { type ListResponse } from "@/models";
 import { CategoryGetListDocument, type CategoryGetListQueryVariables } from "@/gql/graphql";
 
 export const getCategoriesList = async (params: CategoryGetListQueryVariables) => {

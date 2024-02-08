@@ -1,5 +1,5 @@
 import { executeGraphql } from "@/api/executeGraphql";
-import { type ListResponse } from "@/app/models";
+import { type ListResponse } from "@/models";
 import {
 	ProductsGetByCategorySlugDocument,
 	type ProductsGetByCategorySlugQueryVariables,

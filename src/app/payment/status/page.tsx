@@ -1,7 +1,7 @@
 import type Stripe from "stripe";
 import { Check, Hourglass, XCircle } from "lucide-react";
-import { StripeInstance } from "@/app/services/stripe.service";
-import { PageHeader } from "@/app/ui/atoms/PageHeader";
+import { StripeInstance } from "@/services/stripe.service";
+import { PageHeader } from "@/ui/atoms/PageHeader";
 
 type TProps = { searchParams: { payment_intent?: string } };
 

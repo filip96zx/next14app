@@ -1,7 +1,7 @@
 import { type Metadata } from "next";
-import { PageHeader } from "@/app/ui/atoms/PageHeader";
-import { PaginatedCategoriesList, getPaginationParams } from "@/app/ui/organisms/list";
-import { getMetadataTitle } from "@/app/utils";
+import { PageHeader } from "@/ui/atoms/PageHeader";
+import { PaginatedCategoriesList, getPaginationParams } from "@/ui/organisms/list";
+import { getMetadataTitle } from "@/utils";
 import { getCategoriesList } from "@/api/queries/getCategoriesList";
 
 export const metadata: Metadata = {
