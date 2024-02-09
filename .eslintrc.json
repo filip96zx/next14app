@@ -16,6 +16,10 @@
 		"next/core-web-vitals"
 	],
 	"rules": {
+		"object-shorthand": [
+			"warn",
+			"always"
+		],
 		// sort imports
 		"import/order": "error",
 		// no let exports

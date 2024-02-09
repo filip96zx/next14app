@@ -2,12 +2,12 @@ import { notFound } from "next/navigation";
 import { type Route } from "next";
 import { Suspense } from "react";
 import { getProductById, getProductRelatedProductsByProductName, getProductsList } from "@/api";
-import { getMetadataTitle } from "@/app/utils";
-import { PaginatedProductList, getPaginationParams } from "@/app/ui/organisms/list";
-import { type BackFormerPageParamName } from "@/app/models";
-import { ReviewList } from "@/app/ui/molecules/review/ReviewList";
-import { Spinner } from "@/app/ui/atoms/Spinner";
-import { ProductDetails } from "@/app/ui/organisms/ProductDetails";
+import { getMetadataTitle } from "@/utils";
+import { PaginatedProductList, getPaginationParams } from "@/ui/organisms/list";
+import { type BackFormerPageParamName } from "@/models";
+import { ReviewList } from "@/ui/molecules/review/ReviewList";
+import { Spinner } from "@/ui/atoms/Spinner";
+import { ProductDetails } from "@/ui/organisms/ProductDetails";
 
 export const generateMetadata = async ({ params }: { params: { productId: string } }) => {
 	const { content } = await getProductsList({});

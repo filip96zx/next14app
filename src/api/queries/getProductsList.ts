@@ -1,5 +1,5 @@
 import { executeGraphql } from "@/api/executeGraphql";
-import { RevalidateTags, type ListResponse } from "@/app/models";
+import { RevalidateTags, type ListResponse } from "@/models";
 import { ProductsGetListDocument, type ProductsGetListQueryVariables } from "@/gql/graphql";
 
 export const getProductsList = async (params: ProductsGetListQueryVariables) => {

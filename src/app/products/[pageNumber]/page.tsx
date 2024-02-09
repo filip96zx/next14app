@@ -1,10 +1,10 @@
 import { type Metadata } from "next";
 import { getProductsList } from "@/api";
 // import { LIST_PAGE_SIZE } from "@/app/constants";
-import { PageHeader } from "@/app/ui/atoms/PageHeader";
-import { PaginatedProductList, getPaginationParams } from "@/app/ui/organisms/list";
-import { getMetadataTitle } from "@/app/utils";
-import { SortSelect } from "@/app/ui/atoms/inputs/SortSelect";
+import { PageHeader } from "@/ui/atoms/PageHeader";
+import { PaginatedProductList, getPaginationParams } from "@/ui/organisms/list";
+import { getMetadataTitle } from "@/utils";
+import { SortSelect } from "@/ui/atoms/inputs/SortSelect";
 import { type SortOrder, type SortableField } from "@/gql/graphql";
 
 export const metadata: Metadata = {

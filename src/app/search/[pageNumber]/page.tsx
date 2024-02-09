@@ -1,6 +1,6 @@
 import { getProductsByQuery } from "@/api";
-import { PageHeader } from "@/app/ui/atoms/PageHeader";
-import { PaginatedProductList, getPaginationParams } from "@/app/ui/organisms/list";
+import { PageHeader } from "@/ui/atoms/PageHeader";
+import { PaginatedProductList, getPaginationParams } from "@/ui/organisms/list";
 
 type TProps = {
 	params: { pageNumber: string };

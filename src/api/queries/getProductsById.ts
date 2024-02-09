@@ -1,5 +1,5 @@
 import { executeGraphql } from "@/api/executeGraphql";
-import { RevalidateTags, getTagToRevalidate } from "@/app/models";
+import { RevalidateTags, getTagToRevalidate } from "@/models";
 import { ProductGetByIdDocument } from "@/gql/graphql";
 
 export const getProductById = async (id: string) => {
