@@ -3,6 +3,7 @@ import { ShoppingCartIcon } from "lucide-react";
 import { ActiveLink } from "@/ui/atoms/buttons";
 import { SearchInput } from "@/ui/atoms/inputs";
 import { GoCartButton } from "@/ui/atoms/buttons/GoCartButton";
+import { Spinner } from "@/ui/atoms/Spinner";
 
 const navLinks = [
 	{ href: "/", label: "Home", exact: true },
@@ -32,7 +33,8 @@ export const Navbar = async () => {
 				<SearchInput />
 				<Suspense
 					fallback={
-						<span className="opacity-40">
+						<span className="relative opacity-40">
+							<Spinner centered width="20px" height="20px" borderWidth="3px" />
 							<ShoppingCartIcon className="inline-block" />
 						</span>
 					}
