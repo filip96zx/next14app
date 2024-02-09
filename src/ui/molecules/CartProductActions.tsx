@@ -18,7 +18,7 @@ export const CartProductActions = ({ orderItem }: TProps) => {
 	const isDecrementDisabled = quantity === 1;
 	return (
 		<form>
-			<div className="flex items-center justify-center space-x-2">
+			<div className="flex flex-col items-center justify-center gap-2 md:flex-row">
 				<Button
 					type="submit"
 					className={clsx(className, isDecrementDisabled && "opacity-30")}
