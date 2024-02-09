@@ -31,19 +31,22 @@ async function addItemsOrCreateCartWithItems(items: Array<OrderItemInput>) {
 	cookies().set("cartId", createdCart.id, { httpOnly: true, sameSite: "lax" });
 	return createdCart;
 }
-export async function addToCartServerAction(productId: string, formData: unknown) {
+
+export async function addToCartServerAction(productId: string, formData: FormData) {
 	"use server";
-	type FromData = {
-		productId: string;
-		variantId: string;
-		quantity: string;
-	};
-	const data = formData as Map<keyof FromData, string>;
+
+	const quantity = formData.get("quantity")?.toString();
+	const variantId = formData.get("variantId")?.toString();
+
+	if (!quantity || !variantId || !productId) {
+		throw new Error("Invalid quantity or variantId or productId");
+	}
+
 	const cart = await addItemsOrCreateCartWithItems([
 		{
 			productId,
-			quantity: parseInt(data.get("quantity")!),
-			variantId: data.get("variantId")!,
+			quantity: parseInt(quantity),
+			variantId,
 		},
 	]);
 	cookies().set("cartId", cart.id, { httpOnly: true, sameSite: "lax" });
