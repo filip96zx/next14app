@@ -4,11 +4,9 @@ import { parseMoney } from "@/utils";
 
 export function CartItemsList({
 	cart,
-	cartItemActionsContainerClassName,
 	disableEditQuantity,
 }: {
 	cart: CartDetailsFragment;
-	cartItemActionsContainerClassName?: string;
 	disableEditQuantity?: boolean;
 }) {
 	return (
@@ -29,14 +27,7 @@ export function CartItemsList({
 							<td className="py-2">{parseMoney(i.price)}</td>
 							<td className="py-2">{parseMoney(i.price * i.quantity)}</td>
 							<td className="py-2">
-								{disableEditQuantity ? (
-									i.quantity
-								) : (
-									<CartProductActions
-										orderItem={i}
-										containerItemClassName={cartItemActionsContainerClassName}
-									/>
-								)}
+								{disableEditQuantity ? i.quantity : <CartProductActions orderItem={i} />}
 							</td>
 						</tr>
 					);
