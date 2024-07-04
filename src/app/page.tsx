@@ -1,5 +1,5 @@
-import { getProductsList } from "@/api";
 import { PageHeader } from "@/ui/atoms/PageHeader";
+import { getProductsList } from "@/api";
 import { PaginatedProductList } from "@/ui/organisms/list";
 
 export default function Home() {

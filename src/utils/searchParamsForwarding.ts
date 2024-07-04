@@ -39,7 +39,7 @@ const convertSearchParamsToObject = (searchParams: string) => {
 	}
 	const { from, ...restParams } = searchParamsObject;
 	return {
-		from: from,
+		from,
 		...restParams,
 	};
 };

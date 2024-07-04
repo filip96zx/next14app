@@ -7,7 +7,7 @@ type TProps = {
 };
 
 export const ReviewList = async ({ productId }: TProps) => {
-	const ratings = await getRatingListByProductId({ first: 4, where: { productId: productId } });
+	const ratings = await getRatingListByProductId({ first: 4, where: { productId } });
 	return (
 		<ul className="flex w-96 flex-col gap-10">
 			{ratings.reverse().map((r, index) => (
