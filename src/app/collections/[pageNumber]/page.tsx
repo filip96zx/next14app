@@ -3,6 +3,7 @@ import { getCollectionList } from "@/api";
 import { PageHeader } from "@/ui/atoms/PageHeader";
 import { PaginatedCollectionList, getPaginationParams } from "@/ui/organisms/list";
 import { getMetadataTitle } from "@/utils";
+import { LIST_PAGE_SIZE } from "@/constants";
 
 export const metadata: Metadata = {
 	title: getMetadataTitle("Collections"),
@@ -11,6 +12,15 @@ export const metadata: Metadata = {
 
 type TProps = {
 	params: { pageNumber: string };
+};
+export const generateStaticParams = async () => {
+	const { totalElements } = await getCollectionList({
+		first: 1,
+		skip: 0,
+	});
+	return Array.from({ length: Math.ceil(totalElements / LIST_PAGE_SIZE) }, (_, i) => ({
+		pageNumber: (i + 1).toString(),
+	}));
 };
 
 export default async function ProductsPage({ params: { pageNumber } }: TProps) {
