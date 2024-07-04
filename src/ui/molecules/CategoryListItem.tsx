@@ -14,7 +14,7 @@ export const CategoryListItem = ({
 }: TProps) => {
 	return (
 		<li>
-			<Link href={`/categories/${slug}`}>
+			<Link prefetch href={`/categories/${slug}`}>
 				{/* ${createQueryParams({
 			 		[BackFormerPageParamName.FROM]: goBackParams,
 			 	})}`}

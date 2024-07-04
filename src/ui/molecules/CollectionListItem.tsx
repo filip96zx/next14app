@@ -15,7 +15,7 @@ export const CollectionListItem = ({
 	const image = images && images[0];
 	return (
 		<li>
-			<Link href={`/collection/${slug}`}>
+			<Link prefetch href={`/collection/${slug}`}>
 				{/* ${createQueryParams({
 			 		[BackFormerPageParamName.FROM]: goBackParams,
 			 	})}`}

@@ -58,6 +58,7 @@ export function ActiveLink<T extends string>({
 			className={clsx(className, isActive && activeClassName)}
 			role="link"
 			scroll={scroll}
+			prefetch
 			{...(isActive && { "aria-current": "page" })}
 		>
 			{children}
