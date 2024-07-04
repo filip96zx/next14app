@@ -10,6 +10,7 @@ export const LinkWithProductCache = ({
 	// const { setProduct } = useSetProductCache();
 	return (
 		<Link
+			prefetch
 			{...props}
 			// onClick={() => {
 			// 	setProduct(product);
