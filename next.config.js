@@ -5,7 +5,7 @@ const nextConfig = {
     ppr: true
   },
   images: {
-    remotePatterns: ['nxt13masters.shop', 'www.nxt13masters.shop']
+    remotePatterns: [{ hostname: 'nxt13masters.shop' }, { hostname: 'www.nxt13masters.shop' }]
   },
   redirects: async () => {
     return [
